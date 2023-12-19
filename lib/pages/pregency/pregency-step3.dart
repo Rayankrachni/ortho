@@ -6,6 +6,8 @@ import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 
+import '../../utils/app-toast.dart';
+
 class PregrencyStep3 extends StatefulWidget {
   const PregrencyStep3({super.key});
 
@@ -27,6 +29,16 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
   FocusNode passwordFocus = FocusNode();
 
   bool isRemember = true;
+
+  bool isTrue1=false;
+  bool isNo1=false;
+  String? firstChoice;
+  bool isTrue2=false;
+  bool isNo2=false;
+  String? secondChoice;
+  bool isTrue3=false;
+  bool isNo3=false;
+  String? thirdChoice;
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
@@ -72,18 +84,18 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
 
                   Center(
                     child: const CircleAvatar(
-                      radius: 70,
+                      radius: 80,
                       backgroundColor: Colors.white,
-                      backgroundImage: AssetImage("assets/pregancy2.png"),
+                      backgroundImage: AssetImage("assets/preg3.png"),
                     ),
                   ),
 
                   //Center(child: Image.asset("assets/onboarding1.png",height:height*0.4 ,width: width*0.6,)),
-                  Center(child: const  Text("مرحلة الولادة",style: TextStyle(color: Colors.black,fontSize: 22 ,fontFamily: 'myriadBold' ),)),
+                  Center(child: const  Text("مرحلة الولادة",style: TextStyle(color: Colors.black,fontSize: 22 ,fontWeight: FontWeight.bold,fontFamily: 'myriadBold' ),)),
                   const SizedBox(height: 5,),
 
                   Center(child: Text("لتجربة جيدة قم بإدخال كل المعلومات",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: 12,fontFamily: 'myriad'  ),)),
-                  const SizedBox(height: 5,),
+                  const SizedBox(height: 35,),
                   const Padding(
                     padding:  EdgeInsets.only(left: 5.0,right: 5.0,bottom: 5),
                     child: Text("هل ولد في الوقت المحدد  ؟",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
@@ -94,39 +106,59 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      Container(
-                        width: 170,
-                        height:40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1), // Shadow color
-                              spreadRadius: 2, // How much the shadow should spread
-                              blurRadius: 5, // How blurry the shadow should be
-                              offset: Offset(0, 2), // Offset of the shadow
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isTrue1=!isTrue1;
+                            isNo1=false;
+                            firstChoice="نعم";
+
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isTrue1? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue1? Colors.black:Colors.white, ),)),
                         ),
-                        child: Center(child: Text("نعم")),
                       ),
-                      Container(
-                        width: 170,
-                        height:40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1), // Shadow color
-                              spreadRadius: 2, // How much the shadow should spread
-                              blurRadius: 5, // How blurry the shadow should be
-                              offset: Offset(0, 2), // Offset of the shadow
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isNo1=!isNo1;
+                            isTrue1=false;
+                            firstChoice="لا";
+
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isNo1? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("لا",style: TextStyle(color:!isNo1? Colors.black:Colors.white,),)),
                         ),
-                        child: Center(child: Text("لا")),
                       )
                     ],
                   ),
@@ -142,39 +174,60 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      Container(
-                        width: 170,
-                        height:40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1), // Shadow color
-                              spreadRadius: 2, // How much the shadow should spread
-                              blurRadius: 5, // How blurry the shadow should be
-                              offset: Offset(0, 2), // Offset of the shadow
-                            ),
-                          ],
+                      GestureDetector(
+
+                        onTap: (){
+                          setState(() {
+                            isTrue2=!isTrue2;
+                            isNo2=false;
+                            secondChoice='طبيعية';
+
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isTrue2? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("طبيعية",style: TextStyle(color:!isTrue2? Colors.black:Colors.white, ),)),
                         ),
-                        child: Center(child: Text("طبيعية")),
                       ),
-                      Container(
-                        width: 170,
-                        height:40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1), // Shadow color
-                              spreadRadius: 2, // How much the shadow should spread
-                              blurRadius: 5, // How blurry the shadow should be
-                              offset: Offset(0, 2), // Offset of the shadow
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isNo2=!isNo2;
+                            isTrue2=false;
+                            secondChoice='قيصرية';
+
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isNo2? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("قيصرية",style: TextStyle(color: !isNo2? Colors.black:Colors.white,),)),
                         ),
-                        child: Center(child: Text("قيصرية")),
                       )
                     ],
                   ),
@@ -188,39 +241,59 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      Container(
-                        width: 170,
-                        height:40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1), // Shadow color
-                              spreadRadius: 2, // How much the shadow should spread
-                              blurRadius: 5, // How blurry the shadow should be
-                              offset: Offset(0, 2), // Offset of the shadow
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isTrue3=!isTrue3;
+                            isNo3=false;
+                            thirdChoice="نعم";
+
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isTrue3? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue3? Colors.black:Colors.white, ),)),
                         ),
-                        child: Center(child: Text("نعم")),
                       ),
-                      Container(
-                        width: 170,
-                        height:40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1), // Shadow color
-                              spreadRadius: 2, // How much the shadow should spread
-                              blurRadius: 5, // How blurry the shadow should be
-                              offset: Offset(0, 2), // Offset of the shadow
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isNo3=!isNo3;
+                            isTrue3=false;
+                            thirdChoice="لا";
+
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isNo3? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("لا",style: TextStyle(color:!isNo3? Colors.black:Colors.white,),)),
                         ),
-                        child: Center(child: Text("لا")),
                       )
                     ],
                   ),
@@ -230,7 +303,13 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                   const SizedBox(height: 5,),
                   GestureDetector(
                     onTap: (){
-                        push(context: context, screen: PregrencyStep4());
+                      if(  firstChoice!=null && secondChoice !=null && thirdChoice!=null )
+                        {
+                          push(context: context, screen: PregrencyStep4());
+                        }
+                      else{
+                        ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

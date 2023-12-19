@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/familly-info/familly-completed-page.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page3.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
+import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
@@ -16,19 +18,27 @@ class _FamilyInfoState extends State<FamilyInfo> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   double _sliderValue = 0.0;
   double _sliderValue1 = 0.0;
-  TextEditingController nameCont = TextEditingController();
-  TextEditingController lastNameCont = TextEditingController();
-  TextEditingController emailCont = TextEditingController();
-  TextEditingController childNumber = TextEditingController();
-  TextEditingController famillyLevel = TextEditingController();
-  TextEditingController fatherInfo = TextEditingController();
-  TextEditingController motherInfo = TextEditingController();
+  TextEditingController controller1 = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
+  TextEditingController controller3 = TextEditingController();
+  TextEditingController controller4 = TextEditingController();
+  TextEditingController controller5 = TextEditingController();
+  TextEditingController controller6 = TextEditingController();
+  TextEditingController controller7 = TextEditingController();
+  TextEditingController controller8 = TextEditingController();
+  TextEditingController controller9 = TextEditingController();
+  TextEditingController controller10 = TextEditingController();
 
   FocusNode nameFocus = FocusNode();
   FocusNode lastNameFocus = FocusNode();
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
 
+  String? firstChoice;
+
+
+  bool isTrue3=false;
+  bool isNo3=false;
   bool isRemember = true;
   @override
   Widget build(BuildContext context) {
@@ -65,180 +75,190 @@ class _FamilyInfoState extends State<FamilyInfo> {
       ),
       body: Directionality(
         textDirection: TextDirection.rtl,
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+        child: Form(
+          key: formKey,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
 
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.white,
-                    backgroundImage: AssetImage("assets/onboarding2.png"),
-                  ),
-
-                  //Center(child: Image.asset("assets/onboarding1.png",height:height*0.4 ,width: width*0.6,)),
-                  const  Text("المعلومات العامة للعائلة",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 18 ,fontFamily: 'myriadBold' ),),
-                  const SizedBox(height: 5,),
-
-                  Text("لتجربة جيدة قم بإدخال كل المعلومات",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: 12,fontFamily: 'myriad'  ),),
-                  const SizedBox(height: 5,),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-                      SizedBox(
-                        width: 185,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: AppTextField(
-                            textFieldType: TextFieldType.NAME,
-                            controller: nameCont,
-                            title: 'مهنة الأب ',
-
-                            focus: nameFocus,
-                            nextFocus: passwordFocus,
-                            errorThisFieldRequired: "This Field is required",
-                            decoration: inputDecoration(context, labelText: "مهنة الأب "),
-                            suffix: Icon(Icons.person_2,size: 17,color: Colors.grey.withOpacity(0.8),),
-                            autoFillHints: [AutofillHints.email],
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(
-                        width: 185,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: AppTextField(
-                            textFieldType: TextFieldType.NAME,
-                            controller: lastNameCont,
-                            title: 'مهنة الام ',
-
-                            focus: lastNameFocus,
-                            nextFocus: passwordFocus,
-                            errorThisFieldRequired: "This Field is required",
-                            decoration: inputDecoration(context, labelText: "مهنة الام "),
-                            suffix: Icon(Icons.person,size: 17,color: Colors.grey.withOpacity(0.8),),
-                            autoFillHints: [AutofillHints.email],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-
-
-
-                  const SizedBox(height: 20,),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding:  EdgeInsets.only(left: 5.0,right: 5.0),
-                      child: Text(_sliderValue ~/ 1 == 0 ?"  عدد الاخوة  " :"  عدد الاخوة ${_sliderValue ~/ 1} ",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
+                    const CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                      backgroundImage: AssetImage("assets/note.png"),
                     ),
-                  ),
 
-                  Slider(
-                    value: _sliderValue,
-                    min: 0.0,
-                    max: 10.0,
-                    onChanged: (value) {
-                      setState(() {
-                        _sliderValue = value;
-                      });
-                    },
-                  ),
+                    //Center(child: Image.asset("assets/onboarding1.png",height:height*0.4 ,width: width*0.6,)),
+                    const  Text("المعلومات العامة للعائلة",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 18 ,fontFamily: 'myriadBold' ),),
+                    const SizedBox(height: 5,),
 
-                  const SizedBox(height: 20,),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding:  EdgeInsets.only(left: 5.0,right: 5.0),
-                      child: Text(_sliderValue1 ~/ 1 == 0 ?"رتبة الطفل  " :"  رتبة الطفل ${_sliderValue1 ~/ 1} ",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
-                    ),
-                  ),
+                    Text("لتجربة جيدة قم بإدخال كل المعلومات",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: 12,fontFamily: 'myriad'  ),),
+                    const SizedBox(height: 5,),
 
-                  Slider(
-                    value: _sliderValue1,
-                    min: 0.0,
-                    max: 10.0,
-                    onChanged: (value) {
-                      setState(() {
-                        _sliderValue1 = value;
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
 
-                    child: AppTextField(
-                      textFieldType: TextFieldType.EMAIL_ENHANCED,
-                      controller: famillyLevel,
-                      title: 'المستوى المادي للعائلة',
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "المستوى المادي للعائلة",),
-                     // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
-                    ),
-                  ),
-                  const SizedBox(height: 5,),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                        SizedBox(
+                          width: 185,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AppTextField(
+                              textFieldType: TextFieldType.NAME,
+                              controller: controller1,
+                              title: 'اسم  الأب ',
 
-                    child: AppTextField(
-                      textFieldType: TextFieldType.EMAIL_ENHANCED,
-                      controller: fatherInfo,
-                      title: 'المستوى الثقافي للاب',
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "المستوى الثقافي للاب",),
-                     //suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-
-                    child: AppTextField(
-                      textFieldType: TextFieldType.EMAIL_ENHANCED,
-                      controller: motherInfo,
-                      title: 'المستوى الثقافي للام',
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "المستوى الثقافي للام",),
-                     // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
-                    ),
-                  ),
-                  const SizedBox(height: 5,),
-                  GestureDetector(
-                    onTap: (){
-                      push(context: context, screen: ChildDevPage3());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                          height: 50,
-                          width: width,
-                          child:Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: primaryColor,
-
-
+                              errorThisFieldRequired: "This Field is required",
+                              decoration: inputDecoration(context, labelText: "اسم  الأب "),
+                             // suffix: Icon(Icons.person_2,size: 17,color: Colors.grey.withOpacity(0.8),),
+                              autoFillHints: [AutofillHints.email],
                             ),
-                            child: Center(child: const Text("حفظ",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w600,fontFamily: 'myriad'),)),
-                          )
+                          ),
+                        ),
+
+                        SizedBox(
+                          width: 185,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AppTextField(
+                              textFieldType: TextFieldType.NAME,
+                              controller: controller2,
+                              title: 'السن  ',
+
+                              errorThisFieldRequired: "This Field is required",
+                              decoration: inputDecoration(context, labelText: "السن"),
+                              //suffix: Icon(Icons.person,size: 17,color: Colors.grey.withOpacity(0.8),),
+                              autoFillHints: [AutofillHints.email],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+
+                      child: AppTextField(
+                        textFieldType: TextFieldType.NAME,
+                        controller: controller3,
+                        title: 'المستوى التعليمي',
+                        errorThisFieldRequired: "This Field is required",
+                        decoration: inputDecoration(context, labelText: "المستوى التعليمي",),
+                        // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
+                        autoFillHints: [AutofillHints.email],
                       ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+
+                      child: AppTextField(
+                        textFieldType: TextFieldType.NAME,
+                        controller: controller4,
+                        title: 'المهنة ',
+                        errorThisFieldRequired: "This Field is required",
+                        decoration: inputDecoration(context, labelText: "المهنة ",),
+                        // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
+                        autoFillHints: [AutofillHints.email],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+
+                      child: AppTextField(
+                        textFieldType: TextFieldType.NAME,
+                        controller: controller10,
+                        title: 'السوابق الصحية للعائلة',
+                        errorThisFieldRequired: "This Field is required",
+                        decoration: inputDecoration(context, labelText: "السوابق الصحية للعائلة",),
+                        // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
+                        autoFillHints: [AutofillHints.email],
+                      ),
+                    ),
+                    const SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+//مهنة الام
+                        SizedBox(
+                          width: 185,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AppTextField(
+                              textFieldType: TextFieldType.NAME,
+                              controller: controller5,
+                              title: 'اسم  الام',
+
+                              errorThisFieldRequired: "This Field is required",
+                              decoration: inputDecoration(context, labelText: "اسم الام"),
+                              suffix: Icon(Icons.person_2,size: 17,color: Colors.grey.withOpacity(0.8),),
+                              autoFillHints: [AutofillHints.email],
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(
+                          width: 185,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AppTextField(
+                              textFieldType: TextFieldType.NAME,
+                              controller: controller6,
+                              title: 'السن  ',
+
+                              focus: lastNameFocus,
+                              nextFocus: passwordFocus,
+                              errorThisFieldRequired: "This Field is required",
+                              decoration: inputDecoration(context, labelText: "السن"),
+                              suffix: Icon(Icons.person,size: 17,color: Colors.grey.withOpacity(0.8),),
+                              autoFillHints: [AutofillHints.email],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
 
 
 
-                ],
+
+
+                    GestureDetector(
+                      onTap: (){
+
+                        if(formKey.currentState!.validate() ){
+                          push(context: context, screen: FamilyCompletedInfo());
+                        //  push(context: context, screen: ChildDevPage3());
+                        }else{
+                          ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
+                        }
+
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                            height: 50,
+                            width: width,
+                            child:Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: primaryColor,
+
+
+                              ),
+                              child: Center(child: const Text("حفظ",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w600,fontFamily: 'myriad'),)),
+                            )
+                        ),
+                      ),
+                    ),
+
+
+
+                  ],
+                ),
               ),
             ),
           ),

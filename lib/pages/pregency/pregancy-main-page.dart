@@ -121,9 +121,12 @@ class _PregancyMainPageState extends State<PregancyMainPage> {
                   ),
               ),
               SizedBox(height: 40,),
+              Text("لتقييم  الحالة الصحية للام اضغط على الزر ادناه",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 12),),
+              SizedBox(height: 10,),
+
               GestureDetector(
                 onTap: (){
-                  push(context: context, screen: PregrencyStep1());
+                  push(context: context, screen: PregrencyStep2());
                 },
                 child: Container(
                   width: width*0.9,
@@ -138,7 +141,7 @@ class _PregancyMainPageState extends State<PregancyMainPage> {
 
                     ),
                   ),
-                  child:const Center(child: Text("تقييم الحالة الصحية للام",style: TextStyle(color: Colors.white,fontSize: 17),)),
+                  child:const Center(child: Text("متابعة",style: TextStyle(color: Colors.white,fontSize: 17),)),
                 ),
               ),
 

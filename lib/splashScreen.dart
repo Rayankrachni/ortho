@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/auth/signIn.dart';
 import 'package:orthophonienewversion/homePage.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer( const Duration(seconds: 5), () async{
 
-      pushAndRemove(context: context, screen:  HomePage());
+      pushAndRemove(context: context, screen:  WalkThroughScreen());
 
 
      /* bool? isLogin = await SharedPreferencesHelper.getBool('isLogin');

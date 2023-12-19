@@ -12,8 +12,9 @@ InputDecoration inputDecoration(BuildContext context, {Widget? prefixIcon, Strin
     prefixIcon: prefixIcon,
     enabledBorder: OutlineInputBorder(
       borderRadius: radius(borderRadius ?? 10),
-      borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+      borderSide: BorderSide(color: primaryColor.withOpacity(0.3), width: 0.0),
     ),
+
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: radius(borderRadius ?? 10),
       borderSide: BorderSide(color: Colors.red, width: 0.0),
@@ -25,7 +26,7 @@ InputDecoration inputDecoration(BuildContext context, {Widget? prefixIcon, Strin
     errorMaxLines: 2,
     border: OutlineInputBorder(
       borderRadius: radius(borderRadius ?? 10),
-      borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+      borderSide: BorderSide(color: primaryColor.withOpacity(0.3), width: 0.0),
     ),
     disabledBorder: OutlineInputBorder(
       borderRadius: radius(borderRadius ?? 10),

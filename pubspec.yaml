@@ -76,6 +76,10 @@ flutter:
     - assets/onboarding1.png
     - assets/childListen.png
     - assets/boy.png
+    - assets/preg3.png
+    - assets/note.png
+    - assets/lottie/login.json
+    - assets/lottie/speech.json
     - assets/in.png
     - assets/on.png
     - assets/inFrontOf.png

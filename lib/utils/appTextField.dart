@@ -238,72 +238,69 @@ class _AppTextFieldState extends State<AppTextField> {
   }
 
   Widget textFormFieldWidget() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 2),
-          ),
-        ],
-        borderRadius: BorderRadius.circular(10), // Adjust the radius value as needed
-      ),
-      child: TextFormField(
-        controller: widget.controller,
-        obscureText:
-        widget.textFieldType == TextFieldType.PASSWORD && !isPasswordVisible,
-        //validator: applyValidation(),
-        textCapitalization: applyTextCapitalization(),
-        textInputAction: applyTextInputAction(),
-        onFieldSubmitted: (s) {
-          if (widget.nextFocus != null)
-            FocusScope.of(context).requestFocus(widget.nextFocus);
+    return TextFormField(
+      controller: widget.controller,
+      obscureText:
+      widget.textFieldType == TextFieldType.PASSWORD && !isPasswordVisible,
+      //validator: applyValidation(),
+      textCapitalization: applyTextCapitalization(),
+      textInputAction: applyTextInputAction(),
+      onFieldSubmitted: (s) {
+        if (widget.nextFocus != null)
+          FocusScope.of(context).requestFocus(widget.nextFocus);
 
-          if (widget.onFieldSubmitted != null) widget.onFieldSubmitted!.call(s);
-        },
-        keyboardType: applyTextInputType(),
-        decoration: widget.decoration != null
-            ? (widget.decoration!.copyWith(
-          suffixIcon: suffixIcon(),
-        ))
-            : InputDecoration(),
-        focusNode: widget.focus,
-        style: widget.textStyle,
-        textAlign: widget.textAlign ?? TextAlign.start,
-        maxLines: widget.maxLines,
-        minLines: widget.minLines,
-        autofocus: widget.autoFocus ?? false,
-        enabled: widget.enabled,
-        onChanged: widget.onChanged,
-        cursorColor: widget.cursorColor ??
-            Theme.of(context).textSelectionTheme.cursorColor,
-        readOnly: widget.readOnly.validate(),
-        maxLength: widget.maxLength,
-        enableSuggestions: widget.enableSuggestions.validate(value: true),
-        autofillHints: widget.autoFillHints ?? applyAutofillHints(),
-        scrollPadding: widget.scrollPadding ?? EdgeInsets.all(20),
-        cursorWidth: widget.cursorWidth ?? 2.0,
-        cursorHeight: widget.cursorHeight,
-        //cursorRadius: radiusCircular(4),
-        onTap: widget.onTap,
-        buildCounter: widget.buildCounter,
-        scrollPhysics: BouncingScrollPhysics(),
-        enableInteractiveSelection: true,
-        inputFormatters: widget.inputFormatters,
-        textAlignVertical: widget.textAlignVertical,
-        expands: widget.expands.validate(),
-        showCursor: widget.showCursor,
-        selectionControls:
-        widget.selectionControls ?? MaterialTextSelectionControls(),
-        strutStyle: widget.strutStyle,
-        obscuringCharacter: widget.obscuringCharacter ??'•',
-        initialValue: widget.initialValue,
-        keyboardAppearance: widget.keyboardAppearance,
-        contextMenuBuilder: widget.contextMenuBuilder,
-      ),
+        if (widget.onFieldSubmitted != null) widget.onFieldSubmitted!.call(s);
+      },
+      keyboardType: applyTextInputType(),
+      decoration: widget.decoration != null
+          ? (widget.decoration!.copyWith(
+        suffixIcon: suffixIcon(),
+      ))
+          : InputDecoration(),
+      focusNode: widget.focus,
+      style: widget.textStyle,
+      textAlign: widget.textAlign ?? TextAlign.start,
+      maxLines: widget.maxLines,
+      minLines: widget.minLines,
+      autofocus: widget.autoFocus ?? false,
+      enabled: widget.enabled,
+      onChanged: widget.onChanged,
+      cursorColor: widget.cursorColor ??
+          Theme.of(context).textSelectionTheme.cursorColor,
+      readOnly: widget.readOnly.validate(),
+      maxLength: widget.maxLength,
+      enableSuggestions: widget.enableSuggestions.validate(value: true),
+      autofillHints: widget.autoFillHints ?? applyAutofillHints(),
+      scrollPadding: widget.scrollPadding ?? EdgeInsets.all(20),
+      cursorWidth: widget.cursorWidth ?? 2.0,
+      cursorHeight: widget.cursorHeight,
+      //cursorRadius: radiusCircular(4),
+      onTap: widget.onTap,
+      buildCounter: widget.buildCounter,
+      scrollPhysics: BouncingScrollPhysics(),
+      enableInteractiveSelection: true,
+      inputFormatters: widget.inputFormatters,
+      textAlignVertical: widget.textAlignVertical,
+      expands: widget.expands.validate(),
+      showCursor: widget.showCursor,
+      selectionControls:
+      widget.selectionControls ?? MaterialTextSelectionControls(),
+      strutStyle: widget.strutStyle,
+      obscuringCharacter: widget.obscuringCharacter ??'•',
+      initialValue: widget.initialValue,
+      keyboardAppearance: widget.keyboardAppearance,
+      contextMenuBuilder: widget.contextMenuBuilder,
+
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'يرجى ملئ هذه البيانات';
+        }
+        if(widget.textFieldType==TextFieldType.EMAIL_ENHANCED){
+          if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$').hasMatch(value)) {
+            return 'يرجى إدخال بريد فعال';}
+        }
+        return null;
+      },
     );
   }
 

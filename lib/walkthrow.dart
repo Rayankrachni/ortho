@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:orthophonienewversion/auth/signIn.dart';
 import 'package:orthophonienewversion/model/onboarding-model.dart';
+import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:orthophonienewversion/utils/decoration.dart';
 import 'package:orthophonienewversion/utils/dotIndicator.dart';
@@ -49,19 +52,7 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Positioned(
-            left: 56,
-            top: -304,
-            child: Container(
-              height: height * 0.90,
-              width: width * 1.89,
-              decoration: boxDecorationDefault(
-                shape: BoxShape.circle,
-                boxShadow: defaultBoxShadow(blurRadius: 0, spreadRadius: 0),
-                color: Colors.white,
-              ),
-            ),
-          ),
+
           Positioned(
             top: 106,
             width: width,
@@ -76,7 +67,12 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(page.image!, height:height* 0.55),
+                     // Image.asset(page.image!, height:height* 0.55),
+                      Center(
+                        child: SizedBox(
+                            height:height*0.5,
+                            child: Lottie.asset('assets/lottie/speech.json')),
+                      ),
 
                       Text(page.title.toString(),  textAlign: TextAlign.center,  style:const TextStyle(
                         fontSize: 26,
@@ -112,7 +108,9 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
               children: [
                 TextButton(
                   style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero)),
-                  onPressed: () async {
+                  onPressed: ()  {
+
+                    push(context: context, screen: SignInScreen());
                 /*    await setValue(IS_FIRST_TIME, false);
                     DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
                 */  },
@@ -127,28 +125,45 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                   pageController: pageController,
                   pages: pages,
                   indicatorColor: primaryColor,
-                  unselectedIndicatorColor: Colors.green,
+                  unselectedIndicatorColor: primaryColor,
                   currentBoxShape: BoxShape.circle,
                   boxShape: BoxShape.circle,
                   dotSize: 6,
                 ),
-                TextButton(
-                  style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero)),
-                  onPressed: () async {
-                    if (currentPosition == 3) {
-                     // push(context: context, screen: SignInScreen());
-                  //    await setValue(IS_FIRST_TIME, false);
-                  //    DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
-                    } else {
-                      pageController.nextPage(duration:Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
-                    }
-                  },
-                  child: Text(currentPosition == 3 ? "إبدأ" : "التالي", style:const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black
-
-                  ),),
+                SizedBox(
+                  width: width*0.3,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                        // Use different colors based on the button state
+                        if (states.contains(MaterialState.pressed)) {
+                          return pinklight; // Background color when pressed
+                        }
+                        return primaryColor; // Default background color
+                      }),
+                    ),
+                    onPressed: () async {
+                      if (currentPosition == 3) {
+                        // Handle button click for the last position
+                        push(context: context, screen: SignInScreen());
+                        // await setValue(IS_FIRST_TIME, false);
+                        // DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+                      } else {
+                        // Handle button click for other positions
+                        pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+                      }
+                    },
+                    child: Text(
+                      currentPosition == 3 ? "إبدأ" : "التالي",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white, // Text color
+                      ),
+                    ),
+                  ),
                 ),
+
               ],
             ),
           ),

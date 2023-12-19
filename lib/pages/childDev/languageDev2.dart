@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/homePage.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page1.dart';
-import 'package:orthophonienewversion/pages/childDev/languageDev2.dart';
+import 'package:orthophonienewversion/pages/childDev/child-dev-page3.dart';
+import 'package:orthophonienewversion/pages/childDev/disorders.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
-class languageDevPage extends StatefulWidget {
-  const languageDevPage({super.key});
+class LanguageDevPage2 extends StatefulWidget {
+  const LanguageDevPage2({super.key});
 
   @override
-  State<languageDevPage> createState() => _ChildDevPage1State();
+  State<LanguageDevPage2> createState() => _LanguageDevPage2State();
 }
 
-class _ChildDevPage1State extends State<languageDevPage> {
+class _LanguageDevPage2State extends State<LanguageDevPage2> {
 
   TextEditingController sittingAge = TextEditingController();
   TextEditingController controller1 = TextEditingController();
@@ -106,63 +107,84 @@ class _ChildDevPage1State extends State<languageDevPage> {
                     backgroundColor: Colors.white,
                     backgroundImage: AssetImage("assets/language.png"),
                   ),*/
-                  const  Text("ميزانية اللغة",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 20 ,fontFamily: 'myriadBold' ),),
+                  const  Text("النمو الوجداني",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 20 ,fontFamily: 'myriadBold' ),),
                   const SizedBox(height: 5,),
 
 
 
 
-
-
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-
-                    child: AppTextField(
-                      textFieldType: TextFieldType.NAME,
-                      controller: controller8,
-
-                      title: 'اللغة المعتمد عليها في المنزل',
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "اللغة المعتمد عليها في المنزل",),
-                      //suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: const Padding(
+                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
+                      child: Text("هل هو اجتماعي",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
                   ),
-                  Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
 
-                      child: SizedBox(
-                        width: 170,
-                        child: AppTextField(
-                          textFieldType: TextFieldType.NAME,
-                          controller: controller1,
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isTrue0=!isTrue0;
+                            isNo0=false;
+                            firstChoice="نعم";
 
-                          title: 'المناغاة الاولى',
-                          errorThisFieldRequired: "This Field is required",
-                          decoration: inputDecoration(context, labelText: "المناغاة الاولى",),
-                          //suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                          autoFillHints: [AutofillHints.email],
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isTrue0? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue0? Colors.black:Colors.white, ),)),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: SizedBox(
-                        width: 170,
-                        child: AppTextField(
-                          textFieldType: TextFieldType.NAME,
-                          controller: controller2,
-                          title: 'الكلمة الاولى',
-
-                          errorThisFieldRequired: "This Field is required",
-                          decoration: inputDecoration(context, labelText: "الكلمة الاولى"),
-                          // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
-                          autoFillHints: [AutofillHints.email],
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isNo0=!isNo0;
+                            isTrue0=false;
+                            firstChoice="لا";
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isNo0? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("لا",style: TextStyle(color:!isNo0? Colors.black:Colors.white,),)),
                         ),
-                      ),
-                    ),
-                  ],),
+                      )
+                    ],
+                  ),
+
+
+
+                  SizedBox(height: 20,),
 
                   Align(
                     alignment: Alignment.topRight,
@@ -232,42 +254,16 @@ class _ChildDevPage1State extends State<languageDevPage> {
                       )
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-
-                    child: AppTextField(
-                      textFieldType: TextFieldType.NAME,
-                      controller: controller9,
-
-                      title: 'ماهي؟',
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: " ",),
-                      //suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
-                    ),
-                  ),
+                  SizedBox(height: 20,),
                   //ماهي؟
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-
-                    child: AppTextField(
-                      textFieldType: TextFieldType.NAME,
-                      controller: controller10,
-
-                      title: 'الجملة الاولى',
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "الجملة الاولى ",),
-                      //suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
-                    ),
-                  ),
 
 
+                  SizedBox(height: 10,),
                   Align(
                     alignment: Alignment.topRight,
                     child: const Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
-                      child: Text("نوع الكلام عند الطفل",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
+                      child: Text("هل يلعب مع الآخرين ",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
                   ),
                   const SizedBox(height: 10,),
@@ -279,45 +275,18 @@ class _ChildDevPage1State extends State<languageDevPage> {
                       GestureDetector(
                         onTap: (){
                           setState(() {
-                            multichoice1=!multichoice1;
-                            multichoice2=false;
-                            multichoice3=false;
-                            multiChoice="ايماءات";
-                          });
-                        },
-                        child: Container(
-                          width: 100,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!multichoice1? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
-                          ),
-                          child: Center(child: Text("ايماءات",style: TextStyle(color:!multichoice1? Colors.black:Colors.white, ),)),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            multichoice2=!multichoice2;
-                            multichoice1=false;
-                            multichoice3=false;
-                            multiChoice="إشارات ";
+                            isTrue1=!isTrue1;
+                            isNo1=false;
+                            secondChoice="نعم";
+
 
                           });
                         },
                         child: Container(
-                          width: 100,
+                          width: 170,
                           height:40,
                           decoration: BoxDecoration(
-                            color:!multichoice2? Colors.white:primaryColor,
+                            color:!isTrue1? Colors.white:primaryColor,
                             borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
                             boxShadow: [
                               BoxShadow(
@@ -328,23 +297,22 @@ class _ChildDevPage1State extends State<languageDevPage> {
                               ),
                             ],
                           ),
-                          child: Center(child: Text("إشارات ",style: TextStyle(color:!multichoice2? Colors.black:Colors.white,),)),
+                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue1? Colors.black:Colors.white, ),)),
                         ),
                       ),
                       GestureDetector(
                         onTap: (){
                           setState(() {
-                            multichoice3=!multichoice3;
-                            multichoice2=false;
-                            multichoice1=false;
-                            multiChoice="تعيين";
+                            isNo1=!isNo1;
+                            isTrue1=false;
+                            secondChoice="لا";
                           });
                         },
                         child: Container(
-                          width: 100,
+                          width: 170,
                           height:40,
                           decoration: BoxDecoration(
-                            color:!multichoice3? Colors.white:primaryColor,
+                            color:!isNo1? Colors.white:primaryColor,
                             borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
                             boxShadow: [
                               BoxShadow(
@@ -355,15 +323,151 @@ class _ChildDevPage1State extends State<languageDevPage> {
                               ),
                             ],
                           ),
-                          child: Center(child: Text("تعيين",style: TextStyle(color:!multichoice3? Colors.black:Colors.white,),)),
+                          child: Center(child: Text("لا",style: TextStyle(color:!isNo1? Colors.black:Colors.white,),)),
                         ),
-                      ),
+                      )
                     ],
                   ),
                   SizedBox(height: 10,),
 
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: const Padding(
+                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
+                      child: Text("هل له علاقات  متعددة ",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
+                    ),
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isTrue3=!isTrue3;
+                            isNo3=false;
+                            thirdChoice="نعم";
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isTrue3? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue3? Colors.black:Colors.white, ),)),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isNo3=!isNo3;
+                            isTrue3=false;
+
+                            thirdChoice="لا";
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isNo3? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("لا",style: TextStyle(color:!isNo3? Colors.black:Colors.white,),)),
+                        ),
+                      )
+                    ],
+                  ),
                   SizedBox(height: 10,),
 
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: const Padding(
+                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
+                      child: Text("هل يستعمل العدوانية في اللعب ",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
+                    ),
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isTrue4=!isTrue4;
+                            isNo4=false;
+
+                            fourth="نعم";
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isTrue4? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue4? Colors.black:Colors.white, ),)),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isNo4=!isNo4;
+                            isTrue4=false;
+                            fourth="لا";
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isNo4? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("لا",style: TextStyle(color:!isNo4? Colors.black:Colors.white,),)),
+                        ),
+                      )
+                    ],
+                  ),
                   SizedBox(height: 10,),
 
 
@@ -371,9 +475,9 @@ class _ChildDevPage1State extends State<languageDevPage> {
                     onTap: (){
 
 
-                      if(formKey.currentState!.validate()  && fifth!=null ){
+                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null && thirdChoice!=null && fourth!=null && fifth!=null ){
 
-                        push(context: context, screen: LanguageDevPage2());
+                        pushAndRemove(context: context, screen: ChildDevPage3());
                       }else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
                       }
