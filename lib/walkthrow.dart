@@ -4,7 +4,6 @@ import 'package:orthophonienewversion/auth/signIn.dart';
 import 'package:orthophonienewversion/model/onboarding-model.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
-import 'package:orthophonienewversion/utils/decoration.dart';
 import 'package:orthophonienewversion/utils/dotIndicator.dart';
 
 
@@ -44,7 +43,6 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size=MediaQuery.of(context).size;
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
     return Scaffold(
@@ -114,7 +112,7 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                 /*    await setValue(IS_FIRST_TIME, false);
                     DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
                 */  },
-                  child:const Text("Skip", style: TextStyle(
+                  child:const Text("تخطي", style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
                       fontFamily: 'myriad',
@@ -145,13 +143,9 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                     ),
                     onPressed: () async {
                       if (currentPosition == 3) {
-                        // Handle button click for the last position
-                        push(context: context, screen: SignInScreen());
-                        // await setValue(IS_FIRST_TIME, false);
-                        // DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
-                      } else {
-                        // Handle button click for other positions
-                        pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
+                           push(context: context, screen: SignInScreen());
+                         } else {
+                           pageController.nextPage(duration:const Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
                       }
                     },
                     child: Text(

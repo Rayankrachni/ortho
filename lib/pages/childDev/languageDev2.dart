@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/homePage.dart';
+import 'package:orthophonienewversion/model/language-dev2-model.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page1.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page3.dart';
 import 'package:orthophonienewversion/pages/childDev/disorders.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 class LanguageDevPage2 extends StatefulWidget {
   const LanguageDevPage2({super.key});
 
@@ -17,19 +20,7 @@ class LanguageDevPage2 extends StatefulWidget {
 
 class _LanguageDevPage2State extends State<LanguageDevPage2> {
 
-  TextEditingController sittingAge = TextEditingController();
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3= TextEditingController();
-  TextEditingController controller4 = TextEditingController();
-  TextEditingController controller5 = TextEditingController();
-  TextEditingController controller6 = TextEditingController();
-  TextEditingController controller7 = TextEditingController();
-  TextEditingController controller8 = TextEditingController();
-  TextEditingController controller9 = TextEditingController();
-  TextEditingController controller10 = TextEditingController();
-  TextEditingController walkingAge = TextEditingController();
-  TextEditingController personalHygieneAcquisition = TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 
@@ -68,6 +59,7 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final provider=Provider.of<FormDataProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -102,11 +94,11 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  /*const CircleAvatar(
+                  const CircleAvatar(
                     radius: 70,
                     backgroundColor: Colors.white,
                     backgroundImage: AssetImage("assets/language.png"),
-                  ),*/
+                  ),
                   const  Text("النمو الوجداني",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 20 ,fontFamily: 'myriadBold' ),),
                   const SizedBox(height: 5,),
 
@@ -186,82 +178,12 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
 
                   SizedBox(height: 20,),
 
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: const Padding(
-                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
-                      child: Text("هل لديه بوادر في الكلام ",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
-                    ),
-                  ),
-                  const SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
 
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isTrue5=!isTrue5;
-                            isNo5=false;
-                            fifth="نعم";
 
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isTrue5? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
-                          ),
-                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue5? Colors.black:Colors.white, ),)),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isNo5=!isNo5;
-                            isTrue5=false;
-                            fifth="لا";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isNo5? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
-                          ),
-                          child: Center(child: Text("لا",style: TextStyle(color:!isNo5? Colors.black:Colors.white,),)),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 20,),
                   //ماهي؟
-
-
-                  SizedBox(height: 10,),
-                  Align(
+                  const Align(
                     alignment: Alignment.topRight,
-                    child: const Padding(
+                    child:  Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
                       child: Text("هل يلعب مع الآخرين ",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
@@ -328,11 +250,11 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
                       )
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 20,),
 
-                  Align(
+                  const  Align(
                     alignment: Alignment.topRight,
-                    child: const Padding(
+                    child:  Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
                       child: Text("هل له علاقات  متعددة ",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
@@ -398,11 +320,11 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
                       )
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 20,),
 
-                  Align(
+                  const Align(
                     alignment: Alignment.topRight,
-                    child: const Padding(
+                    child:  Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
                       child: Text("هل يستعمل العدوانية في اللعب ",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
@@ -475,9 +397,17 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
                     onTap: (){
 
 
-                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null && thirdChoice!=null && fourth!=null && fifth!=null ){
+                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null && thirdChoice!=null && fourth!=null ){
 
-                        pushAndRemove(context: context, screen: ChildDevPage3());
+
+                        LanguageDevModel2 model= LanguageDevModel2(
+                          hasRelations:thirdChoice ,
+                          isAggressive:fourth ,
+                          isPlayer:secondChoice ,
+                          isSocial:firstChoice ,
+                        );
+                        provider.updateLanguageDev2(model);
+                        push(context: context, screen: ChildDevPage3());
                       }else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
                       }

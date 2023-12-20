@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/homePage.dart';
+import 'package:orthophonienewversion/model/language-dev-model.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page1.dart';
 import 'package:orthophonienewversion/pages/childDev/languageDev2.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 class languageDevPage extends StatefulWidget {
   const languageDevPage({super.key});
 
@@ -16,19 +19,12 @@ class languageDevPage extends StatefulWidget {
 
 class _ChildDevPage1State extends State<languageDevPage> {
 
-  TextEditingController sittingAge = TextEditingController();
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3= TextEditingController();
-  TextEditingController controller4 = TextEditingController();
-  TextEditingController controller5 = TextEditingController();
-  TextEditingController controller6 = TextEditingController();
-  TextEditingController controller7 = TextEditingController();
-  TextEditingController controller8 = TextEditingController();
-  TextEditingController controller9 = TextEditingController();
-  TextEditingController controller10 = TextEditingController();
-  TextEditingController walkingAge = TextEditingController();
-  TextEditingController personalHygieneAcquisition = TextEditingController();
+  TextEditingController homeLanguage = TextEditingController();
+  TextEditingController bubbling = TextEditingController();
+  TextEditingController firstWord = TextEditingController();
+  TextEditingController talk= TextEditingController();
+  TextEditingController firstPhrase = TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 
@@ -67,6 +63,7 @@ class _ChildDevPage1State extends State<languageDevPage> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final provider=Provider.of<FormDataProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -82,7 +79,7 @@ class _ChildDevPage1State extends State<languageDevPage> {
           child: Container(
             height: 20,
             width: 20,
-            decoration: BoxDecoration(
+            decoration:const BoxDecoration(
               shape: BoxShape.circle,
               color: primaryColor,
             ),
@@ -106,7 +103,7 @@ class _ChildDevPage1State extends State<languageDevPage> {
                     backgroundColor: Colors.white,
                     backgroundImage: AssetImage("assets/language.png"),
                   ),*/
-                  const  Text("ميزانية اللغة",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 20 ,fontFamily: 'myriadBold' ),),
+                  const  Text("النمو اللغوي",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 20 ,fontFamily: 'myriadBold' ),),
                   const SizedBox(height: 5,),
 
 
@@ -119,7 +116,7 @@ class _ChildDevPage1State extends State<languageDevPage> {
 
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller8,
+                      controller: homeLanguage,
 
                       title: 'اللغة المعتمد عليها في المنزل',
                       errorThisFieldRequired: "This Field is required",
@@ -136,9 +133,9 @@ class _ChildDevPage1State extends State<languageDevPage> {
                         width: 170,
                         child: AppTextField(
                           textFieldType: TextFieldType.NAME,
-                          controller: controller1,
+                          controller: bubbling,
 
-                          title: 'المناغاة الاولى',
+                          title: 'المناغاة ',
                           errorThisFieldRequired: "This Field is required",
                           decoration: inputDecoration(context, labelText: "المناغاة الاولى",),
                           //suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
@@ -152,7 +149,7 @@ class _ChildDevPage1State extends State<languageDevPage> {
                         width: 170,
                         child: AppTextField(
                           textFieldType: TextFieldType.NAME,
-                          controller: controller2,
+                          controller: firstWord,
                           title: 'الكلمة الاولى',
 
                           errorThisFieldRequired: "This Field is required",
@@ -232,12 +229,12 @@ class _ChildDevPage1State extends State<languageDevPage> {
                       )
                     ],
                   ),
-                  Padding(
+                  if(isTrue5)Padding(
                     padding: const EdgeInsets.all(10.0),
 
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller9,
+                      controller: talk,
 
                       title: 'ماهي؟',
                       errorThisFieldRequired: "This Field is required",
@@ -252,7 +249,7 @@ class _ChildDevPage1State extends State<languageDevPage> {
 
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller10,
+                      controller: firstPhrase,
 
                       title: 'الجملة الاولى',
                       errorThisFieldRequired: "This Field is required",
@@ -262,6 +259,7 @@ class _ChildDevPage1State extends State<languageDevPage> {
                     ),
                   ),
 
+                  SizedBox(height: 20,),
 
                   Align(
                     alignment: Alignment.topRight,
@@ -372,6 +370,16 @@ class _ChildDevPage1State extends State<languageDevPage> {
 
 
                       if(formKey.currentState!.validate()  && fifth!=null ){
+                        LanguageDevModel model= LanguageDevModel(
+                          babbling: bubbling.text,
+                          firstPhrase:firstPhrase.text ,
+                          isTalking:firstChoice ,
+                          firstWord: firstPhrase.text,
+                          language: homeLanguage.text,
+                          talk: talk.text,
+                          talkType: multiChoice,
+                        );
+                        provider.updateLanguageDev(model);
 
                         push(context: context, screen: LanguageDevPage2());
                       }else{

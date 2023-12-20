@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/Result/ResponsePage.dart';
 import 'package:orthophonienewversion/homePage.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page1.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
@@ -28,6 +29,8 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
   TextEditingController controller6 = TextEditingController();
   TextEditingController controller8 = TextEditingController();
   TextEditingController controller7 = TextEditingController();
+  TextEditingController controller9 = TextEditingController();
+  TextEditingController controller10 = TextEditingController();
   TextEditingController walkingAge = TextEditingController();
   TextEditingController personalHygieneAcquisition = TextEditingController();
 
@@ -92,20 +95,17 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
               child: Column(
                 children: [
 
-                  const  Text("الأمراض المكتسبة",style: TextStyle(color: Colors.black,fontSize: 20 ,fontFamily: 'myriadBold' ),),
+                  const  Text("امراض الجهاز العصبي",style: TextStyle(color: Colors.black,fontSize: 20 ,fontFamily: 'myriadBold' ),),
                   const SizedBox(height: 5,),
 
 
-          Padding(
+                  Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
                       controller: sittingAge,
                       title: 'التهاب السحايا ',
 
-
-                      focus: sittingAgeFocus,
-                      nextFocus: crawlingAgeFocus,
                       errorThisFieldRequired: "This Field is required",
                       decoration: inputDecoration(context, labelText: "التهاب السحايا"),
                       // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
@@ -118,7 +118,6 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     child: AppTextField(
                       textFieldType:TextFieldType.NAME,
                       controller: controller1,
-                      focus: crawlingAgeFocus,
 
                       title: ' التهاب الدماغ',
                       errorThisFieldRequired: "This Field is required",
@@ -127,20 +126,59 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                       autoFillHints: [AutofillHints.email],
                     ),
                   ),
+
+
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller2,
-                      title: 'متى تحدث له النوبات',
+                      controller: controller9,
+                      title: 'الصرع ',
 
-                      focus: walkingAgeFocus,
-                      nextFocus: sittingAgeFocus,
                       errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "متى تحدث له النوبات"),
+                      decoration: inputDecoration(context, labelText: "الصرع "),
                       // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
                       autoFillHints: [AutofillHints.email],
                     ),
+                  ),
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 180,
+                        child:  Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: AppTextField(
+                            textFieldType: TextFieldType.NAME,
+                            controller: controller10,
+                            title: 'متى أصيب بالصرع؟',
+
+                            errorThisFieldRequired: "This Field is required",
+                            decoration: inputDecoration(context, labelText: "متى أصيب بالصرع؟"),
+                            // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
+                            autoFillHints: [AutofillHints.email],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child:    Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: AppTextField(
+                            textFieldType: TextFieldType.NAME,
+                            controller: controller2,
+                            title: 'متى تحدث له النوبات',
+
+                            errorThisFieldRequired: "This Field is required",
+                            decoration: inputDecoration(context, labelText: "متى تحدث له النوبات"),
+                            // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
+                            autoFillHints: [AutofillHints.email],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
 
                   SizedBox(height: 10,),
@@ -148,7 +186,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     alignment: Alignment.topRight,
                     child: const Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
-                      child: Text("هل الطفل كثير الإصابة بالتهاب اللوزتين و الجيوب الأنفية والتهاب الاذن",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
+                      child: Text("هل الطفل كثير الإصابة بالتهاب اللوزتين و الجيوب الأنفية والتهاب الاذن؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
                   ),
                   const SizedBox(height: 10,),
@@ -217,7 +255,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     alignment: Alignment.topRight,
                     child: const Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
-                      child: Text("هل أخذ كل التطعيمات بانتظام ",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
+                      child: Text("هل أخذ كل التطعيمات بانتظام ؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
                   ),
                   const SizedBox(height: 10,),
@@ -283,11 +321,11 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     ],
                   ),
                   SizedBox(height: 10,),
-                  Align(
+                  /*Align(
                     alignment: Alignment.topRight,
                     child: const Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
-                      child: Text("هل قام بكل الفحوص المطلوب",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
+                      child: Text("هل قام بكل الفحوص المطلوب؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
                   ),
                   const SizedBox(height: 10,),
@@ -350,9 +388,9 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                         ),
                       )
                     ],
-                  ),
+                  ),*/
                   const SizedBox(height: 10,),
-                  Padding(
+                  if(isTrue2) Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
@@ -371,8 +409,8 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
 
                       print(firstChoice);
 
-                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null && thirdChoice!=null ){
-                        push(context: context, screen: HomePage());
+                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null  ){
+                        push(context: context, screen: DisplayDataWidget());
                       }else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
                       }

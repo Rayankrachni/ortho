@@ -1,12 +1,16 @@
 
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/Result/ResponsePage.dart';
 import 'package:orthophonienewversion/familly-info/famiilyPage.dart';
 import 'package:orthophonienewversion/familly-info/familly-info.dart';
+import 'package:orthophonienewversion/model/general-info-model.dart';
 import 'package:orthophonienewversion/pages/pregency/pregancy-main-page.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/common.dart';
 
@@ -62,6 +66,29 @@ class _GeneralInfoState extends State<GeneralInfo> {
     }
   }
 
+
+
+  DateTime? birthDate;
+
+  Future<void> _selectBirthDate(BuildContext context) async {
+    DateTime? initialDate = birthDate ?? DateTime.now();
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != birthDate) {
+      setState(() {
+        birthDate = picked;
+        print(birthDate!.toLocal());
+        birthdayDate.text=formatDate(birthDate!);
+      });
+    }
+  }
+
   String formatDate(DateTime date) {
     return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
   }
@@ -69,6 +96,8 @@ class _GeneralInfoState extends State<GeneralInfo> {
   double _sliderValue = 0.0;
   @override
   Widget build(BuildContext context) {
+
+    final provider=Provider.of<FormDataProvider>(context);
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
 
@@ -147,6 +176,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                       ),
                     ),
 
+
+
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -207,19 +239,24 @@ class _GeneralInfoState extends State<GeneralInfo> {
                           ),
                         ),
 
-                        SizedBox(
-                          width: 185,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AppTextField(
-                              textFieldType: TextFieldType.NAME,
-                              controller: birthdayDate,
-                              title: 'تاريخ الميلاد ',
+                        GestureDetector(
+                          onTap: () => _selectBirthDate(context),
+                          child: SizedBox(
+                            width: 185,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: AppTextField(
+                                textFieldType: TextFieldType.NAME,
+                                controller: birthdayDate,
+                                title: 'تاريخ الميلاد ',
+                                enabled: false,
 
-                              errorThisFieldRequired: "This Field is required",
-                              decoration: inputDecoration(context, labelText: "تاريخ الميلاد"),
-                              suffix: Icon(Icons.date_range,size: 17,color: Colors.grey.withOpacity(0.8),),
-                              autoFillHints: [AutofillHints.email],
+
+                                errorThisFieldRequired: "This Field is required",
+                                decoration: inputDecoration(context, labelText: "تاريخ الميلاد"),
+                                suffix: Icon(Icons.date_range,size: 17,color: Colors.grey.withOpacity(0.8),),
+                                autoFillHints: [AutofillHints.email],
+                              ),
                             ),
                           ),
                         ),
@@ -305,8 +342,22 @@ class _GeneralInfoState extends State<GeneralInfo> {
                     GestureDetector(
                       onTap: (){
                           if(_formKey.currentState!.validate() ){
-                            //push(context: context, screen: PregancyMainPage());
-                           // push(context: context, screen: FamilyInfo());
+                            GeneralInfoModel model= GeneralInfoModel(
+                              name: firstnameCont.text,
+                              lastName: lastNameCont.text,
+                              address: address.text,
+                              phone: phone.text,
+                              birthdate: birthdayDate.text,
+                              city: birthdayPlace.text,
+                              duration: (_sliderValue ~/ 1).toInt(),
+                              lastInfo: lastInfo.text,
+                              date: formatDate(selectedDate),
+
+
+                            );
+                            provider.updateGeneralInfoModel(model);
+
+                           // push(context: context, screen: DisplayDataWidget());
                             push(context: context, screen: FamilyInfo());
                           }else{
                             ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);

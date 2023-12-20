@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/model/sensorimotor-development.dart';
 import 'package:orthophonienewversion/pages/childDev/languageDev.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 class ChildDevPage1 extends StatefulWidget {
   const ChildDevPage1({super.key});
 
@@ -14,10 +17,7 @@ class ChildDevPage1 extends StatefulWidget {
 
 class _ChildDevPage1State extends State<ChildDevPage1> {
 
-  TextEditingController sittingAge = TextEditingController();
-  TextEditingController smilAge = TextEditingController();
-  TextEditingController crawlingAge = TextEditingController();
-  TextEditingController walkingAge = TextEditingController();
+
   TextEditingController personalHygieneAcquisition = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -36,6 +36,8 @@ class _ChildDevPage1State extends State<ChildDevPage1> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final provider=Provider.of<FormDataProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -178,6 +180,19 @@ class _ChildDevPage1State extends State<ChildDevPage1> {
                     onTap: (){
 
                       if(formKey.currentState!.validate() ){
+                        SensorimotorDevelopment model= SensorimotorDevelopment(
+                          smilAge: _sliderValue0 ~/ 1,
+                          sittingAge: _sliderValue ~/ 1,
+                          crawlingAge: _sliderValue1 ~/ 1,
+                          walkingAge: _sliderValue2 ~/ 1,
+                          personalHygieneAcquisition:personalHygieneAcquisition.text ,
+
+
+
+                        );
+                        provider.updateSensorimotorDevelopment(model);
+
+                        //push(context: context, screen: ChildDevPage1());
                         push(context: context, screen: languageDevPage());
                       }else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);

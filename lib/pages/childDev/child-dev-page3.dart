@@ -1,12 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/model/audio_model.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page1.dart';
 import 'package:orthophonienewversion/pages/childDev/disorders.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 class ChildDevPage3 extends StatefulWidget {
   const ChildDevPage3({super.key});
 
@@ -16,11 +19,9 @@ class ChildDevPage3 extends StatefulWidget {
 
 class _ChildDevPage3State extends State<ChildDevPage3> {
 
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller0 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3 = TextEditingController();
-  TextEditingController personalHygieneAcquisition = TextEditingController();
+  TextEditingController parenthearingImpairment = TextEditingController();
+  TextEditingController typeHearingImpairment = TextEditingController();
+
   double _sliderValue = 0.0;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -36,6 +37,10 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
 
   bool isTrue5=false;
   bool  isNo5=false;
+
+  bool isTrue4=false;
+  bool  isNo4=false;
+  String? forth;
 
 
   bool right=false;
@@ -74,6 +79,7 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final provider=Provider.of<FormDataProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -108,12 +114,12 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const CircleAvatar(
+                  /*const CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.white,
                     backgroundImage: AssetImage("assets/childListen.png"),
-                  ),
-                  const  Text("الجانب السمعي",style: TextStyle(color: Colors.black,fontSize: 20 ,fontFamily: 'myriadBold' ),),
+                  ),*/
+                  const  Text("الجانب السمعي",style: TextStyle(color:primaryColor,fontSize: 23 ,fontWeight: FontWeight.bold,fontFamily: 'myriadBold' ),),
                   const SizedBox(height: 5,),
                   const  Text("السلوك السمعي اكتشاف الصم",style: TextStyle(color: Colors.grey,fontSize: 16 ,fontFamily: 'myriadBold' ),),
 
@@ -123,7 +129,7 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                     padding: const EdgeInsets.all(10.0),
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller0,
+                      controller: parenthearingImpairment,
                       title: 'متى شك الأولياء في العجز السمعي',
 
                       errorThisFieldRequired: "This Field is required",
@@ -134,12 +140,32 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                   ),
 
 
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding:  EdgeInsets.only(left: 5.0,right: 5.0),
+                      child: Text(_sliderValue ~/ 1 == 0 ?"   سن إكتشاف الصمم" :"    سن إكتشاف الصمم${_sliderValue ~/ 1} ",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
+                    ),
+                  ),
+
+                  Slider(
+                    value: _sliderValue,
+                    min: 0.0,
+                    max: 10.0,
+                    onChanged: (value) {
+                      setState(() {
+                        _sliderValue = value;
+                      });
+                    },
+                  ),
+
+
                   Padding(
                     padding: const EdgeInsets.all(10.0),
 
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller1,
+                      controller: typeHearingImpairment,
 
                       title: 'نوع الإعاقة السمعية',
                       errorThisFieldRequired: "This Field is required",
@@ -148,20 +174,76 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                       autoFillHints: [AutofillHints.email],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: AppTextField(
-                      textFieldType: TextFieldType.NAME,
-                      controller: controller2,
-                      title: 'هل هناك بقايا سمعية',
 
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "هل هناك بقايا سمعية"),
-                     // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: const Padding(
+                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
+                      child: Text("هل هناك بقايا سمعية",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
                     ),
                   ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
 
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isTrue4=!isTrue4;
+                            isNo4=false;
+                            forth="نعم";
+
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isTrue4? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue4? Colors.black:Colors.white, ),)),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isNo4=!isNo4;
+                            isTrue4=false;
+                             forth="لا";
+                          });
+                        },
+                        child: Container(
+                          width: 170,
+                          height:40,
+                          decoration: BoxDecoration(
+                            color:!isNo4? Colors.white:primaryColor,
+                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1), // Shadow color
+                                spreadRadius: 2, // How much the shadow should spread
+                                blurRadius: 5, // How blurry the shadow should be
+                                offset: Offset(0, 2), // Offset of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Center(child: Text("لا",style: TextStyle(color:!isNo4? Colors.black:Colors.white,),)),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 20,),
                   Align(
                     alignment: Alignment.topRight,
                     child: Padding(
@@ -251,10 +333,44 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                     ],
                   ),
                   const SizedBox(height: 10,),
+                  if(isTrue0) Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text("تاريخ التجهيز:",style: TextStyle(color:Colors.black,fontFamily: "myriad",fontSize: 12),)),
+                  ),
 
-                  Align(
+
+                  if(isTrue0) GestureDetector(
+                    onTap: (){_selectDate(context);},
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: width,
+                        height: 45,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          '${formatDate(selectedDate)}',
+                          style: TextStyle(fontSize: 14,fontFamily: 'myriad'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Align(
                     alignment: Alignment.topRight,
-                    child: const Padding(
+                    child:  Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
                       child: Text("هل هو صمم ",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
                     ),
@@ -320,48 +436,14 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                     ],
                   ),
                   const SizedBox(height: 10,),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Align(
-                      alignment: Alignment.topRight,
-                      child: Text("تاريخ التجهيز:",style: TextStyle(color:Colors.black,fontFamily: "myriad",fontSize: 12),)),
-                ),
 
-
-                GestureDetector(
-                    onTap: (){_selectDate(context);},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: width,
-                        height: 45,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 1,
-                              blurRadius: 2,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          '${formatDate(selectedDate)}',
-                          style: TextStyle(fontSize: 14,fontFamily: 'myriad'),
-                        ),
-                      ),
-                    ),
-                  ),
 
                   const SizedBox(height: 5,),
                   Align(
                     alignment: Alignment.topRight,
                     child: const Padding(
                       padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
-                      child: Text("نوع والتجهيز ",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
+                      child: Text("نوع التجهيز ",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
                     ),
                   ),
                   const SizedBox(height: 10,),
@@ -526,7 +608,19 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                     onTap: (){
 
 
-                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null && thirdChoice!=null){
+                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null && thirdChoice!=null && forth!=null){
+
+                        AudioModel model= AudioModel(
+                         parenthearingImpairment: parenthearingImpairment.text,
+                          typeHearingImpairment:typeHearingImpairment.text ,
+                          hearingCapabilities: (_sliderValue0 ~/ 1).toString(),
+                          treatment: firstChoice,
+                          treatmentDate: formatDate(selectedDate),
+                          treatmentType:secondChoice ,
+                          hearingInfo: forth,
+                          affectedEars:thirdChoice ,
+                        );
+                        provider.updateAudioModel(model);
                         push(context: context, screen: ChildDevPage2());
                       }else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);

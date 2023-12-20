@@ -30,7 +30,7 @@ InputDecoration inputDecoration(BuildContext context, {Widget? prefixIcon, Strin
     ),
     disabledBorder: OutlineInputBorder(
       borderRadius: radius(borderRadius ?? 10),
-      borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+      borderSide: BorderSide(color:primaryColor.withOpacity(0.3), width: 0.0),
     ),
     errorStyle: TextStyle(color: Colors.red, fontSize: 12),
     focusedBorder: OutlineInputBorder(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/familly-info/familly-info.dart';
+import 'package:orthophonienewversion/model/pregrancy-step3-model.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page1.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 class PregrencyStep4 extends StatefulWidget {
   const PregrencyStep4({super.key});
 
@@ -16,15 +19,7 @@ class PregrencyStep4 extends StatefulWidget {
 class _PregrencyStep4State extends State<PregrencyStep4> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController nameCont = TextEditingController();
-  TextEditingController lastNameCont = TextEditingController();
-  TextEditingController emailCont = TextEditingController();
-  TextEditingController passwordCont = TextEditingController();
 
-  FocusNode nameFocus = FocusNode();
-  FocusNode lastNameFocus = FocusNode();
-  FocusNode emailFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
   double _sliderValue = 0.0;
   double _sliderValue1 = 0.0;
   bool isRemember = true;
@@ -43,7 +38,7 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
-
+    final provider=Provider.of<FormDataProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
      appBar: AppBar(
@@ -320,12 +315,12 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                     const SizedBox(height: 15,),
 
 
-                    Padding(
+                    if(isTrue1)Padding(
                       padding:  EdgeInsets.only(left: 5.0,right: 5.0),
-                      child: Text(_sliderValue1 ~/ 1 == 0 ?"  ان كان نعم ما مدته؟  " :"   مدة الانعاش ${_sliderValue1 ~/ 1} دقائق ",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
+                      child: Text(_sliderValue1 ~/ 1 == 0 ?"   ما مدته؟  " :"   مدة الانعاش ${_sliderValue1 ~/ 1} ساعات ",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
                     ),
 
-                    Slider(
+                    if(isTrue1) Slider(
                       value: _sliderValue1,
                       min: 0.0,
                       max: 240.0,
@@ -345,6 +340,17 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                     GestureDetector(
                       onTap: (){
                         if(_formKey.currentState!.validate() && firstChoice!=null && secondChoice !=null && thirdChoice!=null ){
+                          PregnancyStep3Model model= PregnancyStep3Model(
+
+
+                            childWeight:  (_sliderValue ~/ 1).toInt(),
+                            duration:(_sliderValue1 ~/ 1).toString(),
+                            cry: firstChoice,
+                            experienceDeficiency:secondChoice ,
+                            needResuscitation: thirdChoice
+                          );
+                          provider.updatePregnancyStep3Model(model);
+
                           push(context: context, screen: ChildDevPage1());
                         }else{
                           ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);

@@ -51,11 +51,13 @@ class SignInScreen extends StatelessWidget {
                         SizedBox(
                             height:height*0.15,
                             child: Lottie.asset('assets/lottie/login.json')),
-                       // Center(child: Image.asset("assets/onboarding1.png",height:height*0.4 ,width: width*0.6,)),
                         const  Text("تسجيل الدخول باستخدام حسابك ",style: TextStyle(color: Colors.black,fontSize: 20,fontFamily: 'myriadBold'  ),),
                         const SizedBox(height: 10,),
                         Text("يرجى إدخال كل المعلومات المطلوبة",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: 12,fontFamily: 'myriad'  ),),
                         const SizedBox(height:10,),
+
+
+                        //TEXTFORMFIELD
 
                         Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -123,6 +125,7 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
 
+                        //OTHERWAY TO REGISTER
                         Text("او التسجيل عن طريق ",style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 14  ),),
                         const SizedBox(height: 20,),
                         Row(
@@ -184,7 +187,7 @@ class SignInScreen extends StatelessWidget {
 
                           ],
                         ),
-                        const SizedBox(height: 40,),
+
 
                       ],
                     ),

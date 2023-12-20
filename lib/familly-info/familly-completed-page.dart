@@ -1,14 +1,22 @@
 
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/model/complete-info-model.dart';
+import 'package:orthophonienewversion/model/familly-info-model.dart';
+import 'package:orthophonienewversion/model/family-info1-model.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page3.dart';
 import 'package:orthophonienewversion/pages/pregency/pregancy-main-page.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
+
 class FamilyCompletedInfo extends StatefulWidget {
-  const FamilyCompletedInfo({super.key});
+
+  final FamilyInfoPart1 familyInfo;
+  const FamilyCompletedInfo({super.key,required this.familyInfo});
 
   @override
   State<FamilyCompletedInfo> createState() => _FamilyInfoState();
@@ -18,22 +26,11 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   double _sliderValue = 0.0;
   double _sliderValue1 = 0.0;
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3 = TextEditingController();
-  TextEditingController controller4 = TextEditingController();
-  TextEditingController controller5 = TextEditingController();
-  TextEditingController controller6 = TextEditingController();
-  TextEditingController controller7 = TextEditingController();
-  TextEditingController controller8 = TextEditingController();
-  TextEditingController controller9 = TextEditingController();
-  TextEditingController controller10 = TextEditingController();
-  TextEditingController controller11 = TextEditingController();
+  TextEditingController motherJob = TextEditingController();
+  TextEditingController motherHealthReport = TextEditingController();
+  TextEditingController siblingsHealth = TextEditingController();
 
-  FocusNode nameFocus = FocusNode();
-  FocusNode lastNameFocus = FocusNode();
-  FocusNode emailFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
+
 
   String? firstChoice;
 
@@ -55,6 +52,8 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final provider=Provider.of<FormDataProvider>(context);
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -71,7 +70,7 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
             Navigator.pop(context);
           },
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.only(left:15.0,right: 15.0),
             child: Container(
               height: 20,
               width: 20,
@@ -100,25 +99,13 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
 
 
 
+
                     Padding(
                       padding: const EdgeInsets.all(8.0),
 
                       child: AppTextField(
                         textFieldType: TextFieldType.NAME,
-                        controller: controller7,
-                        title: 'مستوى  الام التعليمي',
-                        errorThisFieldRequired: "This Field is required",
-                        decoration: inputDecoration(context, labelText: "المستوى التعليمي",),
-                        // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                        autoFillHints: [AutofillHints.email],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-
-                      child: AppTextField(
-                        textFieldType: TextFieldType.NAME,
-                        controller: controller8,
+                        controller: motherJob,
                         title: 'مهنة الام',
                         errorThisFieldRequired: "This Field is required",
                         decoration: inputDecoration(context, labelText: "المهنة ",),
@@ -126,84 +113,6 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
                         autoFillHints: [AutofillHints.email],
                       ),
                     ),
-                    /*  Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding:  EdgeInsets.only(left: 5.0,right: 5.0),
-                        child: Text(_sliderValue ~/ 1 == 0 ?"  عدد الاخوة  " :"  عدد الاخوة ${_sliderValue ~/ 1} ",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
-                      ),
-                    ),
-
-                    Slider(
-                      value: _sliderValue,
-                      min: 0.0,
-                      max: 10.0,
-                      onChanged: (value) {
-                        setState(() {
-                          _sliderValue = value;
-                        });
-                      },
-                    ),
-
-                    const SizedBox(height: 20,),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding:  EdgeInsets.only(left: 5.0,right: 5.0),
-                        child: Text(_sliderValue1 ~/ 1 == 0 ?"رتبة الطفل  " :"  رتبة الطفل ${_sliderValue1 ~/ 1} ",style: TextStyle(fontSize: 12,fontFamily: 'myriadBold'),),
-                      ),
-                    ),
-
-                    Slider(
-                      value: _sliderValue1,
-                      min: 0.0,
-                      max: 10.0,
-                      onChanged: (value) {
-                        setState(() {
-                          _sliderValue1 = value;
-                        });
-                      },
-                    ),
-                   Padding(
-                      padding: const EdgeInsets.all(8.0),
-
-                      child: AppTextField(
-                        textFieldType: TextFieldType.EMAIL_ENHANCED,
-                        controller: famillyLevel,
-                        title: 'المستوى المادي للعائلة',
-                        errorThisFieldRequired: "This Field is required",
-                        decoration: inputDecoration(context, labelText: "المستوى المادي للعائلة",),
-                       // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                        autoFillHints: [AutofillHints.email],
-                      ),
-                    ),
-                    const SizedBox(height: 5,),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-
-                      child: AppTextField(
-                        textFieldType: TextFieldType.EMAIL_ENHANCED,
-                        controller: fatherInfo,
-                        title: 'المستوى الثقافي للاب',
-                        errorThisFieldRequired: "This Field is required",
-                        decoration: inputDecoration(context, labelText: "المستوى الثقافي للاب",),
-                       //suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                        autoFillHints: [AutofillHints.email],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-
-                      child: AppTextField(
-                        textFieldType: TextFieldType.EMAIL_ENHANCED,
-                        controller: motherInfo,
-                        title: 'المستوى الثقافي للام',
-                        errorThisFieldRequired: "This Field is required",
-                        decoration: inputDecoration(context, labelText: "المستوى الثقافي للام",),
-                       // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                        autoFillHints: [AutofillHints.email],
-                      ),
-                    ),*/
 
 
                     Padding(
@@ -211,7 +120,7 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
 
                       child: AppTextField(
                         textFieldType: TextFieldType.NAME,
-                        controller: controller9,
+                        controller: motherHealthReport,
                         title: 'السوابق الصحية للعائلة',
                         errorThisFieldRequired: "This Field is required",
                         decoration: inputDecoration(context, labelText: "السوابق الصحية للعائلة",),
@@ -220,11 +129,11 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
                       ),
                     ),
                     const SizedBox(height: 5,),
-                    Align(
+                    const Align(
                       alignment: Alignment.topRight,
                       child: const Padding(
                         padding:  EdgeInsets.only(left: 8.0,right: 8.0,bottom: 5),
-                        child: Text("هل توجد قرابة  بين العائلتين ؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
+                        child: Text("هل توجد قرابة  بين الوالدين ؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                       ),
                     ),
                     const SizedBox(height: 5,),
@@ -334,21 +243,21 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
 
                       child: AppTextField(
                         textFieldType: TextFieldType.NAME,
-                        controller: controller7,
+                        controller: siblingsHealth,
                         title: 'الحالة الصحية للأخوة',
                         errorThisFieldRequired: "This Field is required",
                         decoration: inputDecoration(context, labelText: "الحالة الصحية للأخوة",),
                         // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                        autoFillHints: [AutofillHints.email],
+
                       ),
                     ),
 
                     SizedBox(height: 20,),
 
 
-                    Align(
+                    const Align(
                       alignment: Alignment.topRight,
-                      child: const Padding(
+                      child:  Padding(
                         padding:  EdgeInsets.only(left: 8.0,right: 8.0,bottom: 5),
                         child: Text("المستوى الاقتصادي للعائلة",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                       ),
@@ -449,6 +358,28 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
                       onTap: (){
 
                         if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null){
+                          FamilyInfoPart2 familyModel =FamilyInfoPart2(
+                             motherJob:motherJob.text,
+                             motherHealthReport:motherHealthReport.text,
+                            haveRelation: firstChoice,
+                            familySocialState: secondChoice,
+                            siblingsHealth: siblingsHealth.text,
+                            childNumber: (_sliderValue ~/ 1).toInt(),
+                            nbrSiblings: (_sliderValue1 ~/ 1).toInt(),
+
+
+                          );
+
+                          CompleteFamilyInfo familyCompletModel =CompleteFamilyInfo(
+
+                          model: widget.familyInfo,
+                          model1: familyModel
+
+
+                          );
+
+                          provider.updatecompleteFamilyInfo(familyCompletModel);
+
                           push(context: context, screen: PregancyMainPage());
                           //   push(context: context, screen: ChildDevPage3());
                         }else{

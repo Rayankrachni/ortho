@@ -47,20 +47,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                   /* const Padding(
-                      padding:  EdgeInsets.all(15.0),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 27,
-                            backgroundColor: Colors.white,
-                            backgroundImage: AssetImage("assets/onboarding2.png"),
-                          ),
 
-
-                      ],),
-                    ),*/
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
                       Container(
                         width: width*0.9,
                        // height: 300,

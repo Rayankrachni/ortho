@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/homePage.dart';
+import 'package:orthophonienewversion/model/pregnancy-step2-model.dart';
 import 'package:orthophonienewversion/pages/pregency/pregency-step4.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/app-toast.dart';
 
@@ -18,15 +21,6 @@ class PregrencyStep3 extends StatefulWidget {
 class _PregrencyStep3State extends State<PregrencyStep3> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  TextEditingController nameCont = TextEditingController();
-  TextEditingController lastNameCont = TextEditingController();
-  TextEditingController emailCont = TextEditingController();
-  TextEditingController passwordCont = TextEditingController();
-
-  FocusNode nameFocus = FocusNode();
-  FocusNode lastNameFocus = FocusNode();
-  FocusNode emailFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
 
   bool isRemember = true;
 
@@ -43,7 +37,7 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
-
+    final provider=Provider.of<FormDataProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -305,6 +299,18 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                     onTap: (){
                       if(  firstChoice!=null && secondChoice !=null && thirdChoice!=null )
                         {
+
+
+                          PregnancyStep2Model model= PregnancyStep2Model(
+
+                           pregnancyExactTime: firstChoice,
+                            isNormal: secondChoice,
+                            lastInfo: thirdChoice,
+
+                          );
+                          provider.updatePregnancyStep2Model(model);
+
+
                           push(context: context, screen: PregrencyStep4());
                         }
                       else{

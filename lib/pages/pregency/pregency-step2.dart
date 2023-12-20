@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/model/pregnancy-step1-model.dart';
 import 'package:orthophonienewversion/pages/pregency/pregency-step3.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class PregrencyStep2 extends StatefulWidget {
   const PregrencyStep2({super.key});
@@ -16,11 +19,10 @@ class PregrencyStep2 extends StatefulWidget {
 class _PregrencyStep2State extends State<PregrencyStep2> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
+  TextEditingController motherPsychology = TextEditingController();
+  TextEditingController medicationType = TextEditingController();
 
   FocusNode controller1Focus = FocusNode();
-  FocusNode controller2Focus = FocusNode();
   double _sliderValue = 0.0;
   bool isRemember = true;
   bool isTrue1=false;
@@ -36,21 +38,21 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
   bool isTrue3=false;
   bool isNo3=false;
 
-  String? thirdChoice;
+  String? normalPregnancy;
   bool isTrue4=false;
   bool isNo4=false;
 
-  String? fourthChoice;
+  String? hasDisease;
 
 
-  String? fifthChoice;
+  String? RH;
   bool isTrue5=false;
   bool isNo5=false;
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
-
+    final provider=Provider.of<FormDataProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
        appBar: AppBar(
@@ -87,18 +89,18 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
               child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
 
 
                     //Center(child: Image.asset("assets/onboarding1.png",height:height*0.4 ,width: width*0.6,)),
-                    Center(child: const  Text("مرحلة الحمل ",style: TextStyle(color: Colors.black,fontSize: 22 ,fontWeight: FontWeight.bold,fontFamily: 'myriadBold' ),)),
+                    Center(child: const  Text("مرحلة الحمل ",style: TextStyle(color: primaryColor,fontSize: 25 ,fontWeight: FontWeight.bold,fontFamily: 'myriadBold' ),)),
                     const SizedBox(height: 5,),
 
                     Center(child: Text("لتجربة جيدة قم بإدخال كل المعلومات",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: 12,fontFamily: 'myriad'  ),)),
-                    const SizedBox(height: 25,),
+                    const SizedBox(height: 20,),
                     const Padding(
                       padding:  EdgeInsets.only(left: 5.0,right: 5.0,bottom: 5),
                       child: Text("هل الحمل مرغوب فيه  ؟",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
@@ -167,12 +169,12 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                     ),
 
                     const SizedBox(height: 20,),
-                    const Padding(
+                   const Padding(
                       padding: const EdgeInsets.only(left: 5.0,right: 5.0,bottom: 5),
                       child: Text("هل تناولت الام أدوية ؟",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
                     ),
                     const SizedBox(height: 5,),
-                    Row(
+                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -232,18 +234,17 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                         )
                       ],
                     ),
-                    const Padding(
+                    if(isTrue2) const Padding(
                       padding: const EdgeInsets.only(left: 8.0,right: 5.0,bottom: 0,top: 15),
                       child: Text("ماهي؟",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
                     ),
-                    Padding(
+                    if(isTrue2) Padding(
                       padding: const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 8.0),
 
                       child: AppTextField(
                         textFieldType:TextFieldType.NAME,
-                        controller: controller1,
-                        focus: controller1Focus,
-                        nextFocus: controller2Focus,
+                        controller: medicationType,
+
                         title: '',
                         errorThisFieldRequired: "This Field is required",
                         decoration: inputDecoration(context, labelText: "",),
@@ -267,7 +268,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isTrue5=!isTrue5;
                               isNo5=false;
-                              fifthChoice="نعم";
+                              RH="نعم";
 
                             });
                           },
@@ -294,7 +295,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isNo5=!isNo5;
                               isTrue5=false;
-                              fifthChoice="لا";
+                              RH="لا";
                             });
                           },
                           child: Container(
@@ -326,7 +327,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                     Slider(
                       value: _sliderValue,
                       min: 0.0,
-                      max: 40.0,
+                      max: 48.0,
                       onChanged: (value) {
                         setState(() {
                           _sliderValue = value;
@@ -348,7 +349,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isTrue3=!isTrue3;
                               isNo3=false;
-                              thirdChoice="نعم";
+                              normalPregnancy="نعم";
 
                             });
                           },
@@ -376,7 +377,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isNo3=!isNo3;
                               isTrue3=false;
-                              thirdChoice="لا";
+                              normalPregnancy="لا";
                             });
                           },
                           child: Container(
@@ -415,7 +416,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isTrue4=!isTrue4;
                               isNo4=false;
-                              fourthChoice="نعم";
+                              hasDisease="نعم";
 
                             });
                           },
@@ -442,7 +443,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isNo4=!isNo4;
                               isTrue4=false;
-                              fourthChoice="لا";
+                              hasDisease="لا";
 
                             });
                           },
@@ -473,8 +474,8 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                     ),
                     AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller2,
-                      focus: controller2Focus,
+                      controller: motherPsychology,
+
                       title: '',
                       errorThisFieldRequired: "This Field is required",
                       decoration: inputDecoration(context, labelText: "",),
@@ -487,8 +488,27 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                     const SizedBox(height: 5,),
                     GestureDetector(
                       onTap: (){
-                        if(_formKey.currentState!.validate() && firstChoice!=null && secondChoice !=null && thirdChoice!=null && fourthChoice!=null){
+                        if(_formKey.currentState!.validate() && firstChoice!=null && secondChoice !=null && hasDisease!=null && RH!=null){
+
+
+                          PregnancyStep1Model model= PregnancyStep1Model(
+                            pregnancy:firstChoice ,
+                            medications:secondChoice ,
+                            medicationType:medicationType.text ,
+                            rh:RH,
+                            motherAge: (_sliderValue ~/ 1).toInt(),
+                            normalPregnancy:normalPregnancy ,
+                            diseasePregnancy:hasDisease ,
+                            motherPsychology:motherPsychology.text ,
+
+
+                          );
+                          provider.updatePregnancyStep1Model(model);
+
+
                           push(context: context, screen: PregrencyStep3());
+
+
                         }else{
                           ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
                         }
