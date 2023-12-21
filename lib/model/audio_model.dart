@@ -12,6 +12,7 @@ class AudioModel{
   final String? treatmentType;
   final String? treatment;
   final String? affectedEars;
+  final String? type;
 
 
 
@@ -20,6 +21,7 @@ class AudioModel{
   AudioModel({
     this.id,
     this.parenthearingImpairment,
+    this.type,
     this.typeHearingImpairment,
     this.hearingInfo,
     this.hearingCapabilities,
@@ -41,6 +43,7 @@ class AudioModel{
     treatmentDate: json['treatmentDate'].toString(),
     treatmentType: json['treatmentType'].toString(),
     affectedEars: json['affectedEars'].toString(),
+    type:json['type'].toString()
 
 
     //docsUrls: json['docsUrls'],
@@ -58,6 +61,7 @@ class AudioModel{
       'affectedEars':affectedEars,
       'hearingCapabilities':hearingCapabilities,
       'hearingInfo':hearingInfo,
+      'type':type,
     };
   }
 

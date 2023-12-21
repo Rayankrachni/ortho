@@ -12,6 +12,7 @@ class FamilyInfoPart1{
   final String? motherName;
   final String? motherAge;
   final String? motherEducation;
+  final String? fatherJob;
 
 
 
@@ -24,6 +25,7 @@ class FamilyInfoPart1{
     this.motherName,
     this.motherAge,
     this.motherEducation,
+    this.fatherJob
 
 
   });
@@ -37,6 +39,8 @@ class FamilyInfoPart1{
     motherEducation: json['motherEducation'].toString(),
     motherAge: json['motherAge'].toString(),
     motherName: json['motherName'].toString(),
+    fatherJob: json['fatherJob'].toString(),
+
 
     //docsUrls: json['docsUrls'],
 
@@ -53,6 +57,7 @@ class FamilyInfoPart1{
       'motherName':motherName,
       'motherAge':motherAge,
       'motherEducation':motherEducation,
+      'fatherJob':fatherJob
     };
   }
 

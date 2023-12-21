@@ -121,7 +121,7 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
                       child: AppTextField(
                         textFieldType: TextFieldType.NAME,
                         controller: motherHealthReport,
-                        title: 'السوابق الصحية للعائلة',
+                        title: 'سوابق الام الصحية',
                         errorThisFieldRequired: "This Field is required",
                         decoration: inputDecoration(context, labelText: "السوابق الصحية للعائلة",),
                         // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),

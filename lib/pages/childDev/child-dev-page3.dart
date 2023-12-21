@@ -48,6 +48,7 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
   bool  both=false;
 
   String? firstChoice;
+  String? typeChoice;
   String? secondChoice;
   String? thirdChoice;
 
@@ -386,7 +387,7 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                           setState(() {
                             isTrue5=!isTrue5;
                             isNo5=false;
-                           // firstChoice="وراثي ";
+                            typeChoice="وراثي ";
 
                           });
                         },
@@ -413,6 +414,7 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                           setState(() {
                             isNo5=!isNo5;
                             isTrue5=false;
+                            typeChoice='مكتسب';
                           });
                         },
                         child: Container(
@@ -608,7 +610,7 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                     onTap: (){
 
 
-                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null && thirdChoice!=null && forth!=null){
+                      if(formKey.currentState!.validate() && typeChoice!=null && firstChoice!=null && secondChoice!=null && thirdChoice!=null && forth!=null){
 
                         AudioModel model= AudioModel(
                          parenthearingImpairment: parenthearingImpairment.text,
@@ -618,6 +620,7 @@ class _ChildDevPage3State extends State<ChildDevPage3> {
                           treatmentDate: formatDate(selectedDate),
                           treatmentType:secondChoice ,
                           hearingInfo: forth,
+                          type:typeChoice,
                           affectedEars:thirdChoice ,
                         );
                         provider.updateAudioModel(model);

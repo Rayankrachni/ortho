@@ -157,7 +157,7 @@ class _FamilyInfoState extends State<FamilyInfo> {
                       child: AppTextField(
                         textFieldType: TextFieldType.NAME,
                         controller: fatherHealth,
-                        title: 'السوابق الصحية للعائلة',
+                        title: 'سوابق الأب الصحية',
                         errorThisFieldRequired: "This Field is required",
                         decoration: inputDecoration(context, labelText: "السوابق الصحية للعائلة",),
                         // suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
@@ -235,7 +235,8 @@ class _FamilyInfoState extends State<FamilyInfo> {
                             fatherHealthReport: fatherHealth.text,
                             motherName: motherName.text,
                             motherAge: motherAge.text,
-                            motherEducation: motherEducation.text
+                            motherEducation: motherEducation.text,
+                            fatherJob: fatherJob.text
                           );
                           push(context: context, screen: FamilyCompletedInfo(familyInfo:familyModel ,));
                         //  push(context: context, screen: ChildDevPage3());

@@ -2,8 +2,14 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:orthophonienewversion/Result/dispaly-auditory-side..dart';
 import 'package:orthophonienewversion/Result/dispaly-genearl-info.dart';
+import 'package:orthophonienewversion/Result/display-diseases-nervous-system.dart';
+import 'package:orthophonienewversion/Result/display-emotional-growth.dart';
+import 'package:orthophonienewversion/Result/display-language-dev.dart';
+import 'package:orthophonienewversion/Result/display-pregnancy-step3.dart';
 import 'package:orthophonienewversion/Result/familly-info.dart';
+import 'package:orthophonienewversion/Result/pregnancy-step12.dart';
 import 'package:orthophonienewversion/homePage.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
@@ -19,8 +25,9 @@ class DisplayDataWidget  extends StatefulWidget {
 }
 
 class _DisplayDataWidgetState extends State<DisplayDataWidget > {
-  final List<String> pages = ['Page 1', 'Page 2', 'Page 3'];
-  final List<Widget> classes = [DisplayGeneralInfo(), FamilyInfoDisplay(), DisplayGeneralInfo()];
+  final List<String> titles = ["المعلومات العامة ","معلومات العائلة", "حالة الام أثناء الحمل","الجانب الحسي","النمو اللغوي","النمو الوجداني","الجانب السمعي","امراض الجهاز العصبي"];
+
+  final List<Widget> classes = [DisplayGeneralInfo(), FamilyInfoDisplay(), PregnancyStep12(), DisplayPregnancyStep3(),DisplayLanguageDev(),DisplayEmotionalGrowth(),DisplayAuditorySide(),DisplayDiseasesNervousSystem()];
   int currentPageIndex = 0;
 
   @override
@@ -29,17 +36,24 @@ class _DisplayDataWidgetState extends State<DisplayDataWidget > {
 
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("عرض المعلومات"),
+        backgroundColor: primaryColor,
+        title: Text(titles[currentPageIndex],style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
         centerTitle: true,
 
 
         iconTheme:const IconThemeData(
-            color: Colors.white
+            color:  primaryColor,
         ),
         leading: GestureDetector(
           onTap: (){
-            Navigator.pop(context);
+             if (currentPageIndex >0) {
+               setState(() {
+                 currentPageIndex --;
+               });
+             }else{
+               Navigator.pop(context);
+             }
+
           },
           child: Padding(
             padding: const EdgeInsets.all(15.0),
@@ -48,7 +62,7 @@ class _DisplayDataWidgetState extends State<DisplayDataWidget > {
               width: 20,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: primaryColor,
+                color: Colors.white,
               ),
               child:const Icon(Icons.arrow_back,size: 17,),
             ),
@@ -57,7 +71,14 @@ class _DisplayDataWidgetState extends State<DisplayDataWidget > {
         actions: [
           GestureDetector(
             onTap: (){
-              pushAndRemove(context: context, screen: HomePage());
+              if (currentPageIndex < classes.length - 1) {
+                // Navigate to the next page if not at the last page
+                navigateToNextPage();
+              } else {
+                // Navigate to the home page if at the last page
+               pushAndRemove(context: context, screen: HomePage());
+              }
+             // pushAndRemove(context: context, screen: HomePage());
             },
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -66,19 +87,20 @@ class _DisplayDataWidgetState extends State<DisplayDataWidget > {
                 width: 30,
                 decoration:const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: primaryColor,
+                  color: Colors.white,
                 ),
-                child:const Icon(Icons.home,size: 17,),
+                child:currentPageIndex < classes.length - 1 ?Icon(Icons.arrow_forward,size: 17,) :Icon(Icons.home,size: 17,),
               ),
             ),
           ),
         ],
+
       ),
       body: Column(
         children: [
           Expanded(
             child: PageView.builder(
-              itemCount: pages.length,
+              itemCount: classes.length,
               controller: PageController(initialPage: currentPageIndex),
               onPageChanged: (index) {
                 setState(() {
@@ -86,7 +108,7 @@ class _DisplayDataWidgetState extends State<DisplayDataWidget > {
                 });
               },
               itemBuilder: (context, index) {
-                return buildPage(index);
+                return buildPage(currentPageIndex);
               },
             ),
           ),
@@ -101,7 +123,7 @@ class _DisplayDataWidgetState extends State<DisplayDataWidget > {
   }
 
   void navigateToNextPage() {
-    if (currentPageIndex < pages.length - 1) {
+    if (currentPageIndex < classes.length - 1) {
       setState(() {
         currentPageIndex++;
       });

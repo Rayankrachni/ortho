@@ -373,7 +373,7 @@ class _ChildDevPage1State extends State<languageDevPage> {
                         LanguageDevModel model= LanguageDevModel(
                           babbling: bubbling.text,
                           firstPhrase:firstPhrase.text ,
-                          isTalking:firstChoice ,
+                          isTalking:fifth ,
                           firstWord: firstPhrase.text,
                           language: homeLanguage.text,
                           talk: talk.text,

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/Result/ResponsePage.dart';
 import 'package:orthophonienewversion/homePage.dart';
+import 'package:orthophonienewversion/model/deiseases-model.dart';
 import 'package:orthophonienewversion/pages/childDev/child-dev-page1.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 class ChildDevPage2 extends StatefulWidget {
   const ChildDevPage2({super.key});
 
@@ -20,22 +23,13 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
   String? secondChoice;
   String? thirdChoice;
 
-  TextEditingController sittingAge = TextEditingController();
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3= TextEditingController();
-  TextEditingController controller4 = TextEditingController();
-  TextEditingController controller5 = TextEditingController();
-  TextEditingController controller6 = TextEditingController();
-  TextEditingController controller8 = TextEditingController();
-  TextEditingController controller7 = TextEditingController();
-  TextEditingController controller9 = TextEditingController();
-  TextEditingController controller10 = TextEditingController();
-  TextEditingController walkingAge = TextEditingController();
-  TextEditingController personalHygieneAcquisition = TextEditingController();
+  TextEditingController meningitis = TextEditingController();
+  TextEditingController encephalitis = TextEditingController();
+  TextEditingController developEpilepsyTime = TextEditingController();
+  TextEditingController seizuresOccurTime= TextEditingController();
+  TextEditingController undergoneRegarding = TextEditingController();
+  TextEditingController epilepsy = TextEditingController();
 
-  double _sliderValue = 0.0;
-  double _sliderValue1 = 0.0;
 
 
 
@@ -60,6 +54,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final provider=Provider.of<FormDataProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -103,7 +98,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     padding: const EdgeInsets.all(10.0),
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: sittingAge,
+                      controller: meningitis,
                       title: 'التهاب السحايا ',
 
                       errorThisFieldRequired: "This Field is required",
@@ -117,7 +112,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
 
                     child: AppTextField(
                       textFieldType:TextFieldType.NAME,
-                      controller: controller1,
+                      controller: encephalitis,
 
                       title: ' التهاب الدماغ',
                       errorThisFieldRequired: "This Field is required",
@@ -132,7 +127,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     padding: const EdgeInsets.all(10.0),
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller9,
+                      controller: epilepsy,
                       title: 'الصرع ',
 
                       errorThisFieldRequired: "This Field is required",
@@ -152,7 +147,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                           padding: const EdgeInsets.all(10.0),
                           child: AppTextField(
                             textFieldType: TextFieldType.NAME,
-                            controller: controller10,
+                            controller: developEpilepsyTime,
                             title: 'متى أصيب بالصرع؟',
 
                             errorThisFieldRequired: "This Field is required",
@@ -168,7 +163,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                           padding: const EdgeInsets.all(10.0),
                           child: AppTextField(
                             textFieldType: TextFieldType.NAME,
-                            controller: controller2,
+                            controller: seizuresOccurTime,
                             title: 'متى تحدث له النوبات',
 
                             errorThisFieldRequired: "This Field is required",
@@ -394,7 +389,7 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     padding: const EdgeInsets.all(10.0),
                     child: AppTextField(
                       textFieldType: TextFieldType.NAME,
-                      controller: controller8,
+                      controller: undergoneRegarding,
                       title: 'ماهي الفحوصات التي قام بها',
 
                       errorThisFieldRequired: "This Field is required",
@@ -410,7 +405,20 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                       print(firstChoice);
 
                       if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null  ){
+                        DiseaseModel model= DiseaseModel(
+                          developEpilepsyTime:developEpilepsyTime.text ,
+                          encephalitis:encephalitis.text ,
+                          meningitis: meningitis.text,
+                          hasTonsillitis:firstChoice ,
+                          seizuresOccurTime:seizuresOccurTime.text ,
+                          takeVaccinations:secondChoice ,
+                          undergoneRegarding: undergoneRegarding.text,
+                        );
+                        provider.updateDiseaseModel(model);
+
                         push(context: context, screen: DisplayDataWidget());
+
+
                       }else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
                       }

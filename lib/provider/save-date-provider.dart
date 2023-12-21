@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/model/audio_model.dart';
 import 'package:orthophonienewversion/model/complete-info-model.dart';
+import 'package:orthophonienewversion/model/deiseases-model.dart';
 import 'package:orthophonienewversion/model/general-info-model.dart';
 import 'package:orthophonienewversion/model/language-dev-model.dart';
 import 'package:orthophonienewversion/model/language-dev2-model.dart';
@@ -91,6 +92,12 @@ class FormDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  DiseaseModel diseaseModel=  DiseaseModel();
+  // Add other form fields as needed
 
+  void updateDiseaseModel(DiseaseModel model) {
+    diseaseModel = model;
+    notifyListeners();
+  }
 
 }
