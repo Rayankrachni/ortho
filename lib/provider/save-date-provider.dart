@@ -19,6 +19,65 @@ class FormDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<String> audioAnswers =['','','','','','','',''];
+
+
+  void updateAudioAnswer(int index,String answer) {
+
+    print("-----------$index-------");
+    audioAnswers[index-1] = answer;
+    print( audioAnswers[index-1]);
+    notifyListeners();
+  }
+
+
+  List<String> physicalAnswers =['','','','','','','',''];
+
+
+  void updatePhysicalAnswer(int index,String answer) {
+
+    physicalAnswers[index] = answer;
+
+    notifyListeners();
+  }
+
+ String hair ='';
+
+
+  void updateHairValue(String answer) {
+    hair = answer;
+    notifyListeners();
+  }
+
+
+  String eyes ='';
+
+
+  void updateEyesValue(String answer) {
+    eyes = answer;
+    notifyListeners();
+  }
+
+
+  String hand ='';
+
+
+  void updateHandValue(String answer) {
+    hand = answer;
+    notifyListeners();
+  }
+
+
+  String mouth ='';
+
+
+  void updateMouthValue(String answer) {
+    mouth = answer;
+    notifyListeners();
+  }
+
+
+
 
   CompleteFamilyInfo completeFamilyInfo=CompleteFamilyInfo();
   // Add other form fields as needed

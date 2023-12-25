@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:orthophonienewversion/pages/generalInfo/generalInformation.dart';
+import 'package:orthophonienewversion/pages/Creation/generalInfo/generalInformation.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';

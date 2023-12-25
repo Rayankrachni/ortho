@@ -42,6 +42,8 @@ dependencies:
   intl: ^0.19.0
   lottie: ^2.7.0
   provider: ^6.1.1
+  audioplayers: ^5.2.1
+  just_audio: ^0.9.36
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +69,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+
     - assets/ortophonieSplash.png
     - assets/generalInfo.png
     - assets/Nervou_System_Disorder.png
@@ -79,8 +82,11 @@ flutter:
     - assets/boy.png
     - assets/preg3.png
     - assets/note.png
+    -
     - assets/lottie/login.json
     - assets/lottie/speech.json
+    - assets/lottie/audio.json
+
     - assets/in.png
     - assets/on.png
     - assets/inFrontOf.png
@@ -92,6 +98,23 @@ flutter:
     - assets/facebook.png
     - assets/pregancy1.png
     - assets/pregancy2.png
+
+    - assets/audio/rain_audio.mp3
+    - assets/audio/bird_sound.mp3
+    - assets/audio/beach_sound.mp3
+    - assets/audio/rain-and-thunder.mp3
+
+    - assets/audio/thunder.mp3
+    - assets/audio/policeCar.mp3
+    - assets/audio/carSound.mp3
+    - assets/audio/horse.mp3
+
+
+    - assets/preposition/on.png
+    - assets/preposition/inFrontOf.png
+    - assets/preposition/beside.png
+    - assets/preposition/behind.png
+    - assets/preposition/under.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

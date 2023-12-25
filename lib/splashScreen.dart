@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/auth/signIn.dart';
 import 'package:orthophonienewversion/homePage.dart';
+import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/PlacePreposition.dart';
+import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/envirnmentSound.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:orthophonienewversion/walkthrow.dart';
@@ -21,11 +23,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer( const Duration(seconds: 5), () async{
+//WalkThroughScreen
+      pushAndRemove(context: context, screen:WalkThroughScreen());
 
-      pushAndRemove(context: context, screen:  WalkThroughScreen());
 
 
-     /* bool? isLogin = await SharedPreferencesHelper.getBool('isLogin');
+      /* bool? isLogin = await SharedPreferencesHelper.getBool('isLogin');
 
       if(isLogin==null || isLogin == false){
         pushAndRemove(context: context, screen: LoginPage());
