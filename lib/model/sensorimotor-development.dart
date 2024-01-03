@@ -28,12 +28,11 @@ class SensorimotorDevelopment{
 
   factory SensorimotorDevelopment.fromJson(Map<String, dynamic> json) => SensorimotorDevelopment(
     id: json['id'].toString(),
-    smilAge: int.parse(json['smilAge'].toString(),),
-    sittingAge:int.parse(json['sittingAge'].toString(),),
-    crawlingAge: int.parse(json['crawlingAge'].toString(),),
-    walkingAge: int.parse(json['walking'].toString(),),
-    personalHygieneAcquisition: json['personalHygieneAcquisition'].toString(),
-
+    smilAge: int.parse(json['smile_age'].toString(),),
+    sittingAge:int.parse(json['sit_age'].toString(),),
+    crawlingAge: int.parse(json['crawl_age'].toString(),),
+    walkingAge: int.parse(json['walk_age'].toString(),),
+    personalHygieneAcquisition: json['personal_hygiene'].toString(),
 
     //docsUrls: json['docsUrls'],
 

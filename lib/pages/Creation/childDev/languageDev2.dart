@@ -46,10 +46,10 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
   bool multichoice3=false;
 
 
-  String? firstChoice;
-  String? secondChoice;
-  String? thirdChoice;
-  String? fourth;
+  bool? firstChoice;
+  bool? secondChoice;
+  bool? thirdChoice;
+  bool? fourth;
   String? fifth;
   String? multiChoice;
 
@@ -116,57 +116,61 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isTrue0=!isTrue0;
-                            isNo0=false;
-                            firstChoice="نعم";
-
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isTrue0? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isTrue0=!isTrue0;
+                              isNo0=false;
+                              firstChoice=true;
+                        
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isTrue0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isTrue0? Colors.black:Colors.white, ),)),
                           ),
-                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue0? Colors.black:Colors.white, ),)),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isNo0=!isNo0;
-                            isTrue0=false;
-                            firstChoice="لا";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isNo0? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isNo0=!isNo0;
+                              isTrue0=false;
+                              firstChoice=false;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isNo0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isNo0? Colors.black:Colors.white,),)),
                           ),
-                          child: Center(child: Text("لا",style: TextStyle(color:!isNo0? Colors.black:Colors.white,),)),
                         ),
                       )
                     ],
@@ -174,7 +178,7 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
 
 
 
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
 
 
 
@@ -192,58 +196,62 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isTrue1=!isTrue1;
-                            isNo1=false;
-                            secondChoice="نعم";
-
-
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isTrue1? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isTrue1=!isTrue1;
+                              isNo1=false;
+                              secondChoice=true;
+                        
+                        
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isTrue1? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isTrue1? Colors.black:Colors.white, ),)),
                           ),
-                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue1? Colors.black:Colors.white, ),)),
                         ),
                       ),
                       GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isNo1=!isNo1;
-                            isTrue1=false;
-                            secondChoice="لا";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isNo1? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isNo1=!isNo1;
+                              isTrue1=false;
+                              secondChoice=false;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isNo1? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isNo1? Colors.black:Colors.white,),)),
                           ),
-                          child: Center(child: Text("لا",style: TextStyle(color:!isNo1? Colors.black:Colors.white,),)),
                         ),
                       )
                     ],
@@ -263,57 +271,61 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isTrue3=!isTrue3;
-                            isNo3=false;
-                            thirdChoice="نعم";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isTrue3? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isTrue3=!isTrue3;
+                              isNo3=false;
+                              thirdChoice=true;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isTrue3? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isTrue3? Colors.black:Colors.white, ),)),
                           ),
-                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue3? Colors.black:Colors.white, ),)),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isNo3=!isNo3;
-                            isTrue3=false;
-
-                            thirdChoice="لا";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isNo3? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      ), 
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isNo3=!isNo3;
+                              isTrue3=false;
+                        
+                              thirdChoice=false;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isNo3? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isNo3? Colors.black:Colors.white,),)),
                           ),
-                          child: Center(child: Text("لا",style: TextStyle(color:!isNo3? Colors.black:Colors.white,),)),
                         ),
                       )
                     ],
@@ -333,57 +345,61 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isTrue4=!isTrue4;
-                            isNo4=false;
-
-                            fourth="نعم";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isTrue4? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isTrue4=!isTrue4;
+                              isNo4=false;
+                        
+                              fourth=true;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isTrue4? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isTrue4? Colors.black:Colors.white, ),)),
                           ),
-                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue4? Colors.black:Colors.white, ),)),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isNo4=!isNo4;
-                            isTrue4=false;
-                            fourth="لا";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isNo4? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isNo4=!isNo4;
+                              isTrue4=false;
+                              fourth=false;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isNo4? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isNo4? Colors.black:Colors.white,),)),
                           ),
-                          child: Center(child: Text("لا",style: TextStyle(color:!isNo4? Colors.black:Colors.white,),)),
                         ),
                       )
                     ],
@@ -405,7 +421,27 @@ class _LanguageDevPage2State extends State<LanguageDevPage2> {
                           isSocial:firstChoice ,
                         );
                         provider.updateLanguageDev2(model);
-                        push(context: context, screen: ChildDevPage3());
+                        provider.socialInteractions(model, context);
+
+                        if (provider.isLoading) {
+                          showDialog(
+                            barrierColor: Colors.transparent,
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                elevation: 0,
+                                backgroundColor: Colors.transparent,
+                                content: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  color: Colors.white.withOpacity(0.0),
+                                  child: Center(child: CircularProgressIndicator(color: primaryColor)),
+                                ),
+                              );
+                            },
+                          );
+                        }
+
                       }else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
                       }

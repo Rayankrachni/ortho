@@ -10,7 +10,7 @@ class LanguageDevModel{
   final String? babbling;
   final String? firstPhrase;
   final String? talkType;
-  final String? isTalking;
+  final bool? isTalking;
 
 
 
@@ -31,13 +31,16 @@ class LanguageDevModel{
 
   factory LanguageDevModel.fromJson(Map<String, dynamic> json) => LanguageDevModel(
     id: json['id'].toString(),
-    isTalking: json['isTalking'].toString(),
-    talkType: json['talkType'].toString(),
-    talk: json['talk'].toString(),
-    babbling: json['babbling'].toString(),
-    firstPhrase: json['firstPhrase'].toString(),
-    firstWord: json['firstWord'].toString(),
-    language: json['language'].toString(),
+
+
+
+    isTalking: json['signs_speech'] == 1 ? true : false ,
+    talkType: json['speach_type'].toString(),
+    talk: json['speach'].toString(),
+    babbling: json['bubbling'].toString(),
+    firstPhrase: json['first_phrase'].toString(),
+    firstWord: json['first_word'].toString(),
+    language: json['home_language'].toString(),
 
 
     //docsUrls: json['docsUrls'],

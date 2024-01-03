@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/model/deiseases-model.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/PlacePreposition.dart';
+import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/primary_achievements.main.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
@@ -17,9 +18,13 @@ class ChildDevPage2 extends StatefulWidget {
 
 class _ChildDevPage1State extends State<ChildDevPage2> {
 
-  String? firstChoice;
-  String? secondChoice;
+  bool? firstChoice;
+  bool? secondChoice;
   String? thirdChoice;
+
+  bool? isMeningitis;
+  bool? isEncephalitis;
+  bool? isepilepsy;
 
   TextEditingController meningitis = TextEditingController();
   TextEditingController encephalitis = TextEditingController();
@@ -28,9 +33,65 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
   TextEditingController undergoneRegarding = TextEditingController();
   TextEditingController epilepsy = TextEditingController();
 
+  DateTime? siesureTime;
+  DateTime? devEp;
+
+  Future<void> _selectSeizureTime(BuildContext context) async {
+    TimeOfDay initialTime = TimeOfDay.fromDateTime(siesureTime ?? DateTime.now());
+
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+    );
+
+    if (picked != null) {
+      DateTime selectedDateTime = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+        picked.hour,
+        picked.minute,
+      );
+
+      setState(() {
+        siesureTime = selectedDateTime;
+        print(siesureTime!.toLocal());
+
+        // Format the DateTime to display only the hour and minute
+        seizuresOccurTime.text =formatDateMin(siesureTime!);
+
+      });
+    }
+  }
 
 
+  Future<void> _selectdevelopEpilepsyTime(BuildContext context) async {
+    DateTime? initialDate = devEp ?? DateTime.now();
 
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != devEp) {
+      setState(() {
+        devEp = picked;
+        print(devEp!.toLocal());
+        developEpilepsyTime.text=formatDate(devEp!);
+      });
+    }
+  }
+
+
+  String formatDate(DateTime date) {
+    return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+  }
+
+  String formatDateMin(DateTime date) {
+    return '${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
+  }
 
   FocusNode sittingAgeFocus = FocusNode();
   FocusNode crawlingAgeFocus = FocusNode();
@@ -40,6 +101,17 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
 
   bool isTrue0=false;
   bool  isNo0=false;
+
+
+  bool isMTrue0=false;
+  bool  isMNo0=false;
+
+  bool isPTrue0=false;
+  bool  isPNo0=false;
+
+
+  bool isETrue0=false;
+  bool  isENo0=false;
 
 
   bool isTrue1=false;
@@ -91,83 +163,285 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                   const  Text("امراض الجهاز العصبي",style: TextStyle(color: Colors.black,fontSize: 20 ,fontFamily: 'myriadBold' ),),
                   const SizedBox(height: 5,),
 
-
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: AppTextField(
-                      textFieldType: TextFieldType.NAME,
-                      controller: meningitis,
-                      title: 'التهاب السحايا ',
-
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "التهاب السحايا"),
-                      // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: const Padding(
+                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
+                      child: Text("التهاب السحايا؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
 
-                    child: AppTextField(
-                      textFieldType:TextFieldType.NAME,
-                      controller: encephalitis,
+                    children: [
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                               isMTrue0=!isMTrue0;
+                                isMNo0=false;
+                              isMeningitis=true;
 
-                      title: ' التهاب الدماغ',
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "التهاب الدماغ",),
-                      //suffix: Icon(Icons.code,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
-                    ),
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isMTrue0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isMTrue0!? Colors.black:Colors.white, ),)),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isMNo0=!isMNo0;
+                              isMTrue0=false;
+                              isMeningitis=false;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isMNo0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isMNo0? Colors.black:Colors.white,),)),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
 
 
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: AppTextField(
-                      textFieldType: TextFieldType.NAME,
-                      controller: epilepsy,
-                      title: 'الصرع ',
-
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "الصرع "),
-                      // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
+                  SizedBox(height: 20,),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: const Padding(
+                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
+                      child: Text("التهاب الدماغ؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
                     ),
                   ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
 
+                    children: [
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isETrue0=!isETrue0;
+                              isENo0=false;
+                              isepilepsy=true;
+
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isETrue0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isETrue0? Colors.black:Colors.white, ),)),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isETrue0=false;
+                              isENo0=!isENo0;
+                              isepilepsy=false;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isENo0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isENo0? Colors.black:Colors.white,),)),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+
+
+                  SizedBox(height: 20,),
+
+
+
+                  const Align(
+                    alignment: Alignment.topRight,
+                    child:  Padding(
+                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
+                      child: Text("الصرع؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
+                    ),
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                    children: [
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isPTrue0=!isPTrue0;
+                              isPNo0=false;
+                              isEncephalitis=true;
+                        
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isPTrue0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isPTrue0? Colors.black:Colors.white, ),)),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isPTrue0=false;
+                              isPNo0=!isPNo0;
+                              isEncephalitis=true;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isPNo0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isPNo0? Colors.black:Colors.white,),)),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+
+                  const SizedBox(height: 20,),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 180,
-                        child:  Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: AppTextField(
-                            textFieldType: TextFieldType.NAME,
-                            controller: developEpilepsyTime,
-                            title: 'متى أصيب بالصرع؟',
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            _selectdevelopEpilepsyTime(context);
+                          },
+                          child: SizedBox(
+                            width: width*0.4,
+                         
+                            child:  Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: AppTextField(
 
-                            errorThisFieldRequired: "This Field is required",
-                            decoration: inputDecoration(context, labelText: "متى أصيب بالصرع؟"),
-                            // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
-                            autoFillHints: [AutofillHints.email],
+                                textFieldType: TextFieldType.NAME,
+                                controller: developEpilepsyTime,
+                                title: 'متى أصيب بالصرع؟',
+                                enabled: false,
+
+                                errorThisFieldRequired: "This Field is required",
+                                decoration: inputDecoration(context, labelText: "متى أصيب بالصرع؟"),
+                                // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
+                                autoFillHints: [AutofillHints.email],
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 180,
-                        child:    Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: AppTextField(
-                            textFieldType: TextFieldType.NAME,
-                            controller: seizuresOccurTime,
-                            title: 'متى تحدث له النوبات',
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            _selectSeizureTime(context);
+                          },
+                          child: SizedBox(
+                            width: width*0.4,
 
-                            errorThisFieldRequired: "This Field is required",
-                            decoration: inputDecoration(context, labelText: "متى تحدث له النوبات"),
-                            // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
-                            autoFillHints: [AutofillHints.email],
+                            child:    Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: AppTextField(
+                                textFieldType: TextFieldType.NAME,
+                                controller: seizuresOccurTime,
+                                title: 'متى تحدث له النوبات',
+                                enabled: false,
+
+                                errorThisFieldRequired: "This Field is required",
+                                decoration: inputDecoration(context, labelText: "متى تحدث له النوبات"),
+                                // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
+                                autoFillHints: [AutofillHints.email],
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -188,57 +462,61 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isTrue0=!isTrue0;
-                            isNo0=false;
-                            firstChoice="نعم";
-
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isTrue0? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isTrue0=!isTrue0;
+                              isNo0=false;
+                              firstChoice=true;
+                        
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isTrue0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isTrue0? Colors.black:Colors.white, ),)),
                           ),
-                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue0? Colors.black:Colors.white, ),)),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isNo0=!isNo0;
-                            isTrue0=false;
-                            firstChoice="لا";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isNo0? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isNo0=!isNo0;
+                              isTrue0=false;
+                              firstChoice=false;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isNo0? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isNo0? Colors.black:Colors.white,),)),
                           ),
-                          child: Center(child: Text("لا",style: TextStyle(color:!isNo0? Colors.black:Colors.white,),)),
                         ),
                       )
                     ],
@@ -257,166 +535,112 @@ class _ChildDevPage1State extends State<ChildDevPage2> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isTrue1=!isTrue1;
-                            isNo1=false;
-                            secondChoice="نعم";
 
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isTrue1? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isTrue1=!isTrue1;
+                              isNo1=false;
+                              secondChoice=true;
+
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isTrue1? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("نعم",style: TextStyle(color:!isTrue1? Colors.black:Colors.white, ),)),
                           ),
-                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue1? Colors.black:Colors.white, ),)),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isNo1=!isNo1;
-                            isTrue1=false;
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              isNo1=!isNo1;
+                              isTrue1=false;
 
-                            secondChoice="لا";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isNo1? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
+                              secondChoice=false;
+                            });
+                          },
+                          child: Container(
+                            width: width*0.4,
+                            height: height*0.05,
+                            decoration: BoxDecoration(
+                              color:!isNo1? Colors.white:primaryColor,
+                              borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1), // Shadow color
+                                  spreadRadius: 2, // How much the shadow should spread
+                                  blurRadius: 5, // How blurry the shadow should be
+                                  offset: Offset(0, 2), // Offset of the shadow
+                                ),
+                              ],
+                            ),
+                            child: Center(child: Text("لا",style: TextStyle(color:!isNo1? Colors.black:Colors.white,),)),
                           ),
-                          child: Center(child: Text("لا",style: TextStyle(color:!isNo1? Colors.black:Colors.white,),)),
                         ),
                       )
                     ],
                   ),
                   SizedBox(height: 10,),
-                  /*Align(
-                    alignment: Alignment.topRight,
-                    child: const Padding(
-                      padding:  EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5),
-                      child: Text("هل قام بكل الفحوص المطلوب؟",style: TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
-                    ),
-                  ),
+
                   const SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
 
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isTrue2=!isTrue2;
-                            isNo2=false;
-                            thirdChoice="نعم";
-
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isTrue2? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
-                          ),
-                          child: Center(child: Text("نعم",style: TextStyle(color:!isTrue2? Colors.black:Colors.white, ),)),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isNo2=!isNo2;
-                            isTrue2=false;
-                            thirdChoice="لا";
-                          });
-                        },
-                        child: Container(
-                          width: 170,
-                          height:40,
-                          decoration: BoxDecoration(
-                            color:!isNo2? Colors.white:primaryColor,
-                            borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1), // Shadow color
-                                spreadRadius: 2, // How much the shadow should spread
-                                blurRadius: 5, // How blurry the shadow should be
-                                offset: Offset(0, 2), // Offset of the shadow
-                              ),
-                            ],
-                          ),
-                          child: Center(child: Text("لا",style: TextStyle(color:!isNo2? Colors.black:Colors.white,),)),
-                        ),
-                      )
-                    ],
-                  ),*/
-                  const SizedBox(height: 10,),
-                  if(isTrue2) Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: AppTextField(
-                      textFieldType: TextFieldType.NAME,
-                      controller: undergoneRegarding,
-                      title: 'ماهي الفحوصات التي قام بها',
-
-                      errorThisFieldRequired: "This Field is required",
-                      decoration: inputDecoration(context, labelText: "ماهي الفحوصات التي قام بها"),
-                      // suffix: Icon(Icons.email,size: 17,color: Colors.grey.withOpacity(0.8),),
-                      autoFillHints: [AutofillHints.email],
-                    ),
-                  ),
 
                   GestureDetector(
                     onTap: (){
 
-                      print(firstChoice);
 
-                      if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null  ){
+                      if(formKey.currentState!.validate() && isMeningitis!=null && isEncephalitis!=null && isepilepsy!=null && firstChoice!=null && secondChoice!=null  ){
                         DiseaseModel model= DiseaseModel(
-                          developEpilepsyTime:developEpilepsyTime.text ,
-                          encephalitis:encephalitis.text ,
-                          meningitis: meningitis.text,
-                          hasTonsillitis:firstChoice ,
-                          seizuresOccurTime:seizuresOccurTime.text ,
-                          takeVaccinations:secondChoice ,
-                          undergoneRegarding: undergoneRegarding.text,
+
+                          encephalitis:isEncephalitis ,
+                          epilepsy: isepilepsy,
+                          meningitis: isMeningitis,
+                          sufferFromTonsillitis:firstChoice ,
+                          seizuresTime:seizuresOccurTime.text ,
+                          vaccinations:secondChoice ,
+                          firstExperienceSeizures: developEpilepsyTime.text,
+
                         );
                         provider.updateDiseaseModel(model);
 
-                       //
+                        provider.medicalHistories(model, context);
 
-                        push(context: context, screen: PlacePreposition());
+                        if (provider.isLoading) {
+                          showDialog(
+                            barrierColor: Colors.transparent,
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                elevation: 0,
+                                backgroundColor: Colors.transparent,
+                                content: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  color: Colors.white.withOpacity(0.0),
+                                  child: Center(child: CircularProgressIndicator(color: primaryColor)),
+                                ),
+                              );
+                            },
+                          );
+                        }
+
+
 
 
                       }else{

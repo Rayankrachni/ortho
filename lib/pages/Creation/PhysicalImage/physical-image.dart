@@ -6,8 +6,7 @@ import 'package:orthophonienewversion/pages/Creation/PhysicalImage/eyebrownDetec
 import 'package:orthophonienewversion/pages/Creation/PhysicalImage/hairDetection.dart';
 import 'package:orthophonienewversion/pages/Creation/PhysicalImage/handDetection.dart';
 import 'package:orthophonienewversion/pages/Creation/PhysicalImage/mouthDetection.dart';
-import 'package:orthophonienewversion/pages/Result/ResponsePage.dart';
-import 'package:orthophonienewversion/utils/app-toast.dart';
+import 'package:orthophonienewversion/completed-home-page.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
 
@@ -51,7 +50,7 @@ class _PhysicalImageState extends State<PhysicalImage> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
-
+    final provider=Provider.of<FormDataProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -63,7 +62,7 @@ class _PhysicalImageState extends State<PhysicalImage> {
         actions: [
           GestureDetector(
             onTap: (){
-              push(context: context, screen: DisplayDataWidget());
+              push(context: context, screen: CompletedHomePage());
               // pushAndRemove(context: context, screen: HomePage());
             },
             child: Padding(
@@ -107,14 +106,14 @@ class _PhysicalImageState extends State<PhysicalImage> {
               itemCount:classes.length,
 
               physics: NeverScrollableScrollPhysics(),
-              controller: PageController(initialPage: currentPageIndex),
+              controller: PageController(initialPage: provider.currentPageIndex),
               onPageChanged: (index) {
                 setState(() {
-                  currentPageIndex = index;
+                  provider.currentPageIndex = index;
                 });
               },
               itemBuilder: (context, index) {
-                return buildPage(currentPageIndex);
+                return buildPage(provider.currentPageIndex  );
               },
             ),
           ),
@@ -126,50 +125,11 @@ class _PhysicalImageState extends State<PhysicalImage> {
 
   }
   Widget buildPage(int index) {
-    final provider=Provider.of<FormDataProvider>(context);
+
     return Column(
       children: [
         classes[index],
-        GestureDetector(
-          onTap: (){
-            print("provider.audioAnswers[index] $index");
-            print(provider.physicalAnswers[index]);
-            if(provider.physicalAnswers[index]!=''){
 
-              if(index!=classes.length-1){
-                navigateToNextPage();
-              }else{
-                push(context: context, screen: DisplayDataWidget());
-              }
-
-              //
-              // ToastHelper.showToast(msg: "next Index", backgroundColor: pinklight);
-            }else{
-              ToastHelper.showToast(msg: "اختر إجابة", backgroundColor: pinklight);
-            }
-
-
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-                height:50,
-                width: MediaQuery.of(context).size.width*0.8,
-                child:Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    gradient:const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [pinklight,pink,Colors.pink],
-
-                    ),
-                  ),
-                  child: const Center(child:  Text("التالي",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w600,fontFamily: 'myriad'),)),
-                )
-            ),
-          ),
-        ),
       ],
     );
   }

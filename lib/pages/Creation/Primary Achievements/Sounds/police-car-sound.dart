@@ -6,6 +6,7 @@ import 'package:orthophonienewversion/model/sound-model.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_animations/animation_controller_extension/animation_controller_extension.dart';
 class PoliceCarSound extends StatefulWidget {
   int index;
   PoliceCarSound({super.key,required this.index});
@@ -14,13 +15,13 @@ class PoliceCarSound extends StatefulWidget {
   State<PoliceCarSound> createState() => _PoliceCarSoundState();
 }
 
-class _PoliceCarSoundState extends State<PoliceCarSound> {
+class _PoliceCarSoundState extends State<PoliceCarSound> with TickerProviderStateMixin {
   final Sound sound =   Sound(imagesPath: "assets/pregancy1.png", soundPath: "audio/policeCar.mp3",isPaly: false);
-  List<String> soundsSuggetion=["صوت الأمطار ","صوت سيارة الشرطة","صوت الرعد","صوت البحر "];
+  List<String> soundsSuggetion=["صوت سيارة الشرطة","صوت العصافير","صوت الرعد","صوت البحر "];
   List<bool> isChecked =[false,false,false,false];
 
   AudioPlayer audioPlayerList = AudioPlayer();
-
+  late final AnimationController _controller;
 
 
 
@@ -31,6 +32,7 @@ class _PoliceCarSoundState extends State<PoliceCarSound> {
 
     audioPlayerList=AudioPlayer();
 
+    _controller = AnimationController(vsync: this,);
 
 
 
@@ -40,7 +42,7 @@ class _PoliceCarSoundState extends State<PoliceCarSound> {
   void dispose() {
     audioPlayerList.dispose();
 
-
+    _controller.dispose();
     super.dispose();
   }
   bool isPlay=false;
@@ -54,7 +56,7 @@ class _PoliceCarSoundState extends State<PoliceCarSound> {
       });
       await audioPlayerList.play(AssetSource(soundPath));
 
-
+      _controller.play();
 
     } catch (e) {
       print('Error playing sound: $e');
@@ -70,7 +72,8 @@ class _PoliceCarSoundState extends State<PoliceCarSound> {
       setState(() {
         isPlay=!isPlay;
       });
-      await audioPlayerList.pause();
+      await audioPlayerList.stop();
+      _controller.stop();
     } catch (e) {
       print('Error pausing sound: $e');
     }
@@ -91,7 +94,29 @@ class _PoliceCarSoundState extends State<PoliceCarSound> {
               child: SizedBox(
                   width: 200,
                   height: 100,
-                  child: Lottie.asset('assets/lottie/audio.json')),
+                  child: Lottie.asset('assets/lottie/audio.json',
+                    controller: _controller,
+                    onLoaded: (composition) {
+                      // Configure your animation here if needed
+                      _controller
+                        ..duration = composition.duration
+                        ..addListener(() {
+                          setState(() {
+                            // Animation is progressing
+                          });
+                        })
+                        ..addStatusListener((status) {
+                          if (status == AnimationStatus.completed) {
+                            // Animation completed
+                            // Optionally, you can loop the animation here
+                            _controller.reset();
+                            _controller.forward();
+                          }
+                        });
+                    },
+
+
+                  )),
             ),
             const SizedBox(height: 10),
 

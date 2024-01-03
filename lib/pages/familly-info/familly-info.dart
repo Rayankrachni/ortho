@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:orthophonienewversion/familly-info/familly-completed-page.dart';
 import 'package:orthophonienewversion/model/familly-info-model.dart';
+import 'package:orthophonienewversion/pages/familly-info/familly-completed-page.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
@@ -48,16 +48,16 @@ class _FamilyInfoState extends State<FamilyInfo> {
           onTap: (){
             Navigator.pop(context);
           },
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
+          child:  Padding(
+            padding:  EdgeInsets.all(height*0.02),
             child: Container(
-              height: 20,
-              width: 20,
+              height: height*0.02,
+              width: height*0.02,
               decoration:const BoxDecoration(
                 shape: BoxShape.circle,
                 color: primaryColor,
               ),
-              child:const Icon(Icons.arrow_back,size: 17,),
+              child: Icon(Icons.arrow_back,size: height*0.02,),
             ),
           ),
         ),
@@ -71,15 +71,15 @@ class _FamilyInfoState extends State<FamilyInfo> {
               child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
                     //Center(child: Image.asset("assets/onboarding1.png",height:height*0.4 ,width: width*0.6,)),
-                    const  Text("المعلومات العامة للعائلة",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 18 ,fontFamily: 'myriadBold' ),),
+                      Text("المعلومات العامة للعائلة",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: width*0.05 ,fontFamily: 'myriadBold' ),),
                     const SizedBox(height: 5,),
 
-                    Text("لتجربة جيدة قم بإدخال كل المعلومات",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: 12,fontFamily: 'myriad'  ),),
+                    Text("لتجربة جيدة قم بإدخال كل المعلومات",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: width*0.03,fontFamily: 'myriad'  ),),
                     const SizedBox(height: 5,),
 
                     Row(
@@ -87,7 +87,7 @@ class _FamilyInfoState extends State<FamilyInfo> {
                       children: [
 
                         SizedBox(
-                          width: 185,
+                          width: width*0.45,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: AppTextField(
@@ -104,7 +104,7 @@ class _FamilyInfoState extends State<FamilyInfo> {
                         ),
 
                         SizedBox(
-                          width: 185,
+                          width: width*0.45,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: AppTextField(
@@ -169,7 +169,7 @@ class _FamilyInfoState extends State<FamilyInfo> {
                       children: [
 //مهنة الام
                         SizedBox(
-                          width: 185,
+                          width: width*0.45,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: AppTextField(
@@ -186,7 +186,7 @@ class _FamilyInfoState extends State<FamilyInfo> {
                         ),
 
                         SizedBox(
-                          width: 185,
+                          width: width*0.45,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: AppTextField(
@@ -237,7 +237,7 @@ class _FamilyInfoState extends State<FamilyInfo> {
                             motherEducation: motherEducation.text,
                             fatherJob: fatherJob.text
                           );
-                          push(context: context, screen: FamilyCompletedInfo(familyInfo:familyModel ,));
+                          pushAndRemove(context: context, screen: FamilyCompletedInfo(familyInfo:familyModel ,));
                         //  push(context: context, screen: ChildDevPage3());
                         }else{
                           ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);

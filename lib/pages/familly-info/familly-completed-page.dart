@@ -31,7 +31,7 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
 
 
 
-  String? firstChoice;
+  bool? firstChoice;
 
 
   bool isTrue3=false;
@@ -145,7 +145,7 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
                             setState(() {
                               isTrue3=!isTrue3;
                               isNo3=false;
-                              firstChoice="نعم";
+                              firstChoice=true;
 
                             });
                           },
@@ -172,7 +172,7 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
                             setState(() {
                               isNo3=!isNo3;
                               isTrue3=false;
-                              firstChoice="لا";
+                              firstChoice=false;
                             });
                           },
                           child: Container(
@@ -356,6 +356,7 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
                       onTap: (){
 
                         if(formKey.currentState!.validate() && firstChoice!=null && secondChoice!=null){
+
                           FamilyInfoPart2 familyModel =FamilyInfoPart2(
                              motherJob:motherJob.text,
                              motherHealthReport:motherHealthReport.text,
@@ -377,8 +378,26 @@ class _FamilyInfoState extends State<FamilyCompletedInfo> {
                           );
 
                           provider.updatecompleteFamilyInfo(familyCompletModel);
+                          provider.postFamillyInfo(familyCompletModel, context);
+                          if (provider.isLoading) {
+                            showDialog(
+                              barrierColor: Colors.transparent,
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  elevation: 0,
+                                  backgroundColor: Colors.transparent,
+                                  content: Container(
+                                    padding: EdgeInsets.all(16.0),
+                                    color: Colors.white.withOpacity(0.0),
+                                    child: Center(child: CircularProgressIndicator(color: primaryColor)),
+                                  ),
+                                );
+                              },
+                            );
+                          }
 
-                          push(context: context, screen: PregancyMainPage());
                           //   push(context: context, screen: ChildDevPage3());
                         }else{
                           ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);

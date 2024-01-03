@@ -5,6 +5,7 @@ import 'package:orthophonienewversion/model/onboarding-model.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:orthophonienewversion/utils/dotIndicator.dart';
+import 'package:orthophonienewversion/utils/shared-pref-helper.dart';
 
 
 class WalkThroughScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
         children: [
 
           Positioned(
-            top: 106,
+            top: width*0.3,
             width: width,
             height: height,
             child: PageView.builder(
@@ -60,7 +61,7 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
               itemBuilder: (BuildContext context, int index) {
                 WalkThroughModelClass page = pages[index];
                 return Container(
-                  padding:const EdgeInsets.only(left: 30, right: 30),
+                  padding: EdgeInsets.only(left: width*0.05, right: width*0.05),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -72,15 +73,15 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                             child: Lottie.asset('assets/lottie/speech.json')),
                       ),
 
-                      Text(page.title.toString(),  textAlign: TextAlign.center,  style:const TextStyle(
-                        fontSize: 26,
+                      Text(page.title.toString(),  textAlign: TextAlign.center,  style: TextStyle(
+                        fontSize: width*0.06,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'myriadBold',
                       ),),
 
                       Text(page.subTitle.toString(), textAlign: TextAlign.center,
-                        style:const TextStyle(
-                        fontSize: 18,
+                        style: TextStyle(
+                        fontSize: width*0.045,
                         color: Colors.grey,
                           fontFamily: 'myriad',
 
@@ -98,9 +99,9 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
             ),
           ),
           Positioned(
-            bottom: 16,
-            left: 16,
-            right: 16,
+            bottom: width*0.05,
+            left: width*0.05,
+            right:width*0.05,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -112,8 +113,8 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                 /*    await setValue(IS_FIRST_TIME, false);
                     DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
                 */  },
-                  child:const Text("تخطي", style: TextStyle(
-                      fontSize: 16,
+                  child: Text("تخطي", style: TextStyle(
+                      fontSize:  width*0.04,
                       color: Colors.grey,
                       fontFamily: 'myriad',
 
@@ -143,15 +144,17 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                     ),
                     onPressed: () async {
                       if (currentPosition == 3) {
-                           push(context: context, screen: SignInScreen());
+
+                          await SharedPreferencesHelper.setBool("FIRST_USE",true);
+                           pushAndRemove(context: context, screen: SignInScreen());
                          } else {
                            pageController.nextPage(duration:const Duration(milliseconds: 500), curve: Curves.linearToEaseOut);
                       }
                     },
                     child: Text(
                       currentPosition == 3 ? "إبدأ" : "التالي",
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style:  TextStyle(
+                        fontSize: width*0.04,
                         color: Colors.white, // Text color
                       ),
                     ),

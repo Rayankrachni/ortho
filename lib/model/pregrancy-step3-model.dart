@@ -2,16 +2,12 @@
 
 class PregnancyStep3Model{
 
-
-
   late String? id;
   final int? childWeight;
-  final String? needResuscitation;
-  final String? cry;
+  final bool? needResuscitation;
+  final bool? cry;
   final String? duration;
-  final String? experienceDeficiency;
-
-
+  final bool? experienceDeficiency;
 
 
   PregnancyStep3Model({
@@ -21,18 +17,16 @@ class PregnancyStep3Model{
     this.cry,
     this.duration,
     this.experienceDeficiency,
-
-
-
   });
+
 
   factory PregnancyStep3Model.fromJson(Map<String, dynamic> json) => PregnancyStep3Model(
     id: json['id'].toString(),
-    childWeight: int.parse(json['childWeight'].toString(),),
-    needResuscitation: json['needResuscitation'].toString(),
-    cry: json['cry'].toString(),
-    duration: json['duration'].toString(),
-    experienceDeficiency: json['experienceDeficiency'].toString(),
+    childWeight: int.parse(json['baby_weight'].toString(),),
+    needResuscitation: json['need_resuscitation']  == 1 ? true : false ,
+    cry: json['cry_immediately']  == 1 ? true : false ,
+    duration: json['resuscitation_duration'].toString(),
+    experienceDeficiency: json['deficiency'] == 1 ? true : false ,
 
 
     //docsUrls: json['docsUrls'],
@@ -40,19 +34,7 @@ class PregnancyStep3Model{
   );
 
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'experienceDeficiency': experienceDeficiency,
-      'isNormal': cry,
-      'duration': duration,
-      'needResuscitation':needResuscitation,
-      'childWeight':childWeight
 
-
-    };
-
-  }
 
 
 }

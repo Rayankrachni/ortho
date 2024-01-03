@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:orthophonienewversion/model/sound-model.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_animations/animation_controller_extension/animation_controller_extension.dart';
 
 import '../../../../provider/save-date-provider.dart';
 class HorseSound extends StatefulWidget {
@@ -15,13 +16,13 @@ class HorseSound extends StatefulWidget {
   State<HorseSound> createState() => _RainAndThunderState();
 }
 
-class _RainAndThunderState extends State<HorseSound> {
+class _RainAndThunderState extends State<HorseSound> with TickerProviderStateMixin {
   final Sound sound =   Sound(imagesPath: "assets/pregancy1.png", soundPath: "audio/horse.mp3",isPaly: false);
-  List<String> soundsSuggetion=["صوت الحصان","صوت الحيوانات","صوت الرعد","صوت البحر "];
+  List<String> soundsSuggetion=["صوت الحصان","صوت العصافير","صوت الرعد","صوت البحر "];
   List<bool> isChecked =[false,false,false,false];
 
   AudioPlayer audioPlayerList = AudioPlayer();
-
+  late final AnimationController _controller;
 
 
 
@@ -32,7 +33,7 @@ class _RainAndThunderState extends State<HorseSound> {
 
     audioPlayerList=AudioPlayer();
 
-
+    _controller = AnimationController(vsync: this,);
 
 
   }
@@ -41,7 +42,7 @@ class _RainAndThunderState extends State<HorseSound> {
   void dispose() {
     audioPlayerList.dispose();
 
-
+    _controller.dispose();
     super.dispose();
   }
   bool isPlay=false;
@@ -55,7 +56,7 @@ class _RainAndThunderState extends State<HorseSound> {
       });
       await audioPlayerList.play(AssetSource(soundPath));
 
-
+      _controller.play();
 
     } catch (e) {
       print('Error playing sound: $e');
@@ -71,7 +72,8 @@ class _RainAndThunderState extends State<HorseSound> {
       setState(() {
         isPlay=!isPlay;
       });
-      await audioPlayerList.pause();
+      await audioPlayerList.stop();
+      _controller.stop();
     } catch (e) {
       print('Error pausing sound: $e');
     }
@@ -92,7 +94,29 @@ class _RainAndThunderState extends State<HorseSound> {
               child: SizedBox(
                   width: 200,
                   height: 100,
-                  child: Lottie.asset('assets/lottie/audio.json')),
+                  child: Lottie.asset('assets/lottie/audio.json',
+                    controller: _controller,
+                    onLoaded: (composition) {
+                      // Configure your animation here if needed
+                      _controller
+                        ..duration = composition.duration
+                        ..addListener(() {
+                          setState(() {
+                            // Animation is progressing
+                          });
+                        })
+                        ..addStatusListener((status) {
+                          if (status == AnimationStatus.completed) {
+                            // Animation completed
+                            // Optionally, you can loop the animation here
+                            _controller.reset();
+                            _controller.forward();
+                          }
+                        });
+                    },
+
+
+                  )),
             ),
             const SizedBox(height: 10),
 

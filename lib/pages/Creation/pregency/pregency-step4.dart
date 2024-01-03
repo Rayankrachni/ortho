@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:orthophonienewversion/familly-info/familly-info.dart';
 import 'package:orthophonienewversion/model/pregrancy-step3-model.dart';
 import 'package:orthophonienewversion/pages/Creation/childDev/child-dev-page1.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
@@ -23,9 +22,9 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
   double _sliderValue = 0.0;
   double _sliderValue1 = 0.0;
   bool isRemember = true;
-  String? firstChoice;
-  String? secondChoice;
-  String? thirdChoice;
+  bool? firstChoice;
+  bool? secondChoice;
+  bool? thirdChoice;
   bool isTrue1=false;
   bool isNo1=false;
 
@@ -127,7 +126,7 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                               isTrue3=!isTrue3;
                               isNo3=false;
 
-                              thirdChoice= "نعم";
+                              thirdChoice= true;
 
                             });
                           },
@@ -154,13 +153,13 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                             setState(() {
                               isNo3=!isNo3;
                               isTrue3=false;
-                              thirdChoice="لا";
+                              thirdChoice=false;
 
                             });
                           },
                           child: Container(
-                            width: 170,
-                            height:40,
+                            width: width*0.45,
+                            height: height*0.05,
                             decoration: BoxDecoration(
                               color:!isNo3? Colors.white:primaryColor,
                               borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -194,12 +193,12 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                             setState(() {
                               isTrue2=!isTrue2;
                               isNo2=false;
-                              secondChoice= "نعم";
+                              secondChoice= true;
                             });
                           },
                           child: Container(
-                            width: 170,
-                            height:40,
+                            width: width*0.45,
+                            height: height*0.05,
                             decoration: BoxDecoration(
                               color:!isTrue2? Colors.white:primaryColor,
                               borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -221,12 +220,12 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                               isNo2=!isNo2;
                               isTrue2=false;
 
-                              secondChoice="لا";
+                              secondChoice=false;
                             });
                           },
                           child: Container(
-                            width: 170,
-                            height:40,
+                            width: width*0.45,
+                            height: height*0.05,
                             decoration: BoxDecoration(
                               color:!isNo2? Colors.white:primaryColor,
                               borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -261,13 +260,13 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                             setState(() {
                               isTrue1=!isTrue1;
                               isNo1=false;
-                              firstChoice="نعم";
+                              firstChoice=true;
 
                             });
                           },
                           child: Container(
-                            width: 170,
-                            height:40,
+                            width: width*0.45,
+                            height: height*0.05,
                             decoration: BoxDecoration(
                               color:!isTrue1? Colors.white:primaryColor,
                               borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -288,13 +287,13 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                             setState(() {
                               isNo1=!isNo1;
                               isTrue1=false;
-                              firstChoice="لا";
+                              firstChoice=false;
 
                             });
                           },
                           child: Container(
-                            width: 170,
-                            height:40,
+                            width: width*0.45,
+                            height: height*0.05,
                             decoration: BoxDecoration(
                               color:!isNo1? Colors.white:primaryColor,
                               borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -350,8 +349,26 @@ class _PregrencyStep4State extends State<PregrencyStep4> {
                             needResuscitation: thirdChoice
                           );
                           provider.updatePregnancyStep3Model(model);
+                          provider.newbornDetails(model, context);
+                          if (provider.isLoading) {
+                            showDialog(
+                              barrierColor: Colors.transparent,
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  elevation: 0,
+                                  backgroundColor: Colors.transparent,
+                                  content: Container(
+                                    padding: EdgeInsets.all(16.0),
+                                    color: Colors.white.withOpacity(0.0),
+                                    child: Center(child: CircularProgressIndicator(color: primaryColor)),
+                                  ),
+                                );
+                              },
+                            );
+                          }
 
-                          push(context: context, screen: ChildDevPage1());
                         }else{
                           ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
                         }

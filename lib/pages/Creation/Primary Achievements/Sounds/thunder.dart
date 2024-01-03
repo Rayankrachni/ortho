@@ -6,6 +6,7 @@ import 'package:orthophonienewversion/model/sound-model.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_animations/animation_controller_extension/animation_controller_extension.dart';
 class ThunderSound extends StatefulWidget {
   int index;
   ThunderSound({super.key,required this.index});
@@ -14,12 +15,11 @@ class ThunderSound extends StatefulWidget {
   State<ThunderSound> createState() => _ThunderSoundState();
 }
 
-class _ThunderSoundState extends State<ThunderSound> {
+class _ThunderSoundState extends State<ThunderSound> with TickerProviderStateMixin {
   final Sound sound = Sound(imagesPath: "assets/onboarding1.png", soundPath: "audio/thunder.mp3",isPaly: false);
-  List<String> soundsSuggetion=["صوت الأمطار ","صوت الحيوانات","صوت الرعد","صوت البحر "];
+  List<String> soundsSuggetion=["صوت الأمطار ","صوت البرق","صوت الرعد","صوت السيارة"];
   List<bool> isChecked =[false,false,false,false];
-
-
+  late final AnimationController _controller;
   AudioPlayer audioPlayerList = AudioPlayer();
 
 
@@ -31,7 +31,7 @@ class _ThunderSoundState extends State<ThunderSound> {
     super.initState();
 
     audioPlayerList=AudioPlayer();
-
+    _controller = AnimationController(vsync: this,);
 
 
 
@@ -41,7 +41,7 @@ class _ThunderSoundState extends State<ThunderSound> {
   void dispose() {
     audioPlayerList.dispose();
 
-
+    _controller.dispose();
     super.dispose();
   }
   bool isPlay=false;
@@ -55,7 +55,7 @@ class _ThunderSoundState extends State<ThunderSound> {
       });
       await audioPlayerList.play(AssetSource(soundPath));
 
-
+      _controller.play();
 
     } catch (e) {
       print('Error playing sound: $e');
@@ -71,7 +71,7 @@ class _ThunderSoundState extends State<ThunderSound> {
       setState(() {
         isPlay=!isPlay;
       });
-      await audioPlayerList.pause();
+      await audioPlayerList.stop();
     } catch (e) {
       print('Error pausing sound: $e');
     }
@@ -92,7 +92,29 @@ class _ThunderSoundState extends State<ThunderSound> {
               child: SizedBox(
                   width: 200,
                   height: 100,
-                  child: Lottie.asset('assets/lottie/audio.json')),
+                  child: Lottie.asset('assets/lottie/audio.json',
+                    controller: _controller,
+                    onLoaded: (composition) {
+                      // Configure your animation here if needed
+                      _controller
+                        ..duration = composition.duration
+                        ..addListener(() {
+                          setState(() {
+                            // Animation is progressing
+                          });
+                        })
+                        ..addStatusListener((status) {
+                          if (status == AnimationStatus.completed) {
+                            // Animation completed
+                            // Optionally, you can loop the animation here
+                            _controller.reset();
+                            _controller.forward();
+                          }
+                        });
+                    },
+
+
+                  )),
             ),
             const SizedBox(height: 10),
 

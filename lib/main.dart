@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/homePage.dart';
+import 'package:orthophonienewversion/provider/dio.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/splashScreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => FormDataProvider()),
+        Provider(create: (context) => ApiProvider()),
+        ChangeNotifierProxyProvider<ApiProvider, FormDataProvider>(
+          create: (context) =>
+              FormDataProvider(Provider.of<ApiProvider>(context, listen: false)),
+          update: (context, api, user) => FormDataProvider(api),
+        ),
         // Add other providers as needed
       ],
       child: MyApp(),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:orthophonienewversion/auth/signUp.dart';
 import 'package:orthophonienewversion/homePage.dart';
+import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {
    SignInScreen({super.key});
@@ -22,6 +25,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final provider=Provider.of<FormDataProvider>(context);
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -47,20 +51,19 @@ class SignInScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
 
-
                         SizedBox(
                             height:height*0.15,
                             child: Lottie.asset('assets/lottie/login.json')),
-                        const  Text("تسجيل الدخول باستخدام حسابك ",style: TextStyle(color: Colors.black,fontSize: 20,fontFamily: 'myriadBold'  ),),
-                        const SizedBox(height: 10,),
-                        Text("يرجى إدخال كل المعلومات المطلوبة",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: 12,fontFamily: 'myriad'  ),),
-                        const SizedBox(height:10,),
+                        Text("تسجيل الدخول باستخدام حسابك ",style: TextStyle(color: Colors.black,fontSize: height*0.026,fontFamily: 'myriadBold'  ),),
+                        SizedBox(height:height*0.02,),
+                        Text("يرجى إدخال كل المعلومات المطلوبة",style: TextStyle(color: Colors.grey.withOpacity(0.8),fontSize: width*0.035,fontFamily: 'myriad'  ),),
+                        SizedBox(height:height*0.02,),
 
 
                         //TEXTFORMFIELD
 
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding:  EdgeInsets.all(height*0.01),
                           child: AppTextField(
                             textFieldType: TextFieldType.EMAIL_ENHANCED,
                             controller: emailCont,
@@ -75,7 +78,7 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding:EdgeInsets.all(height*0.01),
 
                           child: AppTextField(
                             textFieldType: TextFieldType.NAME,
@@ -97,17 +100,20 @@ class SignInScreen extends StatelessWidget {
                             autoFillHints: [AutofillHints.email],
                           ),
                         ),
+                        SizedBox(height:height*0.02,),
+                        !provider.isLoading?
                         GestureDetector(
                           onTap: (){
                             if(formKey.currentState!.validate()){
-                              push(context: context, screen: HomePage());
+                              provider.loginWithEmail(emailCont.text,passwordCont.text,context);
+
                             }
 
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(height*0.01),
                             child: SizedBox(
-                              height: 50,
+                              height: height*0.06,
                               width: width,
                               child:Container(
                                   decoration: BoxDecoration(
@@ -119,76 +125,24 @@ class SignInScreen extends StatelessWidget {
 
                                     ),
                                   ),
-                                child:const Center(child:  Text("تسجيل ",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w700,fontFamily: 'myriad'),)),
+                                child: Center(child:  Text("تسجيل ",style: TextStyle(color: Colors.white,fontSize: height*0.022,fontWeight: FontWeight.w700,fontFamily: 'myriad'),)),
                               )
                             ),
                           ),
-                        ),
+                        ):CircularProgressIndicator(color: primaryColor,),
+                        SizedBox(height:height*0.02,),
 
                         //OTHERWAY TO REGISTER
-                        Text("او التسجيل عن طريق ",style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 14  ),),
-                        const SizedBox(height: 20,),
-                        Row(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: width*0.35,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    spreadRadius: 2,
-                                    blurRadius: 3,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(8), // Adjust the radius value as needed
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset("assets/google.png",height:height*0.03,),
-                                  SizedBox(width: 10,),
-                                  const Text("Google",style: TextStyle(fontFamily: 'myriad',fontWeight: FontWeight.bold),)
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 20,),
-                            Container(
-                              width: width*0.35,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
+                       // Text("او التسجيل عن طريق ",style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 14  ),),
+                        SizedBox(height:height*0.02,),
 
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    spreadRadius: 2,
-                                    blurRadius: 3,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(8), // Adjust the radius value as needed
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    "assets/facebook.png",
-                                    height: height * 0.03,
-                                  ),
-                                  SizedBox(width: 10,),
-                                  Text("facebook",style: TextStyle(fontFamily: 'myriad',fontWeight: FontWeight.bold),)
-                                ],
-                              ),
-                            )
-
-                          ],
+                        TextButton(onPressed: (){
+                          push(context: context, screen: SignUpScreen());
+                        }, child:  const  Text("انشاء حساب جديد",style: TextStyle(color: primaryColor,fontSize:16 ,fontWeight: FontWeight.bold  ),),
                         ),
 
 
+                        SizedBox(height: height*0.05,),
                       ],
                     ),
                   ),

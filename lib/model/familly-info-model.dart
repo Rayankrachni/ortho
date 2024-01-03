@@ -32,14 +32,14 @@ class FamilyInfoPart1{
 
   factory FamilyInfoPart1.fromJson(Map<String, dynamic> json) => FamilyInfoPart1(
     id: json['id'].toString(),
-    fatherHealthReport: json['fatherHealthReport'].toString(),
-    fatherEducation: json['fatherEducation'].toString(),
-    fatherAge: json['fatherAge'].toString(),
-    fatherName: json['fatherName'].toString(),
-    motherEducation: json['motherEducation'].toString(),
-    motherAge: json['motherAge'].toString(),
-    motherName: json['motherName'].toString(),
-    fatherJob: json['fatherJob'].toString(),
+    fatherHealthReport: json['father_health_history'].toString(),
+    fatherEducation: json['father_educational_level'].toString(),
+    fatherAge: json['father_age'].toString(),
+    fatherName: json['father_name'].toString(),
+    motherEducation: json['mother_educational_level'].toString(),
+    motherAge: json['mother_age'].toString(),
+    motherName: json['mother_name'].toString(),
+    fatherJob: json['father_job'].toString(),
 
 
     //docsUrls: json['docsUrls'],

@@ -25,13 +25,13 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
 
   bool isTrue1=false;
   bool isNo1=false;
-  String? firstChoice;
+  bool? firstChoice;
   bool isTrue2=false;
   bool isNo2=false;
-  String? secondChoice;
+  bool? secondChoice;
   bool isTrue3=false;
   bool isNo3=false;
-  String? thirdChoice;
+  bool? thirdChoice;
   @override
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
@@ -104,13 +104,14 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                           setState(() {
                             isTrue1=!isTrue1;
                             isNo1=false;
-                            firstChoice="نعم";
+                            firstChoice=true;
 
                           });
                         },
                         child: Container(
-                          width: 170,
-                          height:40,
+                          width: width*0.45,
+                          height: height*0.05,
+
                           decoration: BoxDecoration(
                             color:!isTrue1? Colors.white:primaryColor,
                             borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -131,13 +132,13 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                           setState(() {
                             isNo1=!isNo1;
                             isTrue1=false;
-                            firstChoice="لا";
+                            firstChoice=false;
 
                           });
                         },
                         child: Container(
-                          width: 170,
-                          height:40,
+                          width: width*0.45,
+                          height: height*0.05,
                           decoration: BoxDecoration(
                             color:!isNo1? Colors.white:primaryColor,
                             borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -159,7 +160,7 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                   const SizedBox(height: 20,),
                   const Padding(
                     padding: const EdgeInsets.only(left: 5.0,right: 5.0,bottom: 5),
-                    child: Text(" طبيعية الولادة؟",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
+                    child: Text("الولادة طبيعية؟ ",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
                   ),
                   const SizedBox(height: 5,),
                   Row(
@@ -173,13 +174,13 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                           setState(() {
                             isTrue2=!isTrue2;
                             isNo2=false;
-                            secondChoice='طبيعية';
+                            secondChoice=true;
 
                           });
                         },
                         child: Container(
-                          width: 170,
-                          height:40,
+                          width: width*0.45,
+                          height: height*0.05,
                           decoration: BoxDecoration(
                             color:!isTrue2? Colors.white:primaryColor,
                             borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -200,13 +201,13 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                           setState(() {
                             isNo2=!isNo2;
                             isTrue2=false;
-                            secondChoice='قيصرية';
+                            secondChoice=false;
 
                           });
                         },
                         child: Container(
-                          width: 170,
-                          height:40,
+                          width: width*0.45,
+                          height: height*0.05,
                           decoration: BoxDecoration(
                             color:!isNo2? Colors.white:primaryColor,
                             borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -239,13 +240,13 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                           setState(() {
                             isTrue3=!isTrue3;
                             isNo3=false;
-                            thirdChoice="نعم";
+                            thirdChoice=true;
 
                           });
                         },
                         child: Container(
-                          width: 170,
-                          height:40,
+                          width: width*0.45,
+                          height: height*0.05,
                           decoration: BoxDecoration(
                             color:!isTrue3? Colors.white:primaryColor,
                             borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -266,13 +267,13 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                           setState(() {
                             isNo3=!isNo3;
                             isTrue3=false;
-                            thirdChoice="لا";
+                            thirdChoice=false;
 
                           });
                         },
                         child: Container(
-                          width: 170,
-                          height:40,
+                          width: width*0.45,
+                          height: height*0.05,
                           decoration: BoxDecoration(
                             color:!isNo3? Colors.white:primaryColor,
                             borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
@@ -292,8 +293,6 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
                   ),
                   const SizedBox(height: 20,),
 
-
-                  const SizedBox(height: 5,),
                   GestureDetector(
                     onTap: (){
                       if(  firstChoice!=null && secondChoice !=null && thirdChoice!=null )
@@ -302,15 +301,35 @@ class _PregrencyStep3State extends State<PregrencyStep3> {
 
                           PregnancyStep2Model model= PregnancyStep2Model(
 
-                           pregnancyExactTime: firstChoice,
-                            isNormal: secondChoice,
-                            lastInfo: thirdChoice,
+                            birth_on_schedule: firstChoice,
+                            is_normal_birth: secondChoice,
+                            is_forceps_used: thirdChoice,
 
                           );
                           provider.updatePregnancyStep2Model(model);
+                          provider.birthDetails(model, context);
+                          if (provider.isLoading) {
+                            showDialog(
+                              barrierColor: Colors.transparent,
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  elevation: 0,
+                                  backgroundColor: Colors.transparent,
+                                  content: Container(
+                                    padding: EdgeInsets.all(16.0),
+                                    color: Colors.white.withOpacity(0.0),
+                                    child: Center(child: CircularProgressIndicator(color: primaryColor)),
+                                  ),
+                                );
+                              },
+                            );
+                          }
 
 
-                          push(context: context, screen: PregrencyStep4());
+
+
                         }
                       else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);

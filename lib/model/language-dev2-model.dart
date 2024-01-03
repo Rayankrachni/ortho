@@ -4,10 +4,10 @@ class LanguageDevModel2{
 
 
   late String? id;
-  final String? isSocial;
-  final String? isPlayer;
-  final String? hasRelations;
-  final String? isAggressive;
+  final bool? isSocial;
+  final bool? isPlayer;
+  final bool? hasRelations;
+  final bool? isAggressive;
 
 
 
@@ -26,10 +26,10 @@ class LanguageDevModel2{
 
   factory LanguageDevModel2.fromJson(Map<String, dynamic> json) => LanguageDevModel2(
     id: json['id'].toString(),
-    isSocial: json['isSocial'].toString(),
-    isPlayer: json['isPlayer'].toString(),
-    isAggressive: json['isAggressive'].toString(),
-    hasRelations: json['hasRelations'].toString(),
+    isSocial: json['isSocial']==1 ? true : false ,
+    isPlayer: json['isPlayer'] ==1  ? true : false ,
+    isAggressive: json['isAggressive'] == 1 ? true : false ,
+    hasRelations: json['has_relations'] == 1 ? true : false ,
 
 
 

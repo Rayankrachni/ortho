@@ -6,6 +6,7 @@ import 'package:orthophonienewversion/model/sound-model.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_animations/animation_controller_extension/animation_controller_extension.dart';
 class BirdSound extends StatefulWidget {
   int index;
   BirdSound({super.key,required this.index});
@@ -14,11 +15,11 @@ class BirdSound extends StatefulWidget {
   State<BirdSound> createState() => _RainAndThunderState();
 }
 
-class _RainAndThunderState extends State<BirdSound> {
+class _RainAndThunderState extends State<BirdSound> with TickerProviderStateMixin {
   final Sound sound =   Sound(imagesPath: "assets/pregancy1.png", soundPath: "audio/bird_sound.mp3",isPaly: false);
-  List<String> soundsSuggetion=["صوت الأمطار ","صوت الحيوانات","صوت الرعد","صوت البحر "];
+  List<String> soundsSuggetion=["صوت الامواج","صوت الحيوانات","صوت الرعد","صوت العصافير"];
   List<bool> isChecked =[false,false,false,false];
-
+  late final AnimationController _controller;
   AudioPlayer audioPlayerList = AudioPlayer();
 
 
@@ -30,6 +31,7 @@ class _RainAndThunderState extends State<BirdSound> {
     super.initState();
 
       audioPlayerList=AudioPlayer();
+      _controller = AnimationController(vsync: this,);
 
 
 
@@ -39,7 +41,7 @@ class _RainAndThunderState extends State<BirdSound> {
   @override
   void dispose() {
     audioPlayerList.dispose();
-
+    _controller.dispose();
 
     super.dispose();
   }
@@ -53,8 +55,7 @@ class _RainAndThunderState extends State<BirdSound> {
         isPlay=!isPlay;
       });
       await audioPlayerList.play(AssetSource(soundPath));
-
-
+      _controller.play();
 
     } catch (e) {
       print('Error playing sound: $e');
@@ -70,7 +71,8 @@ class _RainAndThunderState extends State<BirdSound> {
       setState(() {
         isPlay=!isPlay;
       });
-      await audioPlayerList.pause();
+      await audioPlayerList.stop();
+      _controller.stop();
     } catch (e) {
       print('Error pausing sound: $e');
     }
@@ -91,7 +93,29 @@ class _RainAndThunderState extends State<BirdSound> {
               child: SizedBox(
                   width: 200,
                   height: 100,
-                  child: Lottie.asset('assets/lottie/audio.json')),
+                  child: Lottie.asset('assets/lottie/audio.json',
+                    controller: _controller,
+                    onLoaded: (composition) {
+                      // Configure your animation here if needed
+                      _controller
+                        ..duration = composition.duration
+                        ..addListener(() {
+                          setState(() {
+                            // Animation is progressing
+                          });
+                        })
+                        ..addStatusListener((status) {
+                          if (status == AnimationStatus.completed) {
+                            // Animation completed
+                            // Optionally, you can loop the animation here
+                            _controller.reset();
+                            _controller.forward();
+                          }
+                        });
+                    },
+
+
+                  )),
             ),
             const SizedBox(height: 10),
 

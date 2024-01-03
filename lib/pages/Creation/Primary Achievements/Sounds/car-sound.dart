@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:orthophonienewversion/model/sound-model.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_animations/animation_controller_extension/animation_controller_extension.dart';
 
 import '../../../../provider/save-date-provider.dart';
 class CarSound extends StatefulWidget {
@@ -15,11 +16,11 @@ class CarSound extends StatefulWidget {
   State<CarSound> createState() => _CarSoundState();
 }
 
-class _CarSoundState extends State<CarSound> {
+class _CarSoundState extends State<CarSound> with TickerProviderStateMixin {
   final Sound sound = Sound(imagesPath: "assets/facebook.png", soundPath: "audio/carSound.mp3",isPaly: false);
   List<String> soundsSuggetion=["صوت الأمطار ","صوت السيارة","صوت الرعد","صوت البحر "];
   List<bool> isChecked =[false,false,false,false];
-
+  late final AnimationController _controller;
   AudioPlayer audioPlayerList = AudioPlayer();
 
 
@@ -33,6 +34,7 @@ class _CarSoundState extends State<CarSound> {
     audioPlayerList=AudioPlayer();
 
 
+    _controller = AnimationController(vsync: this,);
 
 
   }
@@ -41,6 +43,7 @@ class _CarSoundState extends State<CarSound> {
   void dispose() {
     audioPlayerList.dispose();
 
+    _controller.dispose();
 
     super.dispose();
   }
@@ -54,7 +57,7 @@ class _CarSoundState extends State<CarSound> {
         isPlay=!isPlay;
       });
       await audioPlayerList.play(AssetSource(soundPath));
-
+      _controller.play();
 
 
     } catch (e) {
@@ -71,7 +74,8 @@ class _CarSoundState extends State<CarSound> {
       setState(() {
         isPlay=!isPlay;
       });
-      await audioPlayerList.pause();
+      await audioPlayerList.stop();
+      _controller.stop();
     } catch (e) {
       print('Error pausing sound: $e');
     }
@@ -93,7 +97,29 @@ class _CarSoundState extends State<CarSound> {
               child: SizedBox(
                   width: 200,
                   height: 100,
-                  child: Lottie.asset('assets/lottie/audio.json')),
+                  child: Lottie.asset('assets/lottie/audio.json',
+                    controller: _controller,
+                    onLoaded: (composition) {
+                      // Configure your animation here if needed
+                      _controller
+                        ..duration = composition.duration
+                        ..addListener(() {
+                          setState(() {
+                            // Animation is progressing
+                          });
+                        })
+                        ..addStatusListener((status) {
+                          if (status == AnimationStatus.completed) {
+                            // Animation completed
+                            // Optionally, you can loop the animation here
+                            _controller.reset();
+                            _controller.forward();
+                          }
+                        });
+                    },
+
+
+                  )),
             ),
             const SizedBox(height: 10),
 

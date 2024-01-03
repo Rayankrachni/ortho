@@ -5,6 +5,7 @@ import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
+import 'package:orthophonienewversion/completed-home-page.dart';
 
 import '../../utils/config.dart';
 class HomePage extends StatefulWidget {
@@ -48,8 +49,8 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
 
-                      const SizedBox(height: 20,),
-                      Container(
+                    SizedBox(height: height*0.05,),
+                    Container(
                         width: width*0.9,
                        // height: 300,
 
@@ -66,10 +67,10 @@ class _HomePageState extends State<HomePage> {
                                   height:height*0.1,
                                   child: Lottie.asset('assets/lottie/Animation.json')),
                             ),
-                            Text("اهلا انا هديل ",style: TextStyle(color: primaryColor,fontSize: 25,fontWeight: FontWeight.bold),),
-                            Text(" مختصة ارطوفونية ",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
+                            Text("اهلا انا هديل ",style: TextStyle(color: primaryColor,fontSize: height*0.035,fontWeight: FontWeight.bold),),
+                            Text(" مختصة ارطوفونية ",style: TextStyle(color: Colors.black,fontSize: height*0.025,fontWeight: FontWeight.bold),),
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding:  EdgeInsets.all(height*0.02),
                               child: AppTextField(
                                 textFieldType: TextFieldType.NAME,
                                 controller: name,
@@ -84,23 +85,27 @@ class _HomePageState extends State<HomePage> {
                             ),
 
 
-                            SizedBox(height: 30,),
-                            Text("سعدت بمعرفتك",style: TextStyle(color: pink,fontSize: 20,fontWeight: FontWeight.bold),),
-                            SizedBox(height:20,),
-                            Text(" انت الان في رحلة معنا ليست بطويلة",style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold),),
-                            SizedBox(height: 20,),
-                            Center(child: Text("هل انت مستعد؟",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)),
-                            SizedBox(height: 10,),
-                            Center(child: Text("اضغط على الزر أدناه لمتابعة التقييم",style: TextStyle(color: Colors.black,fontSize: 14,),)),
-                            SizedBox(height: 20,),
+                            SizedBox(height: height*0.02,),
+                            Text("سعدت بمعرفتك",style: TextStyle(color: pink,fontSize: height*0.023,fontWeight: FontWeight.bold),),
+                            SizedBox(height: height*0.02,),
+                            Text(" انت الان في رحلة معنا ليست بطويلة",style: TextStyle(color: Colors.black,fontSize: height*0.02,fontWeight: FontWeight.bold),),
+                            SizedBox(height: height*0.02,),
+                            Center(child: Text("هل انت مستعد؟",style: TextStyle(color: Colors.black,fontSize: height*0.02,fontWeight: FontWeight.bold),)),
+                            SizedBox(height: height*0.02,),
+
                           ],
                         )
                       ),
-                    SizedBox(height: 40,),
+                    SizedBox(height: height*0.02,),
+                    Center(child: Text("اضغط على الزر أدناه لمتابعة التقييم",style: TextStyle(color: Colors.white,fontSize: height*0.02,),)),
+                    SizedBox(height: height*0.02,),
+
                     GestureDetector(
                       onTap: (){
                         if(_formKey.currentState!.validate() ){
-                          push(context: context, screen: GeneralInfo());
+
+                          push(context: context, screen:  CompletedHomePage());
+                         // push(context: context, screen:  GeneralInfo(name: name.text,));
                         }else{
                          ToastHelper.showToast(msg: "يرجى إدخال الاسم", backgroundColor:pink);
                         }
@@ -108,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: Container(
                         width: width*0.9,
-                        height: 70,
+                        height: height*0.07,
 
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
@@ -119,7 +124,7 @@ class _HomePageState extends State<HomePage> {
 
                           ),
                         ),
-                        child: Center(child: Text("إبدأ",style: TextStyle(color: Colors.white,fontSize: 22),)),
+                        child: Center(child: Text("إبدأ",style: TextStyle(color: Colors.white,fontSize: height*0.024),)),
                       ),
                     ),
 

@@ -5,7 +5,7 @@ const primaryColor = Color(0xff4202ba);
 const secondaryColor = Color(0xfff24f4c);
 
 const orangeColor = Color(0xffe88146);
-const blueColor = Color(0xff4202ba);
+const blueColor = Color(0xff7a44de);
 const deepBlueColor = Color(0xff3700c1);
 const deepPurpleColor = Color(0xb0530bfa);
 const pink = Color(0xfffe0181);

@@ -4,14 +4,16 @@ class DiseaseModel{
 
 
   late String? id;
-  final String? meningitis;
-  final String? encephalitis;
-  final String? developEpilepsyTime;
-  final String? seizuresOccurTime ;
+  final bool? meningitis;
+  final bool? encephalitis;
+  final bool? epilepsy;
+  final String? firstExperienceSeizures ;
 
-  final String? hasTonsillitis;
-  final String? takeVaccinations;
-  final String? undergoneRegarding ;
+  final String? seizuresTime;
+  final bool? sufferFromTonsillitis;
+  final bool? vaccinations ;
+
+
 
 
 
@@ -20,11 +22,11 @@ class DiseaseModel{
     this.id,
     this.encephalitis,
     this.meningitis,
-    this.developEpilepsyTime,
-    this.seizuresOccurTime,
-    this.undergoneRegarding,
-    this.takeVaccinations,
-    this.hasTonsillitis,
+    this.epilepsy,
+    this.firstExperienceSeizures,
+    this.seizuresTime,
+    this.sufferFromTonsillitis,
+    this.vaccinations
 
 
 
@@ -32,31 +34,18 @@ class DiseaseModel{
 
   factory DiseaseModel.fromJson(Map<String, dynamic> json) => DiseaseModel(
     id: json['id'].toString(),
-    meningitis: json['meningitis'].toString(),
-    encephalitis: json['encephalitis'].toString(),
-    developEpilepsyTime: json['developEpilepsyTime'].toString(),
-    seizuresOccurTime: json['seizuresOccurTime'].toString(),
-    undergoneRegarding: json['undergoneRegarding'].toString(),
-    takeVaccinations: json['takeVaccinations'].toString(),
-    hasTonsillitis: json['hasTonsillitis'].toString(),
+    meningitis: json['meningitis']  == 1 ? true : false ,
+    encephalitis: json['encephalitis']  == 1 ? true : false ,
+    epilepsy:json['epilepsy'] == 1 ? true : false ,
+    firstExperienceSeizures:json['first_experience_seizures'].toString(),
+    seizuresTime:json['seizures_time'].toString(),
+    sufferFromTonsillitis:json['suffer_from_tonsillitis']  == 1 ? true : false ,
+    vaccinations:json['vaccinations']  == 1 ? true : false ,
 
 
   );
 
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'fatherName': encephalitis,
-      'meningitis': meningitis,
-      'fatherEducation': developEpilepsyTime,
-      'fatherHealthReport': seizuresOccurTime,
-      'motherName':undergoneRegarding,
-      'motherAge':takeVaccinations,
-      'motherEducation':hasTonsillitis,
-
-    };
-  }
 
 }
 

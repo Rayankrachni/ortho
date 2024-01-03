@@ -1,4 +1,4 @@
-package com.example.orthophonienewversion
+package com.symloop.talkTimeThearapy
 
 import io.flutter.embedding.android.FlutterActivity
 

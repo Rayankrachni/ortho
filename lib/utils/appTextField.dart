@@ -310,7 +310,7 @@ class _AppTextFieldState extends State<AppTextField> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-            Padding(
+           if(widget.title!=null) Padding(
               padding: const EdgeInsets.only(left: 5.0,right: 5.0,bottom: 5),
               child: Text(widget.title!,style:const TextStyle(fontSize: 11,fontFamily: 'myriadBold'),),
             ),

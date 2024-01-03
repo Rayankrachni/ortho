@@ -44,6 +44,15 @@ dependencies:
   provider: ^6.1.1
   audioplayers: ^5.2.1
   just_audio: ^0.9.36
+  flutter_launcher_icons: ^0.13.1
+  dio: ^5.4.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+  min_sdk_version: 21
+
 
 dev_dependencies:
   flutter_test:
@@ -86,8 +95,12 @@ flutter:
     - assets/lottie/login.json
     - assets/lottie/speech.json
     - assets/lottie/audio.json
+    - assets/lottie/correct.json
+    - assets/lottie/wrong.json
+    - assets/lottie/consultation.json
 
     - assets/in.png
+    - assets/logo.png
     - assets/on.png
     - assets/inFrontOf.png
     - assets/under.png
@@ -103,6 +116,19 @@ flutter:
     - assets/audio/bird_sound.mp3
     - assets/audio/beach_sound.mp3
     - assets/audio/rain-and-thunder.mp3
+    - assets/audio/fail.mp3
+    - assets/audio/claps.mp3
+    -
+    - assets/Numbers/one.png
+    - assets/Numbers/two.png
+    - assets/Numbers/three.png
+
+    - assets/physical-image/ears.png
+    - assets/physical-image/hair.png
+    - assets/physical-image/eyes.png
+    - assets/physical-image/foot.png
+    - assets/physical-image/hands.png
+    - assets/physical-image/mouth.png
 
     - assets/audio/thunder.mp3
     - assets/audio/policeCar.mp3

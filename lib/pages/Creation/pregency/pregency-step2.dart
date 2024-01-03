@@ -23,29 +23,29 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
   TextEditingController medicationType = TextEditingController();
 
   FocusNode controller1Focus = FocusNode();
-  double _sliderValue = 0.0;
+  double _sliderValue = 16.0;
   bool isRemember = true;
   bool isTrue1=false;
   bool isNo1=false;
 
-  String? firstChoice;
+  bool? firstChoice;
 
   bool isTrue2=false;
   bool isNo2=false;
 
-  String? secondChoice;
+  bool? secondChoice;
 
   bool isTrue3=false;
   bool isNo3=false;
 
-  String? normalPregnancy;
+  bool? normalPregnancy;
   bool isTrue4=false;
   bool isNo4=false;
 
-  String? hasDisease;
+  bool? hasDisease;
 
 
-  String? RH;
+  bool? RH;
   bool isTrue5=false;
   bool isNo5=false;
   @override
@@ -116,7 +116,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isTrue1=!isTrue1;
                               isNo1=false;
-                              firstChoice="نعم";
+                              firstChoice=true;
 
                             });
                           },
@@ -143,7 +143,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isNo1=!isNo1;
                               isTrue1=false;
-                              firstChoice="لا";
+                              firstChoice=false;
 
                             });
                           },
@@ -184,7 +184,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isTrue2=!isTrue2;
                               isNo2=false;
-                              secondChoice="نعم";
+                              secondChoice=true;
 
                             });
                           },
@@ -211,7 +211,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isNo2=!isNo2;
                               isTrue2=false;
-                              secondChoice="لا";
+                              secondChoice=false;
                             });
                           },
                           child: Container(
@@ -268,7 +268,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isTrue5=!isTrue5;
                               isNo5=false;
-                              RH="نعم";
+                              RH=true;
 
                             });
                           },
@@ -295,7 +295,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isNo5=!isNo5;
                               isTrue5=false;
-                              RH="لا";
+                              RH=false;
                             });
                           },
                           child: Container(
@@ -321,13 +321,13 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                     const SizedBox(height: 15,),
                      Padding(
                       padding:  EdgeInsets.only(left: 5.0,right: 5.0),
-                      child: Text(_sliderValue ~/ 1 == 0 ?"  عمر الام أثناء الحمل؟  " :"  عمر الام أثناء الحمل؟ ${_sliderValue ~/ 1} ",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
+                      child: Text(_sliderValue ~/ 1 == 16 ?"  عمر الام أثناء الحمل؟  " :"  عمر الام أثناء الحمل: ${_sliderValue ~/ 1} ",style: TextStyle(fontSize: 14,fontFamily: 'myriadBold'),),
                     ),
 
                     Slider(
                       value: _sliderValue,
-                      min: 0.0,
-                      max: 48.0,
+                      min: 16.0,
+                      max: 50.0,
                       onChanged: (value) {
                         setState(() {
                           _sliderValue = value;
@@ -349,7 +349,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isTrue3=!isTrue3;
                               isNo3=false;
-                              normalPregnancy="نعم";
+                              normalPregnancy=true;
 
                             });
                           },
@@ -377,7 +377,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isNo3=!isNo3;
                               isTrue3=false;
-                              normalPregnancy="لا";
+                              normalPregnancy=false;
                             });
                           },
                           child: Container(
@@ -416,7 +416,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isTrue4=!isTrue4;
                               isNo4=false;
-                              hasDisease="نعم";
+                              hasDisease=true;
 
                             });
                           },
@@ -443,7 +443,7 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
                             setState(() {
                               isNo4=!isNo4;
                               isTrue4=false;
-                              hasDisease="لا";
+                              hasDisease=false;
 
                             });
                           },
@@ -492,21 +492,40 @@ class _PregrencyStep2State extends State<PregrencyStep2> {
 
 
                           PregnancyStep1Model model= PregnancyStep1Model(
-                            pregnancy:firstChoice ,
-                            medications:secondChoice ,
+                            is_pregnancy_planned:firstChoice ,
+                            take_medications:secondChoice ,
                             medicationType:medicationType.text ,
-                            rh:RH,
-                            motherAge: (_sliderValue ~/ 1).toInt(),
-                            normalPregnancy:normalPregnancy ,
-                            diseasePregnancy:hasDisease ,
-                            motherPsychology:motherPsychology.text ,
+                            rh_incompatibility:RH,
+                            mother_age_pregnancy: (_sliderValue ~/ 1).toInt(),
+                            was_normal_pregnancy:normalPregnancy ,
+                            diseases_during_pregnancy:hasDisease ,
+                            psychological_state:motherPsychology.text ,
 
 
                           );
                           provider.updatePregnancyStep1Model(model);
+                          provider.pregnancyDetails(model, context);
+                          if (provider.isLoading) {
+                            showDialog(
+                              barrierColor: Colors.transparent,
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  elevation: 0,
+                                  backgroundColor: Colors.transparent,
+                                  content: Container(
+                                    padding: EdgeInsets.all(16.0),
+                                    color: Colors.white.withOpacity(0.0),
+                                    child: Center(child: CircularProgressIndicator(color: primaryColor)),
+                                  ),
+                                );
+                              },
+                            );
+                          }
 
 
-                          push(context: context, screen: PregrencyStep3());
+
 
 
                         }else{

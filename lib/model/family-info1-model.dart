@@ -6,7 +6,7 @@ class FamilyInfoPart2{
   late String? id;
   final String? motherJob;
   final String? motherHealthReport;
-  final String? haveRelation;
+  final bool? haveRelation;
   final String? siblingsHealth;
   final String? familySocialState;
   final int? nbrSiblings;
@@ -30,15 +30,17 @@ class FamilyInfoPart2{
 
   });
 
+
+
   factory FamilyInfoPart2.fromJson(Map<String, dynamic> json) => FamilyInfoPart2(
     id: json['id'].toString(),
-    motherJob: json['motherJob'].toString(),
-    motherHealthReport: json['motherHealthReport'].toString(),
-    haveRelation: json['haveRelation'].toString(),
-    siblingsHealth: json['siblingsHealth'].toString(),
-    familySocialState: json['familySocialState'].toString(),
-    nbrSiblings:int.tryParse( json['nbrSiblings'].toString(),),
-    childNumber: int.parse(json['childNumber'].toString(),)
+    motherJob: json['mother_job'].toString(),
+    motherHealthReport: json['mother_health_history'].toString(),
+    haveRelation: json['related_by_blood'] ? true : false ,
+    siblingsHealth: json['siblings_health_state'].toString(),
+    familySocialState: json['family_economic_status'].toString(),
+    nbrSiblings:int.tryParse( json['number_of_siblings'].toString(),),
+    childNumber: int.parse(json['child_order'].toString(),)
 
     //docsUrls: json['docsUrls'],
 

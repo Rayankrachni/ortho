@@ -6,6 +6,7 @@ import 'package:orthophonienewversion/model/sound-model.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_animations/animation_controller_extension/animation_controller_extension.dart';
 class RainAndThunder extends StatefulWidget {
   int index;
 
@@ -15,11 +16,11 @@ class RainAndThunder extends StatefulWidget {
   State<RainAndThunder> createState() => _RainAndThunderState();
 }
 
-class _RainAndThunderState extends State<RainAndThunder> {
+class _RainAndThunderState extends State<RainAndThunder> with TickerProviderStateMixin {
   final Sound sound = Sound(imagesPath: "assets/onboarding1.png", soundPath: "audio/rain_audio.mp3",isPaly: false);
-  List<String> soundsSuggetion=["صوت الأمطار ","صوت الحيوانات","صوت الرعد","صوت البحر "];
+  List<String> soundsSuggetion=["صوت الامطار","صوت الحيوانات","صوت الرعد","صوت البحر "];
   List<bool> isChecked =[false,false,false,false];
-
+  late final AnimationController _controller;
 
   AudioPlayer audioPlayerList = AudioPlayer();
 
@@ -33,6 +34,7 @@ class _RainAndThunderState extends State<RainAndThunder> {
 
     audioPlayerList=AudioPlayer();
 
+    _controller = AnimationController(vsync: this,);
 
 
 
@@ -41,8 +43,7 @@ class _RainAndThunderState extends State<RainAndThunder> {
   @override
   void dispose() {
     audioPlayerList.dispose();
-
-
+    _controller.dispose();
     super.dispose();
   }
   bool isPlay=false;
@@ -55,7 +56,7 @@ class _RainAndThunderState extends State<RainAndThunder> {
         isPlay=!isPlay;
       });
       await audioPlayerList.play(AssetSource(soundPath));
-
+      _controller.play();
 
 
     } catch (e) {
@@ -72,7 +73,8 @@ class _RainAndThunderState extends State<RainAndThunder> {
       setState(() {
         isPlay=!isPlay;
       });
-      await audioPlayerList.pause();
+      await audioPlayerList.stop();
+      _controller.stop();
     } catch (e) {
       print('Error pausing sound: $e');
     }
@@ -93,7 +95,29 @@ class _RainAndThunderState extends State<RainAndThunder> {
               child: SizedBox(
                   width: 200,
                   height: 100,
-                  child: Lottie.asset('assets/lottie/audio.json')),
+                  child: Lottie.asset('assets/lottie/audio.json',
+                    controller: _controller,
+                    onLoaded: (composition) {
+                      // Configure your animation here if needed
+                      _controller
+                        ..duration = composition.duration
+                        ..addListener(() {
+                          setState(() {
+                            // Animation is progressing
+                          });
+                        })
+                        ..addStatusListener((status) {
+                          if (status == AnimationStatus.completed) {
+                            // Animation completed
+                            // Optionally, you can loop the animation here
+                            _controller.reset();
+                            _controller.forward();
+                          }
+                        });
+                    },
+
+
+                  )),
             ),
             const SizedBox(height: 10),
 

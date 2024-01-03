@@ -40,7 +40,13 @@ class _DisplayPregnancyStep3State extends State<DisplayPregnancyStep3> {
                             children: [
                               const Padding(
                                 padding:  EdgeInsets.all(8.0),
-                                child: Text(' وزن الطفل:  ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.edit,size: 17,color: primaryColor,),
+                                    const SizedBox(width: 10,),
+                                    Text(' وزن الطفل:  ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                  ],
+                                ),
                               ),
                               Container(
                                 width:width*0.4,
@@ -148,7 +154,7 @@ class _DisplayPregnancyStep3State extends State<DisplayPregnancyStep3> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text('  ${formDataProvider.pregnancyStep2Model.lastInfo}'),
+                          child: Text('  ${formDataProvider.pregnancyStep2Model.is_forceps_used}'),
                         ),
                       ),
                     ),
@@ -162,7 +168,13 @@ class _DisplayPregnancyStep3State extends State<DisplayPregnancyStep3> {
                             children: [
                               const Padding(
                                 padding:  EdgeInsets.all(8.0),
-                                child: Text(' سن الابتسامة:  ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.emoji_emotions,size: 17,color: primaryColor,),
+                                    const SizedBox(width: 10,),
+                                    Text(' سن الابتسامة:  ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                  ],
+                                ),
                               ),
                               Container(
                                 width:width*0.4,
@@ -263,7 +275,13 @@ class _DisplayPregnancyStep3State extends State<DisplayPregnancyStep3> {
                             children: [
                               const Padding(
                                 padding:  EdgeInsets.all(8.0),
-                                child: Text(' سن المشي:  ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.run_circle_rounded,size: 17,color: primaryColor,),
+                                    const SizedBox(width: 10,),
+                                    Text(' سن المشي:  ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                  ],
+                                ),
                               ),
                               Container(
                                 width:width*0.4,

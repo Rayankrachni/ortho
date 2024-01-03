@@ -93,7 +93,7 @@ class _ChildDevPage1State extends State<ChildDevPage1> {
                   Slider(
                     value: _sliderValue0,
                     min: 0.0,
-                    max: 10.0,
+                    max: 24.0,
                     onChanged: (value) {
                       setState(() {
                         _sliderValue0 = value;
@@ -112,7 +112,7 @@ class _ChildDevPage1State extends State<ChildDevPage1> {
                   Slider(
                     value: _sliderValue,
                     min: 0.0,
-                    max: 10.0,
+                    max: 24.0,
                     onChanged: (value) {
                       setState(() {
                         _sliderValue = value;
@@ -133,7 +133,7 @@ class _ChildDevPage1State extends State<ChildDevPage1> {
                   Slider(
                     value: _sliderValue1,
                     min: 0.0,
-                    max: 10.0,
+                    max: 24.0,
                     onChanged: (value) {
                       setState(() {
                         _sliderValue1 = value;
@@ -153,7 +153,7 @@ class _ChildDevPage1State extends State<ChildDevPage1> {
                   Slider(
                     value: _sliderValue2,
                     min: 0.0,
-                    max: 10.0,
+                    max: 24.0,
                     onChanged: (value) {
                       setState(() {
                         _sliderValue2 = value;
@@ -191,9 +191,27 @@ class _ChildDevPage1State extends State<ChildDevPage1> {
 
                         );
                         provider.updateSensorimotorDevelopment(model);
-
+                        provider.developmentalMilestones(model, context);
+                        if (provider.isLoading) {
+                          showDialog(
+                            barrierColor: Colors.transparent,
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                elevation: 0,
+                                backgroundColor: Colors.transparent,
+                                content: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  color: Colors.white.withOpacity(0.0),
+                                  child: Center(child: CircularProgressIndicator(color: primaryColor)),
+                                ),
+                              );
+                            },
+                          );
+                        }
                         //push(context: context, screen: ChildDevPage1());
-                        push(context: context, screen: languageDevPage());
+
                       }else{
                         ToastHelper.showToast(msg: "يرجى إدخال المعلومات", backgroundColor:pink);
                       }

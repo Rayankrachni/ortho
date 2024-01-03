@@ -4,10 +4,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/auth/signIn.dart';
 import 'package:orthophonienewversion/homePage.dart';
+import 'package:orthophonienewversion/pages/Creation/PhysicalImage/physical-image.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/PlacePreposition.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/envirnmentSound.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
+import 'package:orthophonienewversion/utils/shared-pref-helper.dart';
 import 'package:orthophonienewversion/walkthrow.dart';
 
 
@@ -22,31 +24,42 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Timer( const Duration(seconds: 5), () async{
-//WalkThroughScreen
-      pushAndRemove(context: context, screen:WalkThroughScreen());
 
 
 
-      /* bool? isLogin = await SharedPreferencesHelper.getBool('isLogin');
 
-      if(isLogin==null || isLogin == false){
-        pushAndRemove(context: context, screen: LoginPage());
-      }
-      else{
-        pushAndRemove(context: context, screen:  HomePage());
-      }*/
 
-    });
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        String? token = await SharedPreferencesHelper.getString("USER_TOKEN");
+        bool isFirstTime = await SharedPreferencesHelper.getBool("FIRST_USE") ?? false;
+
+        if(isFirstTime == false){
+          pushAndRemove(context: context, screen:WalkThroughScreen());
+        }
+        else{
+          if (token == null || token.isEmpty) {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => SignInScreen(),
+              ),
+                  (route) => false,
+            );
+          } else {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ),
+                  (route) => false,
+            );
+          }}});
+
     super.initState();
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
-    return  Scaffold(
+    return  const Scaffold(
       backgroundColor: primaryColor,
       body:  Center(
 
@@ -54,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            Text("Orthophonie",style: TextStyle(color: Colors.white,fontSize: 16),),
+            Text("Talk Time Therapy",style: TextStyle(color: Colors.white,fontSize: 16),),
           ],
         )
       ) ,

@@ -6,6 +6,7 @@ import 'package:orthophonienewversion/model/sound-model.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_animations/simple_animations.dart';
 class BeachSound extends StatefulWidget {
   int index;
    BeachSound({super.key,required this.index});
@@ -14,11 +15,11 @@ class BeachSound extends StatefulWidget {
   State<BeachSound> createState() => _BeachSoundState();
 }
 
-class _BeachSoundState extends State<BeachSound> {
+class _BeachSoundState extends State<BeachSound> with TickerProviderStateMixin {
   final Sound sound =   Sound(imagesPath: "assets/pregancy1.png", soundPath: "audio/beach_sound.mp3",isPaly: false);
-  List<String> soundsSuggetion=["صوت الأمطار ","صوت الحيوانات","صوت الرعد","صوت البحر "];
+  List<String> soundsSuggetion=["صوت الامواج","صوت الحيوانات","صوت الرعد","صوت العصافير"];
   List<bool> isChecked =[false,false,false,false];
-
+  late final AnimationController _controller;
   AudioPlayer audioPlayerList = AudioPlayer();
 
 
@@ -31,7 +32,7 @@ class _BeachSoundState extends State<BeachSound> {
     super.initState();
 
     audioPlayerList=AudioPlayer();
-
+    _controller = AnimationController(vsync: this,);
 
 
 
@@ -40,7 +41,7 @@ class _BeachSoundState extends State<BeachSound> {
   @override
   void dispose() {
     audioPlayerList.dispose();
-
+    _controller.dispose();
 
     super.dispose();
   }
@@ -53,7 +54,9 @@ class _BeachSoundState extends State<BeachSound> {
       setState(() {
         isPlay=!isPlay;
       });
+
       await audioPlayerList.play(AssetSource(soundPath));
+      _controller.play();
 
 
 
@@ -71,7 +74,8 @@ class _BeachSoundState extends State<BeachSound> {
       setState(() {
         isPlay=!isPlay;
       });
-      await audioPlayerList.pause();
+      await audioPlayerList.stop();
+      _controller.stop();
     } catch (e) {
       print('Error pausing sound: $e');
     }
@@ -86,20 +90,41 @@ class _BeachSoundState extends State<BeachSound> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 60,),
-            Text("  ${widget.index} التسجيل الصوتي",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 27,color: primaryColor),),
+            const  SizedBox(height: 60,),
+            Text("  ${widget.index} التسجيل الصوتي ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 27,color: primaryColor),),
             Center(
               child: SizedBox(
                   width: 200,
                   height: 100,
-                  child: Lottie.asset('assets/lottie/audio.json')),
+                  child: Lottie.asset('assets/lottie/audio.json',
+                    controller: _controller,
+                    onLoaded: (composition) {
+                      // Configure your animation here if needed
+                      _controller
+                        ..duration = composition.duration
+                        ..addListener(() {
+                          setState(() {
+                            // Animation is progressing
+                          });
+                        })
+                        ..addStatusListener((status) {
+                          if (status == AnimationStatus.completed) {
+                            // Animation completed
+                            // Optionally, you can loop the animation here
+                             _controller.reset();
+                             _controller.forward();
+                          }
+                        });
+                    },
+
+
+                  )),
             ),
             const SizedBox(height: 10),
 
             !isPlay ? GestureDetector(
               onTap: () {
-                //print(sound.soundPath!);
-                print("sound.soundPath!");
+
                 print(sound.soundPath!);
 
                 playAudio(sound.soundPath!);
