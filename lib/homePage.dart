@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:orthophonienewversion/pages/Creation/generalInfo/generalInformation.dart';
+import 'package:orthophonienewversion/pages/Creation/general-info-creation.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
@@ -25,10 +25,7 @@ class _HomePageState extends State<HomePage> {
     final  height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
     return  Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        automaticallyImplyLeading: false,
-      ),
+
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Container(
@@ -104,8 +101,8 @@ class _HomePageState extends State<HomePage> {
                       onTap: (){
                         if(_formKey.currentState!.validate() ){
 
-                          push(context: context, screen:  CompletedHomePage());
-                         // push(context: context, screen:  GeneralInfo(name: name.text,));
+                          push(context: context, screen:  GeneralInfo());
+
                         }else{
                          ToastHelper.showToast(msg: "يرجى إدخال الاسم", backgroundColor:pink);
                         }

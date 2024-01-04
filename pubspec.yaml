@@ -82,6 +82,7 @@ flutter:
     - assets/ortophonieSplash.png
     - assets/generalInfo.png
     - assets/Nervou_System_Disorder.png
+    - assets/homevec.png
     - assets/Early-Acquisitions.png
     - assets/lottie/Animation.json
     - assets/Auditory_Aspect.png
@@ -91,7 +92,7 @@ flutter:
     - assets/boy.png
     - assets/preg3.png
     - assets/note.png
-    -
+    - assets/doc.png
     - assets/lottie/login.json
     - assets/lottie/speech.json
     - assets/lottie/audio.json

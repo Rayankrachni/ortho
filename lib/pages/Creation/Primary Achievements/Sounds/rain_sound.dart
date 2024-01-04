@@ -81,17 +81,19 @@ class _RainSoundState extends State<RainSound> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final provider=Provider.of<FormDataProvider>(context);
-    return SingleChildScrollView(
-      child: Center(
+    double height=MediaQuery.of(context).size.height;
+    double width=MediaQuery.of(context).size.width;
+    return Center(
+      child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 60,),
-            Text("  ${widget.index} التسجيل الصوتي",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 27,color: primaryColor),),
+            SizedBox(height: height*0.1,),
+            Text("  ${widget.index} التسجيل الصوتي ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: width*0.07,color: primaryColor),),
             Center(
               child: SizedBox(
-                  width: 200,
-                  height: 100,
+                  width: width*0.85,
+                  height: height*0.1,
                   child: Lottie.asset('assets/lottie/audio.json',
                     controller: _controller,
                     onLoaded: (composition) {

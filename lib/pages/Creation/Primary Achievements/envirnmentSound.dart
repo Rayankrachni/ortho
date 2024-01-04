@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:lottie/lottie.dart';
 import 'package:orthophonienewversion/model/sound-model.dart';
-import 'package:orthophonienewversion/pages/Creation/PhysicalImage/physical-image.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/Sounds/beach_sound.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/Sounds/bird_sound.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/Sounds/car-sound.dart';
@@ -12,6 +11,7 @@ import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/Soun
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/Sounds/rain_and_thunder.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/Sounds/rain_sound.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/Sounds/thunder.dart';
+import 'package:orthophonienewversion/pages/Creation/exercise-body-detection/physical-image.dart';
 
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
@@ -97,6 +97,8 @@ class _EnvironmentSoundPageState extends State<EnvironmentSoundPage> {
   @override
   Widget build(BuildContext context) {
     final provider=Provider.of<FormDataProvider>(context);
+    double height=MediaQuery.of(context).size.height;
+    double width=MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
         // Return false to disable the default back button behavior
@@ -141,14 +143,14 @@ class _EnvironmentSoundPageState extends State<EnvironmentSoundPage> {
             });
           },
           itemBuilder: (context, index) {
-            return buildPage(currentPageIndex);
+            return buildPage(currentPageIndex,height,width);
           },
         ),
       ),
     );
   }
 
-  Widget buildPage(int index) {
+  Widget buildPage(int index,double height,double width) {
     final provider=Provider.of<FormDataProvider>(context);
     return Column(
       children: [
@@ -180,8 +182,8 @@ class _EnvironmentSoundPageState extends State<EnvironmentSoundPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                                width: 200,
-                                height: 100,
+                                height: height*0.15,
+                                width:  width*0.4,
                                 child: Lottie.asset(provider.audioAnswers[index]==provider.audioCorrectAnswers[index]?'assets/lottie/correct.json':'assets/lottie/wrong.json')),
 
                             Text(provider.audioAnswers[index]==provider.audioCorrectAnswers[index]?'! احسنت ':'خطأ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
@@ -207,7 +209,7 @@ class _EnvironmentSoundPageState extends State<EnvironmentSoundPage> {
                             child:  Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
-                                  height:50,
+                                  height: height*0.05,
                                   width: MediaQuery.of(context).size.width*0.8,
                                   child:Container(
                                     decoration: BoxDecoration(
@@ -249,8 +251,8 @@ class _EnvironmentSoundPageState extends State<EnvironmentSoundPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                                width: 200,
-                                height: 100,
+                                height: height*0.15,
+                                width:  width*0.4,
                                 child: Lottie.asset(provider.audioAnswers[index]==provider.audioCorrectAnswers[index]?'assets/lottie/correct.json':'assets/lottie/wrong.json')),
 
                             Text(provider.audioAnswers[index]==provider.audioCorrectAnswers[index]?'! احسنت ':'خطأ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
@@ -273,7 +275,7 @@ class _EnvironmentSoundPageState extends State<EnvironmentSoundPage> {
                             child:  Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
-                                  height:50,
+                                  height: height*0.05,
                                   width: MediaQuery.of(context).size.width*0.8,
                                   child:Container(
                                     decoration: BoxDecoration(
@@ -298,8 +300,6 @@ class _EnvironmentSoundPageState extends State<EnvironmentSoundPage> {
               //
               }
 
-              //
-              // ToastHelper.showToast(msg: "next Index", backgroundColor: pinklight);
             }else{
               ToastHelper.showToast(msg: "اختر إجابة", backgroundColor: pinklight);
             }

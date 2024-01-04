@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/auth/signIn.dart';
+import 'package:orthophonienewversion/completed-home-page.dart';
 import 'package:orthophonienewversion/homePage.dart';
 import 'package:orthophonienewversion/model/audio_model.dart';
 import 'package:orthophonienewversion/model/complete-info-model.dart';
@@ -13,10 +14,11 @@ import 'package:orthophonienewversion/model/pregnancy-step2-model.dart';
 import 'package:orthophonienewversion/model/pregrancy-step3-model.dart';
 import 'package:orthophonienewversion/model/sensorimotor-development.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/primary_achievements.main.dart';
-import 'package:orthophonienewversion/pages/Creation/childDev/child-dev-page3.dart';
-import 'package:orthophonienewversion/pages/Creation/childDev/disorders.dart';
-import 'package:orthophonienewversion/pages/Creation/childDev/languageDev.dart';
-import 'package:orthophonienewversion/pages/Creation/childDev/languageDev2.dart';
+import 'package:orthophonienewversion/pages/Creation/child-dev-steps/hearing-impairments-creation.dart';
+import 'package:orthophonienewversion/pages/Creation/child-dev-steps/language-dev-creation.dart';
+import 'package:orthophonienewversion/pages/Creation/child-dev-steps/medical-histories-creation.dart';
+import 'package:orthophonienewversion/pages/Creation/child-dev-steps/sensorimotor-development-creation.dart';
+import 'package:orthophonienewversion/pages/Creation/child-dev-steps/social-interactions-creation.dart';
 import 'package:orthophonienewversion/pages/Creation/pregency/pregancy-main-page.dart';
 import 'package:orthophonienewversion/pages/Creation/pregency/pregency-step4.dart';
 import 'package:orthophonienewversion/provider/dio.dart';
@@ -24,7 +26,6 @@ import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/shared-pref-helper.dart';
 
-import '../pages/Creation/childDev/child-dev-page1.dart';
 import '../pages/Creation/pregency/pregency-step3.dart';
 import '../pages/familly-info/familly-info.dart';
 
@@ -64,14 +65,11 @@ class FormDataProvider extends ChangeNotifier {
     currentPageIndex++;
     notifyListeners();
   }
+
   void updateCurrentPage(){
     currentPageIndex=0;
     notifyListeners();
   }
-
-
-
-
 
   void updatePhysicalAnswer(int index,String answer) {
 
@@ -83,23 +81,7 @@ class FormDataProvider extends ChangeNotifier {
 
 
 
-
-
-
-
-  String mouth ='';
-
-
-  void updateMouthValue(String answer) {
-    mouth = answer;
-    notifyListeners();
-  }
-
-
-
-
   CompleteFamilyInfo completeFamilyInfo=CompleteFamilyInfo();
-  // Add other form fields as needed
 
   void updatecompleteFamilyInfo(CompleteFamilyInfo model) {
     completeFamilyInfo = model;
@@ -127,7 +109,7 @@ class FormDataProvider extends ChangeNotifier {
 
 
   PregnancyStep3Model pregnancyStep3Model=PregnancyStep3Model();
-  // Add other form fields as needed
+
 
   void updatePregnancyStep3Model(PregnancyStep3Model model) {
     pregnancyStep3Model = model;
@@ -136,7 +118,7 @@ class FormDataProvider extends ChangeNotifier {
 
 
   SensorimotorDevelopment sensorimotorDevelopment=SensorimotorDevelopment();
-  // Add other form fields as needed
+
 
   void updateSensorimotorDevelopment(SensorimotorDevelopment model) {
     sensorimotorDevelopment = model;
@@ -188,7 +170,6 @@ class FormDataProvider extends ChangeNotifier {
   }
   List<GeneralInfoModel> models=[];
 
-
   Future<void> signOut(BuildContext context) async {
     try {
       await SharedPreferencesHelper.remove("USER_TOKEN");
@@ -200,7 +181,6 @@ class FormDataProvider extends ChangeNotifier {
     }
   }
 
-
   Future<List<GeneralInfoModel>> fetchAllInterview() async {
     try {
       models=[];
@@ -211,7 +191,7 @@ class FormDataProvider extends ChangeNotifier {
       final response = await _apiProvider.getData(token, '/informations');
 
       if (response != null) {
-        print("jjjjj");
+
         print(response.toString());
         models = List<GeneralInfoModel>.from(
           response.map((categoryData) => GeneralInfoModel.fromJson(categoryData)),
@@ -231,9 +211,6 @@ class FormDataProvider extends ChangeNotifier {
       return []; // Return an empty list or throw an error based on your use case
     }
   }
-
-
-
 
   Future<void> postGeneralInfo(GeneralInfoModel model, BuildContext context) async {
     _setLoading(true);
@@ -295,7 +272,6 @@ class FormDataProvider extends ChangeNotifier {
     }
   }
 
-
   Future<void> postFamillyInfo(CompleteFamilyInfo model, BuildContext context) async {
     _setLoading(true);
 
@@ -344,7 +320,6 @@ class FormDataProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
-
 
   Future<void> pregnancyDetails(PregnancyStep1Model model, BuildContext context) async {
     _setLoading(true);
@@ -449,7 +424,6 @@ class FormDataProvider extends ChangeNotifier {
 
   }
 
-
   Future<void> newbornDetails(PregnancyStep3Model model, BuildContext context) async {
     _setLoading(true);
     String? token = await SharedPreferencesHelper.getString("USER_TOKEN");
@@ -464,7 +438,7 @@ class FormDataProvider extends ChangeNotifier {
 
         if (response.statusCode == 201) {
           print(response.data);
-          pushAndRemove(context: context, screen: ChildDevPage1());
+          pushAndRemove(context: context, screen: SensorimotorDevelopmentCreation());
         }
       } catch (e) {
         // Handle error here
@@ -515,7 +489,7 @@ class FormDataProvider extends ChangeNotifier {
 
         if (response.statusCode == 201) {
           print(response.data);
-          pushAndRemove(context: context, screen: languageDevPage());
+          pushAndRemove(context: context, screen: LanguageDevCreation());
         }
       } catch (e) {
         // Handle error here
@@ -566,7 +540,7 @@ class FormDataProvider extends ChangeNotifier {
 
         if (response.statusCode == 201) {
           print(response.data);
-          pushAndRemove(context: context, screen: LanguageDevPage2());
+          pushAndRemove(context: context, screen: SocialInteractionsCreation());
         }
       } catch (e) {
         // Handle error here
@@ -603,8 +577,6 @@ class FormDataProvider extends ChangeNotifier {
 
   }
 
-
-
   Future<void> socialInteractions(LanguageDevModel2 model, BuildContext context) async {
     _setLoading(true);
     String? token = await SharedPreferencesHelper.getString("USER_TOKEN");
@@ -619,7 +591,7 @@ class FormDataProvider extends ChangeNotifier {
 
         if (response.statusCode == 201) {
           print(response.data);
-          pushAndRemove(context: context, screen: ChildDevPage3());
+          pushAndRemove(context: context, screen: HearingImpairmentsCreation());
         }
       } catch (e) {
         // Handle error here
@@ -670,7 +642,7 @@ class FormDataProvider extends ChangeNotifier {
 
         if (response.statusCode == 201) {
 
-          pushAndRemove(context: context, screen: ChildDevPage2());
+          pushAndRemove(context: context, screen: MedicalHistoriesCreation());
         }
       } catch (e) {
         // Handle error here
@@ -758,7 +730,6 @@ class FormDataProvider extends ChangeNotifier {
 
   }
 
-
   Future<void> registerWithEmail(String name,String email,String password,BuildContext context) async {
     _setLoading(true);
     try {
@@ -773,8 +744,8 @@ class FormDataProvider extends ChangeNotifier {
 
         String? token = response.data['access_token'];
         await SharedPreferencesHelper.setString("USER_TOKEN",token!);
-        ToastHelper.showToast(msg: "login succesfully", backgroundColor: Colors.green);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
+
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>CompletedHomePage()));
 
       }
     } catch (e) {
@@ -808,8 +779,8 @@ class FormDataProvider extends ChangeNotifier {
 
         String? token= response.data['access_token'];
         await SharedPreferencesHelper.setString("USER_TOKEN",token!);
-        ToastHelper.showToast(msg: "login succesfully", backgroundColor: Colors.green);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
+
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>CompletedHomePage()));
 
 
       } else {
@@ -827,8 +798,5 @@ class FormDataProvider extends ChangeNotifier {
     }
     _setLoading(false);
   }
-
-
-
 
 }

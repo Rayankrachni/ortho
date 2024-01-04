@@ -41,14 +41,14 @@ class _DisplayDiseasesNervousSystemState extends State<DisplayDiseasesNervousSys
             child: GestureDetector(
               onTap: (){
 
-                push(context: context, screen: CompletedHomePage());
+                pushAndRemove(context: context, screen: CompletedHomePage());
               },
               child: Container(
                 height: 30,
                 width: 30,
                 decoration:const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: pink,
+                  color: primaryColor,
                 ),
                 child: Icon(Icons.arrow_forward,color: Colors.white,size: 17),
               ),

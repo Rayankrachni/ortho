@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
-import 'package:orthophonienewversion/pages/Creation/PhysicalImage/earsDetection.dart';
-import 'package:orthophonienewversion/pages/Creation/PhysicalImage/eyeDetection.dart';
-import 'package:orthophonienewversion/pages/Creation/PhysicalImage/eyebrownDetection.dart';
-import 'package:orthophonienewversion/pages/Creation/PhysicalImage/hairDetection.dart';
-import 'package:orthophonienewversion/pages/Creation/PhysicalImage/handDetection.dart';
-import 'package:orthophonienewversion/pages/Creation/PhysicalImage/mouthDetection.dart';
 import 'package:orthophonienewversion/completed-home-page.dart';
+import 'package:orthophonienewversion/pages/Creation/exercise-body-detection/ears-detection.dart';
+import 'package:orthophonienewversion/pages/Creation/exercise-body-detection/eye-detection.dart';
+import 'package:orthophonienewversion/pages/Creation/exercise-body-detection/foot-detection.dart';
+import 'package:orthophonienewversion/pages/Creation/exercise-body-detection/hair-detection.dart';
+import 'package:orthophonienewversion/pages/Creation/exercise-body-detection/hand-detection.dart';
+import 'package:orthophonienewversion/pages/Creation/exercise-body-detection/mouth-detection.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
 
@@ -59,26 +59,7 @@ class _PhysicalImageState extends State<PhysicalImage> {
         iconTheme:const IconThemeData(
             color: Colors.white
         ),
-        actions: [
-          GestureDetector(
-            onTap: (){
-              push(context: context, screen: CompletedHomePage());
-              // pushAndRemove(context: context, screen: HomePage());
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration:const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: primaryColor,
-                ),
-                child:Icon(Icons.home,size: 17,),
-              ),
-            ),
-          ),
-        ],
+
 
         leading: GestureDetector(
           onTap: (){
@@ -90,7 +71,7 @@ class _PhysicalImageState extends State<PhysicalImage> {
             child: Container(
               height: 20,
               width: 20,
-              decoration: BoxDecoration(
+              decoration:const BoxDecoration(
                 shape: BoxShape.circle,
                 color: primaryColor,
               ),
@@ -134,14 +115,6 @@ class _PhysicalImageState extends State<PhysicalImage> {
     );
   }
 
-  void navigateToNextPage() {
-    if (currentPageIndex < classes.length - 1) {
-      print("--------------");
-      setState(() {
-        currentPageIndex++;
-      });
 
-    }
-  }
 
 }

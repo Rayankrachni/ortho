@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/model/sensorimotor-development.dart';
-import 'package:orthophonienewversion/pages/Creation/childDev/languageDev.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
@@ -8,14 +7,14 @@ import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
-class ChildDevPage1 extends StatefulWidget {
-  const ChildDevPage1({super.key});
+class SensorimotorDevelopmentCreation extends StatefulWidget {
+  const SensorimotorDevelopmentCreation({super.key});
 
   @override
-  State<ChildDevPage1> createState() => _ChildDevPage1State();
+  State<SensorimotorDevelopmentCreation> createState() => _SensorimotorDevelopmentCreationState();
 }
 
-class _ChildDevPage1State extends State<ChildDevPage1> {
+class _SensorimotorDevelopmentCreationState extends State<SensorimotorDevelopmentCreation> {
 
 
   TextEditingController personalHygieneAcquisition = TextEditingController();

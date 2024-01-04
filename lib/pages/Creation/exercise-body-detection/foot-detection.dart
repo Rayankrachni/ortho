@@ -129,7 +129,7 @@ class _FootDetectionState extends State<FootDetection> {
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
-                        push(context: context, screen: CompletedHomePage());
+                        pushAndRemove(context: context, screen: CompletedHomePage());
 
                       },
                       child:  Padding(
@@ -226,7 +226,7 @@ class _FootDetectionState extends State<FootDetection> {
                                   onPressed: () {
                                     pauseAudio();
                                     provider.updateCurrentPage();
-                                    push(context: context, screen: CompletedHomePage());
+                                    pushAndRemove(context: context, screen: CompletedHomePage());
                                   },
                                   child:  Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -305,7 +305,7 @@ class _FootDetectionState extends State<FootDetection> {
                                   onPressed: () {
                                     pauseAudio();
                                     provider.updateCurrentPage();
-                                    push(context: context, screen: CompletedHomePage());
+                                    pushAndRemove(context: context, screen: CompletedHomePage());
                                   },
                                   child:  Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -387,7 +387,7 @@ class _FootDetectionState extends State<FootDetection> {
                                   onPressed: () {
                                     pauseAudio();
                                     provider.updateCurrentPage();
-                                    push(context: context, screen: CompletedHomePage());
+                                    pushAndRemove(context: context, screen: CompletedHomePage());
                                   },
                                   child:  Padding(
                                     padding: const EdgeInsets.all(8.0),

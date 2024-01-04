@@ -4,8 +4,8 @@
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/model/general-info-model.dart';
 import 'package:orthophonienewversion/model/pregnancy-step1-model.dart';
-import 'package:orthophonienewversion/pages/Result/display-child-dev.dart';
-import 'package:orthophonienewversion/pages/Result/display-language-dev.dart';
+import 'package:orthophonienewversion/pages/Result/developmental-milestones_results.dart';
+import 'package:orthophonienewversion/pages/Result/language-developments-results.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
@@ -45,7 +45,7 @@ class _PregnancyState extends State<PregnancyStep12> {
                 width: 30,
                 decoration:const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: pink,
+                  color: primaryColor,
                 ),
                 child: Icon(Icons.arrow_forward,color: Colors.white,size: 17),
               ),

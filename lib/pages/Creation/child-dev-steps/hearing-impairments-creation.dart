@@ -1,22 +1,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/model/audio_model.dart';
-import 'package:orthophonienewversion/pages/Creation/childDev/disorders.dart';
 import 'package:orthophonienewversion/provider/save-date-provider.dart';
-import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/app-toast.dart';
 import 'package:orthophonienewversion/utils/appTextField.dart';
 import 'package:orthophonienewversion/utils/common.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:provider/provider.dart';
-class ChildDevPage3 extends StatefulWidget {
-  const ChildDevPage3({super.key});
+class HearingImpairmentsCreation extends StatefulWidget {
+  const HearingImpairmentsCreation({super.key});
 
   @override
-  State<ChildDevPage3> createState() => _ChildDevPage3State();
+  State<HearingImpairmentsCreation> createState() => _HearingImpairmentsCreationState();
 }
 
-class _ChildDevPage3State extends State<ChildDevPage3> {
+class _HearingImpairmentsCreationState extends State<HearingImpairmentsCreation> {
 
   TextEditingController parenthearingImpairment = TextEditingController();
   TextEditingController typeHearingImpairment = TextEditingController();

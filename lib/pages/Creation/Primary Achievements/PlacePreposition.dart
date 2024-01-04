@@ -23,17 +23,14 @@ class PlacePreposition   extends StatefulWidget {
 
 class _PlacePrepositionState extends State<PlacePreposition > {
    List<Color> myColors=[Color(0xfff5efd6),Color(0xffdbe9db),Color(0xffe2e0ee),Color(0xfff566dc).withOpacity(0.1),];
-  List<String> prePosition=["امام","فوق","خلف","تحت","يسار","يمين"];
+   List<String> prePosition=["امام","فوق","خلف","تحت","يسار","يمين"];
 
-  List<String> myImages=["assets/preposition/on.png","assets/preposition/inFrontOf.png","assets/preposition/beside.png","assets/preposition/behind.png","assets/preposition/under.png","assets/preposition/beside.png"];
+   List<String> myImages=["assets/preposition/on.png","assets/preposition/inFrontOf.png","assets/preposition/beside.png","assets/preposition/behind.png","assets/preposition/under.png","assets/preposition/beside.png"];
 
- // final List<Widget> classes = [DisplayGeneralInfo(), FamilyInfoDisplay(), PregnancyStep12(), DisplayPregnancyStep3(),DisplayLanguageDev(),DisplayEmotionalGrowth(),DisplayAuditorySide(),DisplayDiseasesNervousSystem()];
-  int currentPageIndex = 0;
-
-
-  List<String> answers =['','','','','',''];
+   int currentPageIndex = 0;
+   List<String> answers =['','','','','',''];
    List<String> correctAnswers =["فوق","امام","يسار","خلف","تحت","يمين"];
-  List<List<bool>> isChecked =[[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false]];
+   List<List<bool>> isChecked =[[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false],[false,false,false,false,false,false]];
 
    AudioPlayer audioPlayerList = AudioPlayer();
 
@@ -51,11 +48,7 @@ class _PlacePrepositionState extends State<PlacePreposition > {
 
    Future<void> playAudio(String soundPath) async {
      try {
-       // audioPlayer.play(UrlSource(soundPath));
-
        await audioPlayerList.play(AssetSource(soundPath));
-
-
 
      } catch (e) {
        print('Error playing sound: $e');
@@ -77,10 +70,10 @@ class _PlacePrepositionState extends State<PlacePreposition > {
 
   @override
   Widget build(BuildContext context) {
+    double height=MediaQuery.of(context).size.height;
+    double width=MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
-
-        // Return false to disable the default back button behavior
         return false;
       },
       child: Scaffold(
@@ -88,7 +81,7 @@ class _PlacePrepositionState extends State<PlacePreposition > {
         backgroundColor: Colors.white,
         appBar: AppBar(
 
-          title: Text('الجانبية',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
+          title:const Text('الجانبية',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),),
           centerTitle: true,
 
 
@@ -129,7 +122,7 @@ class _PlacePrepositionState extends State<PlacePreposition > {
               child: PageView.builder(
                 itemCount: prePosition.length,
 
-                physics: NeverScrollableScrollPhysics(),
+                physics:const NeverScrollableScrollPhysics(),
                 controller: PageController(initialPage: currentPageIndex),
                 onPageChanged: (index) {
                   setState(() {
@@ -137,7 +130,7 @@ class _PlacePrepositionState extends State<PlacePreposition > {
                   });
                 },
                 itemBuilder: (context, index) {
-                  return buildPage(currentPageIndex);
+                  return buildPage(currentPageIndex,height,width);
                 },
               ),
             ),
@@ -148,123 +141,121 @@ class _PlacePrepositionState extends State<PlacePreposition > {
     );
   }
 
-  Widget buildPage(int index) {
+  Widget buildPage(int index,double height,double width) {
     return SingleChildScrollView(
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            SizedBox(height: 50,),
-
 
             SizedBox(
-              height: 200,
-              width: 200,
+              height: height*0.25,
+              width:  height*0.25,
               child: Image.asset(myImages[index]),
             ),
 
-
-            SizedBox(height: 40,),
-
-
-
+            SizedBox(height: height*0.05,),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
                children: [
-                 GestureDetector(
-                   onTap: (){
-                     setState(() {
-                       print("------");
+                 Flexible(
+                   child: GestureDetector(
+                     onTap: (){
+                       setState(() {
+                         print("------");
 
-                       if(isChecked[index][0]==false){
-                         isChecked[index][0]=true;
-                         isChecked[index][1]=false;
-                         isChecked[index][2]=false;
-                         isChecked[index][3]=false;
-                         isChecked[index][4]=false;
-                         isChecked[index][5]=false;
-                         answers[index]=prePosition[0];
+                         if(isChecked[index][0]==false){
+                           isChecked[index][0]=true;
+                           isChecked[index][1]=false;
+                           isChecked[index][2]=false;
+                           isChecked[index][3]=false;
+                           isChecked[index][4]=false;
+                           isChecked[index][5]=false;
+                           answers[index]=prePosition[0];
 
-                       }
+                         }
 
-                     });
+                       });
 
-                   },
-                   child: Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: Container(
-                         height:40,
-                         width: 150,
-                         decoration: BoxDecoration(
-                           //
-                           color: isChecked[index][0]?primaryColor: Colors.white,
-                           borderRadius: BorderRadius.circular(10),
-                           boxShadow: [
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.2),
-                               spreadRadius: 2,
-                               blurRadius: 5,
-                               offset: Offset(0, 2),
-                             ),
-                           ],
-                         ),
+                     },
+                     child: Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: Container(
+                           height: height*0.05,
+                           width:  width*0.4,
+                           decoration: BoxDecoration(
+                             //
+                             color: isChecked[index][0]?primaryColor: Colors.white,
+                             borderRadius: BorderRadius.circular(10),
+                             boxShadow: [
+                               BoxShadow(
+                                 color: Colors.grey.withOpacity(0.2),
+                                 spreadRadius: 2,
+                                 blurRadius: 5,
+                                 offset: Offset(0, 2),
+                               ),
+                             ],
+                           ),
 
-                         child:   Center(
-                           child: Text(prePosition[0],style: TextStyle(
-                               fontFamily: "myriad",
-                               fontWeight: FontWeight.w600,
-                               fontSize: 14,
-                               color:isChecked[index][0]?Colors.white: Colors.black,
-                           ),),
-                         )
+                           child:   Center(
+                             child: Text(prePosition[0],style: TextStyle(
+                                 fontFamily: "myriad",
+                                 fontWeight: FontWeight.w600,
+                                 fontSize: 14,
+                                 color:isChecked[index][0]?Colors.white: Colors.black,
+                             ),),
+                           )
+                       ),
                      ),
                    ),
                  ),
-                 GestureDetector(
-                   onTap: (){
-                     print("---++++---");
-                     setState(() {
-                       if(isChecked[index][1]==false){
-                         isChecked[index][1]=true;
-                         isChecked[index][0]=false;
-                         isChecked[index][2]=false;
-                         isChecked[index][3]=false;
-                         isChecked[index][4]=false;
-                         isChecked[index][5]=false;
-                         answers[index]=prePosition[1];
-                       }
+                 Flexible(
+                   child: GestureDetector(
+                     onTap: (){
+                       print("---++++---");
+                       setState(() {
+                         if(isChecked[index][1]==false){
+                           isChecked[index][1]=true;
+                           isChecked[index][0]=false;
+                           isChecked[index][2]=false;
+                           isChecked[index][3]=false;
+                           isChecked[index][4]=false;
+                           isChecked[index][5]=false;
+                           answers[index]=prePosition[1];
+                         }
 
-                     });
+                       });
 
-                   },
-                   child: Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: Container(
-                         height:40,
-                         width: 150,
-                         decoration: BoxDecoration(
-                           color:isChecked[index][1]?primaryColor: Colors.white,
-                           borderRadius: BorderRadius.circular(10),
-                           boxShadow: [
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.2),
-                               spreadRadius: 2,
-                               blurRadius: 5,
-                               offset: Offset(0, 2),
-                             ),
-                           ],
-                         ),
-                         child:Center(
-                           child: Text(prePosition[1],style: TextStyle(
-                               fontFamily: "myriad",
-                               // answers[index]=prePosition[0];
-                               fontWeight: FontWeight.w600,
-                               fontSize: 14,
-                               color: isChecked[index][1]?Colors.white: Colors.black,
-                           ),),
-                         )
+                     },
+                     child: Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: Container(
+                           height: height*0.05,
+                           width:  width*0.4,
+                           decoration: BoxDecoration(
+                             color:isChecked[index][1]?primaryColor: Colors.white,
+                             borderRadius: BorderRadius.circular(10),
+                             boxShadow: [
+                               BoxShadow(
+                                 color: Colors.grey.withOpacity(0.2),
+                                 spreadRadius: 2,
+                                 blurRadius: 5,
+                                 offset: Offset(0, 2),
+                               ),
+                             ],
+                           ),
+                           child:Center(
+                             child: Text(prePosition[1],style: TextStyle(
+                                 fontFamily: "myriad",
+                                 // answers[index]=prePosition[0];
+                                 fontWeight: FontWeight.w600,
+                                 fontSize: 14,
+                                 color: isChecked[index][1]?Colors.white: Colors.black,
+                             ),),
+                           )
+                       ),
                      ),
                    ),
                  ),
@@ -274,94 +265,98 @@ class _PlacePrepositionState extends State<PlacePreposition > {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: (){
-                    print("======");
-                    setState(() {
-                      if(isChecked[index][2]==false){
-                        isChecked[index][2]=true;
-                        isChecked[index][5]=false;
-                        isChecked[index][1]=false;
-                        isChecked[index][0]=false;
-                        isChecked[index][3]=false;
-                        isChecked[index][4]=false;
-                        answers[index]=prePosition[2];
+                Flexible(
+                  child: GestureDetector(
+                    onTap: (){
 
-                      }
+                      setState(() {
+                        if(isChecked[index][2]==false){
+                          isChecked[index][2]=true;
+                          isChecked[index][5]=false;
+                          isChecked[index][1]=false;
+                          isChecked[index][0]=false;
+                          isChecked[index][3]=false;
+                          isChecked[index][4]=false;
+                          answers[index]=prePosition[2];
 
-                    });
+                        }
 
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height:40,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color:isChecked[index][2]?primaryColor: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                     //
-                        child:   Center(
-                          child: Text(prePosition[2],style: TextStyle(
-                              fontFamily: "myriad",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: isChecked[index][2]? Colors.white: Colors.black,
-                          ),),
-                        )
+                      });
+
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          height: height*0.05,
+                          width:  width*0.4,
+                          decoration: BoxDecoration(
+                            color:isChecked[index][2]?primaryColor: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                       //
+                          child:   Center(
+                            child: Text(prePosition[2],style: TextStyle(
+                                fontFamily: "myriad",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: isChecked[index][2]? Colors.white: Colors.black,
+                            ),),
+                          )
+                      ),
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      if(isChecked[index][3]==false){
-                        isChecked[index][3]=true;
-                        isChecked[index][1]=false;
-                        isChecked[index][2]=false;
-                        isChecked[index][0]=false;
-                        isChecked[index][4]=false;
-                        isChecked[index][5]=false;
-                        answers[index]=prePosition[3];
-                      }
+                Flexible(
+                  child: GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        if(isChecked[index][3]==false){
+                          isChecked[index][3]=true;
+                          isChecked[index][1]=false;
+                          isChecked[index][2]=false;
+                          isChecked[index][0]=false;
+                          isChecked[index][4]=false;
+                          isChecked[index][5]=false;
+                          answers[index]=prePosition[3];
+                        }
 
-                    });
+                      });
 
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height:40,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color:isChecked[index][3]?primaryColor: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),//answers[index]=prePosition[0];
-                        child:   Center(
-                          child: Text(prePosition[3],style: TextStyle(
-                              fontFamily: "myriad",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: isChecked[index][3]?Colors.white: Colors.black,
-                          ),),
-                        )
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          height: height*0.05,
+                          width:  width*0.4,
+                          decoration: BoxDecoration(
+                            color:isChecked[index][3]?primaryColor: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),//answers[index]=prePosition[0];
+                          child:   Center(
+                            child: Text(prePosition[3],style: TextStyle(
+                                fontFamily: "myriad",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: isChecked[index][3]?Colors.white: Colors.black,
+                            ),),
+                          )
+                      ),
                     ),
                   ),
                 ),
@@ -371,93 +366,96 @@ class _PlacePrepositionState extends State<PlacePreposition > {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: (){
-                    print("======");
-                    setState(() {
-                      if(isChecked[index][4]==false){
-                        isChecked[index][4]=true;
-                        isChecked[index][1]=false;
-                        isChecked[index][2]=false;
-                        isChecked[index][0]=false;
-                        isChecked[index][3]=false;
-                        isChecked[index][5]=false;
-                        answers[index]=prePosition[4];
-                      }
+                Flexible(
+                  child: GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        if(isChecked[index][4]==false){
+                          isChecked[index][4]=true;
+                          isChecked[index][1]=false;
+                          isChecked[index][2]=false;
+                          isChecked[index][0]=false;
+                          isChecked[index][3]=false;
+                          isChecked[index][5]=false;
+                          answers[index]=prePosition[4];
+                        }
 
-                    });
+                      });
 
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height:40,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color:isChecked[index][4]?primaryColor: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        //
-                        child:   Center(
-                          child: Text(prePosition[4],style: TextStyle(
-                            fontFamily: "myriad",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                            color: isChecked[index][4]? Colors.white: Colors.black,
-                          ),),
-                        )
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          height: height*0.05,
+                          width:  width*0.4,
+                          decoration: BoxDecoration(
+                            color:isChecked[index][4]?primaryColor: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          //
+                          child:   Center(
+                            child: Text(prePosition[4],style: TextStyle(
+                              fontFamily: "myriad",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: isChecked[index][4]? Colors.white: Colors.black,
+                            ),),
+                          )
+                      ),
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      if(isChecked[index][5]==false){
-                        isChecked[index][5]=true;
-                        isChecked[index][1]=false;
-                        isChecked[index][4]=false;
-                        isChecked[index][2]=false;
-                        isChecked[index][0]=false;
-                        isChecked[index][3]=false;
-                        answers[index]=prePosition[5];
-                      }
+                Flexible(
+                  child: GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        if(isChecked[index][5]==false){
+                          isChecked[index][5]=true;
+                          isChecked[index][1]=false;
+                          isChecked[index][4]=false;
+                          isChecked[index][2]=false;
+                          isChecked[index][0]=false;
+                          isChecked[index][3]=false;
+                          answers[index]=prePosition[5];
+                        }
 
-                    });
+                      });
 
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height:40,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color:isChecked[index][5]?primaryColor: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),//answers[index]=prePosition[0];
-                        child:   Center(
-                          child: Text(prePosition[5],style: TextStyle(
-                            fontFamily: "myriad",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                            color: isChecked[index][5]?Colors.white: Colors.black,
-                          ),),
-                        )
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          height: height*0.05,
+                          width:  width*0.4,
+                          decoration: BoxDecoration(
+                            color:isChecked[index][5]?primaryColor: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),//answers[index]=prePosition[0];
+                          child:   Center(
+                            child: Text(prePosition[5],style: TextStyle(
+                              fontFamily: "myriad",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: isChecked[index][5]?Colors.white: Colors.black,
+                            ),),
+                          )
+                      ),
                     ),
                   ),
                 ),
@@ -491,8 +489,8 @@ class _PlacePrepositionState extends State<PlacePreposition > {
                               children: [
                           
                                 SizedBox(
-                                    width: 200,
-                                    height: 100,
+                                    height: height*0.15,
+                                    width:  width*0.4,
                                     child: Lottie.asset(answers[index]==correctAnswers[index]?'assets/lottie/correct.json':'assets/lottie/wrong.json')),
                           
                                 Text(answers[index]==correctAnswers[index]?'! احسنت ':'خطأ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
@@ -516,7 +514,7 @@ class _PlacePrepositionState extends State<PlacePreposition > {
                                 child:  Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                      height:50,
+                                      height: height*0.05,
                                       width: MediaQuery.of(context).size.width*0.8,
                                       child:Container(
                                         decoration: BoxDecoration(
@@ -559,8 +557,8 @@ class _PlacePrepositionState extends State<PlacePreposition > {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SizedBox(
-                                    width: 200,
-                                    height: 100,
+                                    height: height*0.15,
+                                    width:  width*0.4,
                                     child: Lottie.asset(answers[index]==correctAnswers[index]?'assets/lottie/correct.json':'assets/lottie/wrong.json')),
 
                                 Text(answers[index]==correctAnswers[index]?'! احسنت ':'خطأ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
@@ -577,14 +575,12 @@ class _PlacePrepositionState extends State<PlacePreposition > {
                                 onPressed: () {
                                   pauseAudio();
                                   pushAndRemove(context: context, screen: EnvironmentSoundPage());
-
-
                                 },
                                 child:  Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: SizedBox(
-                                      height:50,
-                                      width: MediaQuery.of(context).size.width*0.8,
+                                      height: height*0.05,
+                                      width: MediaQuery.of(context).size.width*0.85,
                                       child:Container(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(30),
@@ -620,7 +616,7 @@ class _PlacePrepositionState extends State<PlacePreposition > {
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                     height:50,
-                    width: MediaQuery.of(context).size.width*0.8,
+                    width: MediaQuery.of(context).size.width*0.85,
                     child:Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),

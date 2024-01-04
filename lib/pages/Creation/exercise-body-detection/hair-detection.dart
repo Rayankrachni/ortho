@@ -106,7 +106,7 @@ class _HairDetectionState extends State<HairDetection> {
                       const Text('الاجابة الصحيحة ',style: TextStyle(fontWeight: FontWeight.normal,fontSize: 22),),
                       SizedBox(
 
-                          height: 300,
+                          height: height*0.2,
                           child: Image.asset("assets/physical-image/hair.png")),
                     ],
                   ),
@@ -149,20 +149,16 @@ class _HairDetectionState extends State<HairDetection> {
       child: Center(
         child: Stack(
           children: [
-            !hair ? Center(child: Text("وين  راه الشعر",
+            !hair ? const Center(child: Text("وين  راه الشعر",
               style: TextStyle(fontSize: 20,color: primaryColor,fontWeight: FontWeight.bold),)):
 
-            Center(child: Text("إجابة صحيحة",
+            const Center(child: Text("إجابة صحيحة",
               style: TextStyle(fontSize: 20,color: Colors.green,fontWeight: FontWeight.bold),)),
-
-
 
 
             SizedBox(
                 height: height*0.75,
                 child: Image.asset('assets/boy.png',height: height,fit: BoxFit.fitHeight,)),
-
-
 
             //Hair Section
             Positioned(
@@ -250,21 +246,6 @@ class _HairDetectionState extends State<HairDetection> {
                       borderRadius: BorderRadius.circular(5),
                     ),child: Center(child: Text(" الشعر ",style: TextStyle(color:hair ? textColor : initColor, ))),),
                 )),
-
-
-
-
-
-
-
-            //right hand
-
-
-
-
-
-
-
 
 
 

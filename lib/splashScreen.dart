@@ -3,14 +3,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:orthophonienewversion/auth/signIn.dart';
+import 'package:orthophonienewversion/completed-home-page.dart';
 import 'package:orthophonienewversion/homePage.dart';
-import 'package:orthophonienewversion/pages/Creation/PhysicalImage/physical-image.dart';
 import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/PlacePreposition.dart';
-import 'package:orthophonienewversion/pages/Creation/Primary%20Achievements/envirnmentSound.dart';
+import 'package:orthophonienewversion/pages/Creation/exercise-body-detection/physical-image.dart';
 import 'package:orthophonienewversion/utils/app-navigator.dart';
 import 'package:orthophonienewversion/utils/config.dart';
 import 'package:orthophonienewversion/utils/shared-pref-helper.dart';
-import 'package:orthophonienewversion/walkthrow.dart';
+import 'package:orthophonienewversion/OnBording.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
           } else {
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                builder: (context) => HomePage(),
+                builder: (context) => CompletedHomePage(),
               ),
                   (route) => false,
             );

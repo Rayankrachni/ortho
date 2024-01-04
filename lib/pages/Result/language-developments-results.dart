@@ -43,7 +43,7 @@ class _DisplayLanguageDevState extends State<DisplayLanguageDev> {
                 width: 30,
                 decoration:const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: pink,
+                  color: primaryColor,
                 ),
                 child: Icon(Icons.arrow_forward,color: Colors.white,size: 17),
               ),
