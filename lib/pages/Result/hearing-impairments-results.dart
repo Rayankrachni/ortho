@@ -28,7 +28,7 @@ class _DisplayAuditorySideState extends State<DisplayAuditorySide> {
     return Scaffold(
       //
       appBar:AppBar(
-        //
+        //النمو الوجداني الجانب السمعي
         backgroundColor: Colors.white,
         title: Text("الجانب السمعي",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold),),
         centerTitle: true,
@@ -38,6 +38,7 @@ class _DisplayAuditorySideState extends State<DisplayAuditorySide> {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               onTap: (){
+
                 push(context: context, screen: DisplayDiseasesNervousSystem(model: widget.model,));
               },
               child: Container(

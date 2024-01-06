@@ -34,6 +34,8 @@ class _DisplayEmotionalGrowthState extends State<DisplayEmotionalGrowth> {
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
             onTap: (){
+              //
+
               push(context: context, screen: DisplayAuditorySide(model: widget.model,));
             },
             child: Container(

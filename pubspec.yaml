@@ -99,6 +99,7 @@ flutter:
     - assets/lottie/correct.json
     - assets/lottie/wrong.json
     - assets/lottie/consultation.json
+    - assets/lottie/hi.json
 
     - assets/in.png
     - assets/logo.png

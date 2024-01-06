@@ -30,7 +30,7 @@ class _DisplayDiseasesNervousSystemState extends State<DisplayDiseasesNervousSys
     return Scaffold(
       //
       appBar:AppBar(
-        //
+        //النمو الوجداني الجانب السمعي امراض الجهاز العصبي
         backgroundColor: Colors.white,
         title: Text("امراض الجهاز العصبي",style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold),),
         centerTitle: true,

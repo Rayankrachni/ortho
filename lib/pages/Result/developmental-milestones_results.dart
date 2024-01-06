@@ -36,6 +36,7 @@ class _DisplayChildDevState extends State<DisplayChildDev> {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               onTap: (){
+                //
 
                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context )=>DisplayLanguageDev(model: widget.model) ));
 
